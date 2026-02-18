@@ -1,6 +1,8 @@
 import 'package:parichay_candidate/core/models/domain_models.dart';
 import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
 import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/theme/app_theme_extensions.dart';
 import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -74,6 +76,12 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
     });
   }
 
+  String _dateLabel(DateTime date) {
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
+    return '$day/$month';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,6 +116,9 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
           final verifiedCount = data.checklist
               .where((item) => item.isVerified)
               .length;
+          final pendingDocs = data.docs
+              .where((doc) => doc.status == VerificationStatus.pending)
+              .length;
           return RefreshIndicator(
             onRefresh: _refresh,
             child: ListView(
@@ -116,6 +127,41 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
               padding: const EdgeInsets.all(AppSpacing.md),
               children: [
                 AppCard(
+                  tone: AppCardTone.muted,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const AppSectionHeader(
+                        title: 'Verification progress',
+                        subtitle:
+                            'Finish pending items to improve recruiter trust.',
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      Wrap(
+                        spacing: AppSpacing.xs,
+                        runSpacing: AppSpacing.xs,
+                        children: [
+                          AppStatusChip(
+                            label:
+                                '$verifiedCount/${data.checklist.length} completed',
+                            tone: verifiedCount == data.checklist.length
+                                ? AppStatusTone.success
+                                : AppStatusTone.warning,
+                          ),
+                          AppStatusChip(
+                            label: '$pendingDocs documents pending',
+                            tone: pendingDocs == 0
+                                ? AppStatusTone.success
+                                : AppStatusTone.warning,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                AppCard(
+                  tone: AppCardTone.surface,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -124,31 +170,15 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
                         subtitle:
                             'Track checklist status and resolve admin queries quickly.',
                       ),
-                      const SizedBox(height: AppSpacing.sm),
-                      AppStatusChip(
-                        label:
-                            '$verifiedCount/${data.checklist.length} completed',
-                        tone: verifiedCount == data.checklist.length
-                            ? AppStatusTone.success
-                            : AppStatusTone.warning,
-                      ),
-                      const SizedBox(height: AppSpacing.sm),
-                      ...data.checklist.map((item) {
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: Icon(
-                            item.isVerified
-                                ? AppIcons.check
-                                : AppIcons.pending,
-                          ),
-                          title: Text(item.label),
-                          subtitle: item.note == null ? null : Text(item.note!),
-                          trailing: AppStatusChip(
-                            label: item.isVerified ? 'Verified' : 'Pending',
-                            tone: item.isVerified
-                                ? AppStatusTone.success
-                                : AppStatusTone.warning,
-                          ),
+                      const SizedBox(height: AppSpacing.xs),
+                      ...data.checklist.asMap().entries.map((item) {
+                        final entry = item.value;
+                        return Column(
+                          children: [
+                            _ChecklistRow(item: entry),
+                            if (item.key != data.checklist.length - 1)
+                              const Divider(height: AppSpacing.lg),
+                          ],
                         );
                       }),
                     ],
@@ -156,6 +186,7 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
                 ),
                 const SizedBox(height: AppSpacing.md),
                 AppCard(
+                  tone: AppCardTone.surface,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -165,23 +196,13 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
                             'Current verification state per document type.',
                       ),
                       const SizedBox(height: AppSpacing.xs),
-                      ...data.docs.map((doc) {
-                        final tone = switch (doc.status) {
-                          VerificationStatus.pending => AppStatusTone.warning,
-                          VerificationStatus.verified => AppStatusTone.success,
-                          VerificationStatus.rejected => AppStatusTone.danger,
-                        };
-                        final label = switch (doc.status) {
-                          VerificationStatus.pending => 'Pending',
-                          VerificationStatus.verified => 'Verified',
-                          VerificationStatus.rejected => 'Rejected',
-                        };
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: const Icon(AppIcons.document),
-                          title: Text(doc.title),
-                          subtitle: Text(doc.type),
-                          trailing: AppStatusChip(label: label, tone: tone),
+                      ...data.docs.asMap().entries.map((item) {
+                        return Column(
+                          children: [
+                            _DocumentStatusRow(doc: item.value),
+                            if (item.key != data.docs.length - 1)
+                              const Divider(height: AppSpacing.lg),
+                          ],
                         );
                       }),
                     ],
@@ -189,6 +210,7 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
                 ),
                 const SizedBox(height: AppSpacing.md),
                 AppCard(
+                  tone: AppCardTone.muted,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -207,20 +229,13 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
                         )
                       else
                         ...data.messages.map(
-                          (item) => Align(
-                            alignment: item.fromAdmin
-                                ? Alignment.centerLeft
-                                : Alignment.centerRight,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                bottom: AppSpacing.xs,
-                              ),
-                              child: AppStatusChip(
-                                label: item.message,
-                                tone: item.fromAdmin
-                                    ? AppStatusTone.warning
-                                    : AppStatusTone.info,
-                              ),
+                          (item) => Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: AppSpacing.xs,
+                            ),
+                            child: _QueryBubble(
+                              message: item,
+                              dateLabel: _dateLabel(item.createdAt),
                             ),
                           ),
                         ),
@@ -238,7 +253,7 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
                       ),
                       const SizedBox(height: AppSpacing.sm),
                       AppPrimaryButton(
-                        label: 'Send query',
+                        label: 'Send query to admin',
                         icon: AppIcons.send,
                         isLoading: _sending,
                         onPressed: _canSendQuery ? _sendMessage : null,
@@ -265,4 +280,149 @@ class _VerificationData {
   final List<CandidateDocument> docs;
   final List<VerificationChecklistItem> checklist;
   final List<VerificationMessage> messages;
+}
+
+class _ChecklistRow extends StatelessWidget {
+  const _ChecklistRow({required this.item});
+
+  final VerificationChecklistItem item;
+
+  @override
+  Widget build(BuildContext context) {
+    final tone = item.isVerified
+        ? AppStatusTone.success
+        : AppStatusTone.warning;
+    final iconBg = item.isVerified
+        ? AppColors.successSubtle
+        : AppColors.warningSubtle;
+    final iconColor = item.isVerified ? AppColors.success : AppColors.warning;
+
+    return Row(
+      children: [
+        Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: iconBg,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(
+            item.isVerified ? AppIcons.check : AppIcons.pending,
+            size: 18,
+            color: iconColor,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(item.label, style: Theme.of(context).textTheme.titleSmall),
+              if (item.note != null && item.note!.isNotEmpty) ...[
+                const SizedBox(height: 2),
+                Text(item.note!, style: Theme.of(context).textTheme.bodySmall),
+              ],
+            ],
+          ),
+        ),
+        AppStatusChip(
+          label: item.isVerified ? 'Verified' : 'Pending',
+          tone: tone,
+        ),
+      ],
+    );
+  }
+}
+
+class _DocumentStatusRow extends StatelessWidget {
+  const _DocumentStatusRow({required this.doc});
+
+  final CandidateDocument doc;
+
+  @override
+  Widget build(BuildContext context) {
+    final (label, tone) = switch (doc.status) {
+      VerificationStatus.pending => ('Pending', AppStatusTone.warning),
+      VerificationStatus.verified => ('Verified', AppStatusTone.success),
+      VerificationStatus.rejected => ('Rejected', AppStatusTone.danger),
+    };
+
+    return Row(
+      children: [
+        Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: AppColors.brand100,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Icon(
+            AppIcons.document,
+            size: 18,
+            color: AppColors.brand700,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(doc.title, style: Theme.of(context).textTheme.titleSmall),
+              const SizedBox(height: 2),
+              Text(doc.type, style: Theme.of(context).textTheme.bodySmall),
+            ],
+          ),
+        ),
+        AppStatusChip(label: label, tone: tone),
+      ],
+    );
+  }
+}
+
+class _QueryBubble extends StatelessWidget {
+  const _QueryBubble({required this.message, required this.dateLabel});
+
+  final VerificationMessage message;
+  final String dateLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final isAdmin = message.fromAdmin;
+    final status = context.statusStyles;
+    final bg = isAdmin ? status.warningSubtle : status.infoSubtle;
+    final fg = isAdmin ? status.warning : status.info;
+
+    return Align(
+      alignment: isAdmin ? Alignment.centerLeft : Alignment.centerRight,
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 320),
+        padding: const EdgeInsets.all(AppSpacing.sm),
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: fg.withValues(alpha: 0.2)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              message.message,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: fg,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '${isAdmin ? 'Admin' : 'You'} • $dateLabel',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: fg.withValues(alpha: 0.8),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

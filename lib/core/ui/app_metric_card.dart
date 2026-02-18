@@ -23,6 +23,8 @@ class AppMetricCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCard(
+      tone: AppCardTone.muted,
+      padding: const EdgeInsets.all(AppSpacing.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -30,28 +32,19 @@ class AppMetricCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(AppSpacing.xs),
               decoration: BoxDecoration(
-                color: AppColors.brand50,
-                borderRadius: BorderRadius.circular(10),
+                color: AppColors.brand100,
+                borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, size: 18, color: AppColors.brand700),
+              child: Icon(icon, size: 16, color: AppColors.brand700),
             ),
             const SizedBox(height: AppSpacing.sm),
           ],
-          Text(
-            value,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+          Text(value, style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: AppSpacing.xs),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
+          Text(label, style: Theme.of(context).textTheme.bodySmall),
           if (hint != null) ...[
             const SizedBox(height: AppSpacing.sm),
-            AppStatusChip(
-              label: hint!,
-              tone: tone,
-            ),
+            AppStatusChip(label: hint!, tone: tone),
           ],
         ],
       ),

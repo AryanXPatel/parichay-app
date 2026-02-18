@@ -26,66 +26,65 @@ class SettingsScreen extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.md),
       children: [
         AppCard(
+          tone: AppCardTone.muted,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppSectionHeader(
-                title: l10n.settingsPrimaryTitle,
-                subtitle: l10n.settingsPrimarySubtitle,
+              Text(
+                l10n.settingsPrimaryTitle,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: AppSpacing.xs),
-              ListTile(
-                leading: const Icon(AppIcons.account),
-                title: Text(l10n.settingsAccountTitle),
-                subtitle: Text(l10n.settingsAccountSubtitle),
-                trailing: const Icon(AppIcons.chevronRight),
-                onTap: () => Navigator.of(context).pushNamed(AppRoutes.profile),
-              ),
-              const Divider(height: 1),
-              ListTile(
-                leading: const Icon(AppIcons.lock),
-                title: Text(l10n.settingsPrivacyTitle),
-                subtitle: Text(l10n.settingsPrivacySubtitle),
-                trailing: const Icon(AppIcons.chevronRight),
-                onTap: () => Navigator.of(context).pushNamed(AppRoutes.privacy),
-              ),
-              const Divider(height: 1),
-              ListTile(
-                leading: const Icon(AppIcons.help),
-                title: Text(l10n.settingsHelpTitle),
-                subtitle: Text(l10n.settingsHelpSubtitle),
-                trailing: const Icon(AppIcons.chevronRight),
-                onTap: () =>
-                    Navigator.of(context).pushNamed(AppRoutes.verification),
+              Text(
+                l10n.settingsPrimarySubtitle,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
           ),
         ),
         const SizedBox(height: AppSpacing.md),
-        AppCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppSectionHeader(title: l10n.settingsExtrasTitle),
-              const SizedBox(height: AppSpacing.xs),
-              ListTile(
-                leading: const Icon(AppIcons.card),
-                title: Text(l10n.settingsPayoutTitle),
-                subtitle: Text(l10n.settingsPayoutSubtitle),
-                trailing: const Icon(AppIcons.chevronRight),
-                onTap: () => Navigator.of(context).pushNamed(AppRoutes.payouts),
-              ),
-              const Divider(height: 1),
-              ListTile(
-                leading: const Icon(AppIcons.alertsActive),
-                title: Text(l10n.tooltipNotifications),
-                subtitle: Text(l10n.dashboardRecentSubtitle),
-                trailing: const Icon(AppIcons.chevronRight),
-                onTap: () =>
-                    Navigator.of(context).pushNamed(AppRoutes.notifications),
-              ),
-            ],
-          ),
+        _SettingsGroup(
+          title: l10n.settingsPrimaryTitle,
+          actions: [
+            _SettingsAction(
+              icon: AppIcons.account,
+              title: l10n.settingsAccountTitle,
+              subtitle: l10n.settingsAccountSubtitle,
+              onTap: () => Navigator.of(context).pushNamed(AppRoutes.profile),
+            ),
+            _SettingsAction(
+              icon: AppIcons.lock,
+              title: l10n.settingsPrivacyTitle,
+              subtitle: l10n.settingsPrivacySubtitle,
+              onTap: () => Navigator.of(context).pushNamed(AppRoutes.privacy),
+            ),
+            _SettingsAction(
+              icon: AppIcons.help,
+              title: l10n.settingsHelpTitle,
+              subtitle: l10n.settingsHelpSubtitle,
+              onTap: () =>
+                  Navigator.of(context).pushNamed(AppRoutes.verification),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.md),
+        _SettingsGroup(
+          title: l10n.settingsExtrasTitle,
+          actions: [
+            _SettingsAction(
+              icon: AppIcons.card,
+              title: l10n.settingsPayoutTitle,
+              subtitle: l10n.settingsPayoutSubtitle,
+              onTap: () => Navigator.of(context).pushNamed(AppRoutes.payouts),
+            ),
+            _SettingsAction(
+              icon: AppIcons.alertsActive,
+              title: l10n.tooltipNotifications,
+              subtitle: l10n.dashboardRecentSubtitle,
+              onTap: () =>
+                  Navigator.of(context).pushNamed(AppRoutes.notifications),
+            ),
+          ],
         ),
         const SizedBox(height: AppSpacing.md),
         AppPrimaryButton(
@@ -96,4 +95,50 @@ class SettingsScreen extends StatelessWidget {
       ],
     );
   }
+}
+
+class _SettingsGroup extends StatelessWidget {
+  const _SettingsGroup({required this.title, required this.actions});
+
+  final String title;
+  final List<_SettingsAction> actions;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      tone: AppCardTone.surface,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.titleLarge),
+          const SizedBox(height: AppSpacing.xs),
+          for (var i = 0; i < actions.length; i++) ...[
+            if (i > 0) const Divider(height: AppSpacing.lg),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Icon(actions[i].icon),
+              title: Text(actions[i].title),
+              subtitle: Text(actions[i].subtitle),
+              trailing: const Icon(AppIcons.chevronRight),
+              onTap: actions[i].onTap,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _SettingsAction {
+  const _SettingsAction({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
 }

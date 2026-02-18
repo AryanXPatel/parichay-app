@@ -63,16 +63,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         if (snapshot.connectionState != ConnectionState.done) {
           return const AppPageLoader();
         }
-        if (snapshot.hasError) {
-          return AppEmptyState(
-            title: l10n.dashboardLoadErrorTitle,
-            message: l10n.dashboardLoadErrorMessage,
-            icon: AppIcons.home,
-            actionLabel: l10n.commonRefresh,
-            onAction: _refresh,
-          );
-        }
-        if (!snapshot.hasData) {
+        if (snapshot.hasError || !snapshot.hasData) {
           return AppEmptyState(
             title: l10n.dashboardLoadErrorTitle,
             message: l10n.dashboardLoadErrorMessage,
@@ -100,34 +91,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
             padding: const EdgeInsets.all(AppSpacing.md),
             children: [
               AppCard(
+                tone: AppCardTone.elevated,
                 gradient: context.surfaceStyles.heroGradient,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       l10n.dashboardHello(data.profile.firstName),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleMedium?.copyWith(color: Colors.white),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: AppColors.textOnBrand,
+                      ),
                     ),
-                    const SizedBox(height: AppSpacing.sm),
+                    const SizedBox(height: AppSpacing.xs),
                     Text(
                       l10n.dashboardWalletCredits(
                         data.walletBalance.toStringAsFixed(0),
                       ),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleLarge?.copyWith(color: Colors.white),
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        color: AppColors.textOnBrand,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       l10n.dashboardYearDownloads('${data.metrics.downloads}'),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: Colors.white70),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.brand100,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.sm),
-                    Row(
+                    Wrap(
+                      spacing: AppSpacing.xs,
+                      runSpacing: AppSpacing.xs,
                       children: [
                         AppStatusChip(
                           label: l10n.dashboardProfileCompleteChip(
@@ -135,7 +129,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           tone: profileTone,
                         ),
-                        const SizedBox(width: AppSpacing.xs),
                         AppStatusChip(
                           label: l10n.dashboardDocsVerifiedChip(
                             '$verifiedDocs',
@@ -144,11 +137,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: AppSpacing.sm),
+                    OutlinedButton.icon(
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed(AppRoutes.payouts),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: AppColors.brand100),
+                        foregroundColor: AppColors.brand50,
+                      ),
+                      icon: const Icon(AppIcons.bank),
+                      label: Text(l10n.walletRequestPayout),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(height: AppSpacing.md),
               AppCard(
+                tone: AppCardTone.muted,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -161,23 +166,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       value: data.completeness.percentage / 100,
                       minHeight: 10,
                       borderRadius: BorderRadius.circular(999),
-                      backgroundColor: AppColors.brand100,
-                      color: AppColors.brand600,
+                      backgroundColor: AppColors.brand200,
+                      color: AppColors.brand700,
                     ),
-                    const SizedBox(height: AppSpacing.sm),
-                    Wrap(
-                      spacing: AppSpacing.xs,
-                      runSpacing: AppSpacing.xs,
-                      children: data.suggestions
-                          .take(3)
-                          .map(
-                            (item) => AppStatusChip(
-                              label: item,
-                              tone: AppStatusTone.info,
-                            ),
-                          )
-                          .toList(),
-                    ),
+                    if (data.suggestions.isNotEmpty) ...[
+                      const SizedBox(height: AppSpacing.sm),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(AppSpacing.sm),
+                        decoration: BoxDecoration(
+                          color: AppColors.infoSubtle,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          data.suggestions.first,
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                color: AppColors.info,
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                      ),
+                    ],
                     const SizedBox(height: AppSpacing.sm),
                     AppPrimaryButton(
                       label: l10n.dashboardImproveButton,
@@ -189,73 +199,51 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
               const SizedBox(height: AppSpacing.md),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppMetricCard(
+              AppCard(
+                tone: AppCardTone.surface,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppSectionHeader(
+                      title: 'Activity snapshot',
+                      subtitle: 'Core profile engagement this month.',
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    _MetricRow(
                       label: l10n.dashboardWeeklyViews,
                       value: '${data.metrics.weeklyViews}',
                       icon: AppIcons.eye,
                     ),
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  Expanded(
-                    child: AppMetricCard(
+                    const Divider(height: AppSpacing.lg),
+                    _MetricRow(
                       label: l10n.dashboardMonthlyViews,
                       value: '${data.metrics.monthlyViews}',
                       icon: AppIcons.chart,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppMetricCard(
-                      label: l10n.dashboardWeeklyDownloads,
-                      value: '${data.metrics.weeklyDownloads}',
-                      icon: AppIcons.download,
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  Expanded(
-                    child: AppMetricCard(
+                    const Divider(height: AppSpacing.lg),
+                    _MetricRow(
                       label: l10n.dashboardMonthlyDownloads,
                       value: '${data.metrics.monthlyDownloads}',
                       icon: AppIcons.downloadAlt,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppMetricCard(
-                      label: l10n.dashboardYearlyDownloads,
-                      value: '${data.metrics.yearlyDownloads}',
-                      icon: AppIcons.calendar,
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  Expanded(
-                    child: AppMetricCard(
+                    const Divider(height: AppSpacing.lg),
+                    _MetricRow(
                       label: l10n.dashboardUnreadAlerts,
                       value: '$unread',
                       icon: AppIcons.alertsActive,
-                      hint: unread > 0
+                      statusLabel: unread > 0
                           ? l10n.dashboardActionNeeded
                           : l10n.dashboardAllClear,
-                      tone: unread > 0
+                      statusTone: unread > 0
                           ? AppStatusTone.warning
                           : AppStatusTone.success,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: AppSpacing.md),
               AppCard(
+                tone: AppCardTone.surface,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -275,6 +263,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         .map(
                           (item) => ListTile(
                             dense: true,
+                            contentPadding: EdgeInsets.zero,
                             leading: Icon(
                               item.isRead
                                   ? AppIcons.emailRead
@@ -287,26 +276,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: AppSpacing.md),
-              Row(
+              const SizedBox(height: AppSpacing.sm),
+              Wrap(
+                spacing: AppSpacing.xs,
+                runSpacing: AppSpacing.xs,
                 children: [
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () => Navigator.of(
-                        context,
-                      ).pushNamed(AppRoutes.verification),
-                      icon: const Icon(AppIcons.verified),
-                      label: Text(l10n.dashboardVerification),
-                    ),
+                  OutlinedButton.icon(
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(AppRoutes.verification),
+                    icon: const Icon(AppIcons.verified),
+                    label: Text(l10n.dashboardVerification),
                   ),
-                  const SizedBox(width: AppSpacing.sm),
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed(AppRoutes.payouts),
-                      icon: const Icon(AppIcons.bank),
-                      label: Text(l10n.dashboardPayouts),
-                    ),
+                  OutlinedButton.icon(
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(AppRoutes.payouts),
+                    icon: const Icon(AppIcons.bank),
+                    label: Text(l10n.dashboardPayouts),
                   ),
                 ],
               ),
@@ -314,6 +299,46 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         );
       },
+    );
+  }
+}
+
+class _MetricRow extends StatelessWidget {
+  const _MetricRow({
+    required this.label,
+    required this.value,
+    required this.icon,
+    this.statusLabel,
+    this.statusTone,
+  });
+
+  final String label;
+  final String value;
+  final IconData icon;
+  final String? statusLabel;
+  final AppStatusTone? statusTone;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: AppColors.brand100,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(icon, size: 18, color: AppColors.brand700),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(child: Text(label)),
+        Text(value, style: Theme.of(context).textTheme.titleLarge),
+        if (statusLabel != null && statusTone != null) ...[
+          const SizedBox(width: AppSpacing.xs),
+          AppStatusChip(label: statusLabel!, tone: statusTone!),
+        ],
+      ],
     );
   }
 }

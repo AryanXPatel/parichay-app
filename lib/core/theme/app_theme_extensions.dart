@@ -51,10 +51,13 @@ class AppSurfaceStyles extends ThemeExtension<AppSurfaceStyles> {
     return AppSurfaceStyles(
       cardBorder: Color.lerp(cardBorder, other.cardBorder, t) ?? cardBorder,
       mutedBackground:
-          Color.lerp(mutedBackground, other.mutedBackground, t) ?? mutedBackground,
-      heroGradient: Gradient.lerp(heroGradient, other.heroGradient, t) ?? heroGradient,
+          Color.lerp(mutedBackground, other.mutedBackground, t) ??
+          mutedBackground,
+      heroGradient:
+          Gradient.lerp(heroGradient, other.heroGradient, t) ?? heroGradient,
       walletGradient:
-          Gradient.lerp(walletGradient, other.walletGradient, t) ?? walletGradient,
+          Gradient.lerp(walletGradient, other.walletGradient, t) ??
+          walletGradient,
       cardShadow: t < 0.5 ? cardShadow : other.cardShadow,
     );
   }
@@ -125,9 +128,12 @@ class AppStatusStyles extends ThemeExtension<AppStatusStyles> {
       warning: Color.lerp(warning, other.warning, t) ?? warning,
       danger: Color.lerp(danger, other.danger, t) ?? danger,
       info: Color.lerp(info, other.info, t) ?? info,
-      successSubtle: Color.lerp(successSubtle, other.successSubtle, t) ?? successSubtle,
-      warningSubtle: Color.lerp(warningSubtle, other.warningSubtle, t) ?? warningSubtle,
-      dangerSubtle: Color.lerp(dangerSubtle, other.dangerSubtle, t) ?? dangerSubtle,
+      successSubtle:
+          Color.lerp(successSubtle, other.successSubtle, t) ?? successSubtle,
+      warningSubtle:
+          Color.lerp(warningSubtle, other.warningSubtle, t) ?? warningSubtle,
+      dangerSubtle:
+          Color.lerp(dangerSubtle, other.dangerSubtle, t) ?? dangerSubtle,
       infoSubtle: Color.lerp(infoSubtle, other.infoSubtle, t) ?? infoSubtle,
     );
   }

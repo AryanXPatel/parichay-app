@@ -1,11 +1,11 @@
 import 'package:parichay_candidate/core/router/app_routes.dart';
 import 'package:parichay_candidate/core/services/app_services.dart';
 import 'package:parichay_candidate/core/theme/app_colors.dart';
-import 'package:parichay_candidate/core/theme/app_gradients.dart';
 import 'package:parichay_candidate/core/theme/app_spacing.dart';
 import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:parichay_candidate/features/auth/presentation/auth_shell.dart';
 import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -136,122 +136,111 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(gradient: AppGradients.spotlight),
-        child: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppSpacing.lg),
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 440),
-                        child: AppCard(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AppSectionHeader(
-                                title: l10n.signInTitle,
-                                subtitle: l10n.signInSubtitle,
-                              ),
-                              const SizedBox(height: AppSpacing.md),
-                              TextField(
-                                controller: _identifierController,
-                                keyboardType: TextInputType.emailAddress,
-                                textInputAction: _otpRequested
-                                    ? TextInputAction.next
-                                    : TextInputAction.done,
-                                onChanged: (_) {
-                                  if (_error == null) {
-                                    setState(() {});
-                                    return;
-                                  }
-                                  setState(() => _error = null);
-                                },
-                                onSubmitted: (_) {
-                                  if (!_otpRequested && _canRequestOtp) {
-                                    _requestOtp();
-                                  }
-                                },
-                                decoration: InputDecoration(
-                                  labelText: l10n.signInIdentifierLabel,
-                                  hintText: l10n.signInIdentifierHint,
-                                ),
-                              ),
-                              if (_otpRequested) ...[
-                                const SizedBox(height: AppSpacing.sm),
-                                TextField(
-                                  controller: _otpController,
-                                  keyboardType: TextInputType.number,
-                                  textInputAction: TextInputAction.done,
-                                  maxLength: 6,
-                                  onChanged: (_) {
-                                    if (_error == null) {
-                                      setState(() {});
-                                      return;
-                                    }
-                                    setState(() => _error = null);
-                                  },
-                                  onSubmitted: (_) {
-                                    if (_canVerifyOtp) {
-                                      _verifyOtp();
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    labelText: l10n.signInOtpLabel,
-                                    hintText: l10n.signInOtpHint,
-                                    counterText: '',
-                                  ),
-                                ),
-                              ],
-                              if (_error != null) ...[
-                                const SizedBox(height: AppSpacing.xs),
-                                Text(
-                                  _error!,
-                                  style: Theme.of(context).textTheme.bodySmall
-                                      ?.copyWith(color: AppColors.danger),
-                                ),
-                              ],
-                              const SizedBox(height: AppSpacing.sm),
-                              AppPrimaryButton(
-                                label: _otpRequested
-                                    ? l10n.signInVerifyOtp
-                                    : l10n.signInRequestOtp,
-                                icon: _otpRequested
-                                    ? AppIcons.verified
-                                    : AppIcons.message,
-                                isLoading: _busy,
-                                onPressed: _otpRequested
-                                    ? (_canVerifyOtp ? _verifyOtp : null)
-                                    : (_canRequestOtp ? _requestOtp : null),
-                              ),
-                              if (kDebugMode) ...[
-                                const SizedBox(height: AppSpacing.sm),
-                                AppStatusChip(
-                                  label: l10n.signInDebugOtp,
-                                  tone: AppStatusTone.info,
-                                ),
-                              ],
-                            ],
-                          ),
-                        ),
+    return AuthShell(
+      maxWidth: 440,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppSectionHeader(
+            title: l10n.signInTitle,
+            subtitle: l10n.signInSubtitle,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          TextField(
+            controller: _identifierController,
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: _otpRequested
+                ? TextInputAction.next
+                : TextInputAction.done,
+            onChanged: (_) {
+              if (_error == null) {
+                setState(() {});
+                return;
+              }
+              setState(() => _error = null);
+            },
+            onSubmitted: (_) {
+              if (!_otpRequested && _canRequestOtp) {
+                _requestOtp();
+              }
+            },
+            decoration: InputDecoration(
+              labelText: l10n.signInIdentifierLabel,
+              hintText: l10n.signInIdentifierHint,
+            ),
+          ),
+          if (_otpRequested) ...[
+            const SizedBox(height: AppSpacing.sm),
+            TextField(
+              controller: _otpController,
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.done,
+              maxLength: 6,
+              onChanged: (_) {
+                if (_error == null) {
+                  setState(() {});
+                  return;
+                }
+                setState(() => _error = null);
+              },
+              onSubmitted: (_) {
+                if (_canVerifyOtp) {
+                  _verifyOtp();
+                }
+              },
+              decoration: InputDecoration(
+                labelText: l10n.signInOtpLabel,
+                hintText: l10n.signInOtpHint,
+                counterText: '',
+              ),
+            ),
+          ],
+          if (_error != null) ...[
+            const SizedBox(height: AppSpacing.sm),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(AppSpacing.sm),
+              decoration: BoxDecoration(
+                color: AppColors.dangerSubtle,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.danger),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    AppIcons.alertsActive,
+                    size: 16,
+                    color: AppColors.danger,
+                  ),
+                  const SizedBox(width: AppSpacing.xs),
+                  Expanded(
+                    child: Text(
+                      _error!,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.danger,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-                ),
-              );
-            },
+                ],
+              ),
+            ),
+          ],
+          const SizedBox(height: AppSpacing.sm),
+          AppPrimaryButton(
+            label: _otpRequested ? l10n.signInVerifyOtp : l10n.signInRequestOtp,
+            icon: _otpRequested ? AppIcons.verified : AppIcons.message,
+            isLoading: _busy,
+            onPressed: _otpRequested
+                ? (_canVerifyOtp ? _verifyOtp : null)
+                : (_canRequestOtp ? _requestOtp : null),
           ),
-        ),
+          if (kDebugMode) ...[
+            const SizedBox(height: AppSpacing.sm),
+            AppStatusChip(label: l10n.signInDebugOtp, tone: AppStatusTone.info),
+          ],
+        ],
       ),
     );
   }

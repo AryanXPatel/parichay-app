@@ -101,6 +101,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
             padding: const EdgeInsets.all(AppSpacing.md),
             children: [
               AppCard(
+                tone: AppCardTone.muted,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -109,22 +110,16 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                       subtitle: l10n.documentsHeaderSubtitle,
                     ),
                     const SizedBox(height: AppSpacing.md),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: AppPrimaryButton(
-                            label: _uploading
-                                ? l10n.documentsUploadingButton
-                                : l10n.documentsUploadButton,
-                            icon: AppIcons.upload,
-                            isLoading: _uploading,
-                            onPressed: _uploading ? null : _uploadMockDoc,
-                          ),
-                        ),
-                      ],
+                    AppPrimaryButton(
+                      label: _uploading
+                          ? l10n.documentsUploadingButton
+                          : l10n.documentsUploadButton,
+                      icon: AppIcons.upload,
+                      isLoading: _uploading,
+                      onPressed: _uploading ? null : _uploadMockDoc,
                     ),
                     if (_uploadMessage != null) ...[
-                      const SizedBox(height: AppSpacing.xs),
+                      const SizedBox(height: AppSpacing.sm),
                       AppStatusChip(
                         label: _uploadMessage!,
                         tone: _uploadMessageTone,
@@ -149,35 +144,37 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                   icon: AppIcons.document,
                 )
               else
-                ...docs.map((doc) {
-                  final status = switch (doc.status) {
-                    VerificationStatus.pending => AppStatusTone.warning,
-                    VerificationStatus.verified => AppStatusTone.success,
-                    VerificationStatus.rejected => AppStatusTone.danger,
-                  };
-                  final statusLabel = switch (doc.status) {
-                    VerificationStatus.pending => l10n.commonPending,
-                    VerificationStatus.verified => l10n.commonVerified,
-                    VerificationStatus.rejected => l10n.commonRejected,
-                  };
-                  return AppCard(
-                    margin: const EdgeInsets.only(bottom: AppSpacing.sm),
-                    child: ListTile(
-                      leading: const CircleAvatar(
-                        backgroundColor: AppColors.brand50,
-                        child: Icon(
-                          AppIcons.document,
-                          color: AppColors.brand700,
+                AppCard(
+                  tone: AppCardTone.surface,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Uploaded documents',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      for (var i = 0; i < docs.length; i++) ...[
+                        if (i > 0) const Divider(height: AppSpacing.lg),
+                        _DocumentRow(
+                          document: docs[i],
+                          statusLabel: switch (docs[i].status) {
+                            VerificationStatus.pending => l10n.commonPending,
+                            VerificationStatus.verified => l10n.commonVerified,
+                            VerificationStatus.rejected => l10n.commonRejected,
+                          },
+                          statusTone: switch (docs[i].status) {
+                            VerificationStatus.pending => AppStatusTone.warning,
+                            VerificationStatus.verified =>
+                              AppStatusTone.success,
+                            VerificationStatus.rejected => AppStatusTone.danger,
+                          },
+                          dateLabel: _dateLabel(docs[i].uploadedAt),
                         ),
-                      ),
-                      title: Text(doc.title),
-                      subtitle: Text(
-                        '${doc.type} • ${_dateLabel(doc.uploadedAt)}',
-                      ),
-                      trailing: AppStatusChip(label: statusLabel, tone: status),
-                    ),
-                  );
-                }),
+                      ],
+                    ],
+                  ),
+                ),
             ],
           ),
         );
@@ -189,5 +186,55 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
     final month = date.month.toString().padLeft(2, '0');
     final day = date.day.toString().padLeft(2, '0');
     return '$day-$month-${date.year}';
+  }
+}
+
+class _DocumentRow extends StatelessWidget {
+  const _DocumentRow({
+    required this.document,
+    required this.statusLabel,
+    required this.statusTone,
+    required this.dateLabel,
+  });
+
+  final CandidateDocument document;
+  final String statusLabel;
+  final AppStatusTone statusTone;
+  final String dateLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 36,
+          height: 36,
+          decoration: BoxDecoration(
+            color: AppColors.brand100,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Icon(AppIcons.document, color: AppColors.brand700),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                document.title,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Text(
+                '${document.type} • $dateLabel',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(width: AppSpacing.xs),
+        AppStatusChip(label: statusLabel, tone: statusTone),
+      ],
+    );
   }
 }

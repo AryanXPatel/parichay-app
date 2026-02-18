@@ -1,9 +1,9 @@
 import 'package:parichay_candidate/core/router/app_routes.dart';
 import 'package:parichay_candidate/core/services/app_services.dart';
-import 'package:parichay_candidate/core/theme/app_gradients.dart';
 import 'package:parichay_candidate/core/theme/app_spacing.dart';
 import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:parichay_candidate/features/auth/presentation/auth_shell.dart';
 import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
@@ -44,53 +44,36 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(gradient: AppGradients.spotlight),
-        child: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 440),
-                child: AppCard(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppSectionHeader(
-                        title: l10n.languageTitle,
-                        subtitle: l10n.languageSubtitle,
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      _LanguageTile(
-                        title: l10n.languageEnglish,
-                        selected: _selected?.languageCode == 'en',
-                        onTap: () =>
-                            setState(() => _selected = const Locale('en')),
-                      ),
-                      const SizedBox(height: AppSpacing.sm),
-                      _LanguageTile(
-                        title: l10n.languageHindi,
-                        selected: _selected?.languageCode == 'hi',
-                        onTap: () =>
-                            setState(() => _selected = const Locale('hi')),
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      AppPrimaryButton(
-                        label: l10n.languageContinue,
-                        icon: AppIcons.arrowRight,
-                        isLoading: _busy,
-                        onPressed: _selected == null ? null : _continue,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+    return AuthShell(
+      maxWidth: 440,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppSectionHeader(
+            title: l10n.languageTitle,
+            subtitle: l10n.languageSubtitle,
           ),
-        ),
+          const SizedBox(height: AppSpacing.md),
+          _LanguageTile(
+            title: l10n.languageEnglish,
+            selected: _selected?.languageCode == 'en',
+            onTap: () => setState(() => _selected = const Locale('en')),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          _LanguageTile(
+            title: l10n.languageHindi,
+            selected: _selected?.languageCode == 'hi',
+            onTap: () => setState(() => _selected = const Locale('hi')),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          AppPrimaryButton(
+            label: l10n.languageContinue,
+            icon: AppIcons.arrowRight,
+            isLoading: _busy,
+            onPressed: _selected == null ? null : _continue,
+          ),
+        ],
       ),
     );
   }
@@ -111,14 +94,17 @@ class _LanguageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(14),
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(14),
+          color: selected
+              ? Theme.of(context).colorScheme.primaryContainer
+              : Theme.of(context).colorScheme.surface,
           border: Border.all(
             color: selected
                 ? Theme.of(context).colorScheme.primary

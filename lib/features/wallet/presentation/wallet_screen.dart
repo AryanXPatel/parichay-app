@@ -1,6 +1,7 @@
 import 'package:parichay_candidate/core/models/domain_models.dart';
 import 'package:parichay_candidate/core/router/app_routes.dart';
 import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
 import 'package:parichay_candidate/core/theme/app_spacing.dart';
 import 'package:parichay_candidate/core/theme/app_theme_extensions.dart';
 import 'package:parichay_candidate/core/ui/app_ui.dart';
@@ -68,6 +69,14 @@ class _WalletScreenState extends State<WalletScreen> {
           );
         }
 
+        final totalInflow = data.ledger
+            .where((entry) => entry.isCredit)
+            .fold<double>(0, (sum, entry) => sum + entry.amount);
+        final totalOutflow = data.ledger
+            .where((entry) => !entry.isCredit)
+            .fold<double>(0, (sum, entry) => sum + entry.amount);
+        final net = totalInflow - totalOutflow;
+
         return RefreshIndicator(
           onRefresh: _reload,
           child: ListView(
@@ -75,44 +84,68 @@ class _WalletScreenState extends State<WalletScreen> {
             padding: const EdgeInsets.all(AppSpacing.md),
             children: [
               AppCard(
+                tone: AppCardTone.elevated,
                 gradient: context.surfaceStyles.walletGradient,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       l10n.walletBalanceLabel,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: Colors.white70),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.brand100,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       l10n.walletBalanceCredits(
                         data.balance.toStringAsFixed(0),
                       ),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.displaySmall?.copyWith(color: Colors.white),
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        color: AppColors.textOnBrand,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       l10n.walletBalanceDescription,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: Colors.white70),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.brand100,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.sm),
-                    OutlinedButton.icon(
+                    Wrap(
+                      spacing: AppSpacing.xs,
+                      runSpacing: AppSpacing.xs,
+                      children: [
+                        AppStatusChip(
+                          label: 'Inflow +${totalInflow.toStringAsFixed(0)}',
+                          tone: AppStatusTone.success,
+                        ),
+                        AppStatusChip(
+                          label: 'Outflow -${totalOutflow.toStringAsFixed(0)}',
+                          tone: AppStatusTone.warning,
+                        ),
+                        AppStatusChip(
+                          label:
+                              '${net >= 0 ? 'Net +' : 'Net -'}${net.abs().toStringAsFixed(0)}',
+                          tone: net >= 0
+                              ? AppStatusTone.info
+                              : AppStatusTone.danger,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    AppPrimaryButton(
+                      label: l10n.walletRequestPayout,
+                      icon: AppIcons.bank,
                       onPressed: () =>
                           Navigator.of(context).pushNamed(AppRoutes.payouts),
-                      icon: const Icon(AppIcons.bank),
-                      label: Text(l10n.walletRequestPayout),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: AppSpacing.md),
               AppCard(
+                tone: AppCardTone.muted,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -128,24 +161,17 @@ class _WalletScreenState extends State<WalletScreen> {
                         icon: AppIcons.receipt,
                       )
                     else
-                      ...data.ledger.map((entry) {
-                        final tone = entry.isCredit
-                            ? AppStatusTone.success
-                            : AppStatusTone.warning;
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: Icon(
-                            entry.isCredit
-                                ? AppIcons.incoming
-                                : AppIcons.outgoing,
-                          ),
-                          title: Text(entry.title),
-                          subtitle: Text(_dateLabel(entry.createdAt)),
-                          trailing: AppStatusChip(
-                            label:
-                                '${entry.isCredit ? '+' : '-'}${entry.amount.toStringAsFixed(0)}',
-                            tone: tone,
-                          ),
+                      ...data.ledger.asMap().entries.map((item) {
+                        final entry = item.value;
+                        return Column(
+                          children: [
+                            _LedgerRow(
+                              entry: entry,
+                              dateLabel: _dateLabel(entry.createdAt),
+                            ),
+                            if (item.key != data.ledger.length - 1)
+                              const Divider(height: AppSpacing.lg),
+                          ],
                         );
                       }),
                   ],
@@ -170,4 +196,55 @@ class _WalletData {
 
   final double balance;
   final List<WalletLedgerEntry> ledger;
+}
+
+class _LedgerRow extends StatelessWidget {
+  const _LedgerRow({required this.entry, required this.dateLabel});
+
+  final WalletLedgerEntry entry;
+  final String dateLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final statusTone = entry.isCredit
+        ? AppStatusTone.success
+        : AppStatusTone.warning;
+    final valueColor = entry.isCredit ? AppColors.success : AppColors.warning;
+
+    return Row(
+      children: [
+        Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: entry.isCredit
+                ? AppColors.successSubtle
+                : AppColors.warningSubtle,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(
+            entry.isCredit ? AppIcons.incoming : AppIcons.outgoing,
+            size: 18,
+            color: valueColor,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(entry.title, style: Theme.of(context).textTheme.titleSmall),
+              const SizedBox(height: 2),
+              Text(dateLabel, style: Theme.of(context).textTheme.bodySmall),
+            ],
+          ),
+        ),
+        AppStatusChip(
+          label:
+              '${entry.isCredit ? '+' : '-'}${entry.amount.toStringAsFixed(0)}',
+          tone: statusTone,
+        ),
+      ],
+    );
+  }
 }

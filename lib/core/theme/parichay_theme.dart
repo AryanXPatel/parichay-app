@@ -9,17 +9,29 @@ class ParichayTheme {
   const ParichayTheme._();
 
   static ThemeData get lightTheme {
+    final colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: AppColors.brand600,
+          brightness: Brightness.light,
+        ).copyWith(
+          primary: AppColors.brand600,
+          onPrimary: AppColors.textOnBrand,
+          surface: AppColors.surface,
+          onSurface: AppColors.textPrimary,
+          onSurfaceVariant: AppColors.textSecondary,
+          surfaceContainerHighest: AppColors.slate100,
+          outline: AppColors.border,
+        );
+
     final base = ThemeData(
       useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.brand600,
-        brightness: Brightness.light,
-      ),
+      colorScheme: colorScheme,
       scaffoldBackgroundColor: AppColors.background,
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.background,
         foregroundColor: AppColors.textPrimary,
         elevation: 0,
+        scrolledUnderElevation: 0,
         centerTitle: false,
       ),
       cardTheme: const CardThemeData(
@@ -27,13 +39,13 @@ class ParichayTheme {
         elevation: 0,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
-          borderRadius: AppRadius.mdRadius,
+          borderRadius: AppRadius.lgRadius,
           side: BorderSide(color: AppColors.border),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.surface,
+        fillColor: AppColors.mutedSurface,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
@@ -48,14 +60,14 @@ class ParichayTheme {
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: AppRadius.mdRadius,
-          borderSide: BorderSide(color: AppColors.brand500, width: 1.5),
+          borderSide: BorderSide(color: AppColors.brand600, width: 1.5),
         ),
         hintStyle: const TextStyle(color: AppColors.textMuted),
       ),
       chipTheme: const ChipThemeData(
         shape: RoundedRectangleBorder(borderRadius: AppRadius.pillRadius),
         side: BorderSide(color: AppColors.border),
-        backgroundColor: AppColors.slate100,
+        backgroundColor: AppColors.mutedSurface,
         labelStyle: TextStyle(
           color: AppColors.textPrimary,
           fontWeight: FontWeight.w600,
@@ -74,8 +86,9 @@ class ParichayTheme {
         labelTextStyle: WidgetStateProperty.resolveWith(
           (states) => TextStyle(
             fontSize: 12,
-            fontWeight:
-                states.contains(WidgetState.selected) ? FontWeight.w700 : FontWeight.w600,
+            fontWeight: states.contains(WidgetState.selected)
+                ? FontWeight.w700
+                : FontWeight.w600,
             color: states.contains(WidgetState.selected)
                 ? AppColors.brand700
                 : AppColors.textMuted,
@@ -85,8 +98,10 @@ class ParichayTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.brand600,
-          foregroundColor: Colors.white,
-          shape: const RoundedRectangleBorder(borderRadius: AppRadius.mdRadius),
+          foregroundColor: AppColors.textOnBrand,
+          minimumSize: const Size.fromHeight(48),
+          shape: const RoundedRectangleBorder(borderRadius: AppRadius.lgRadius),
+          textStyle: const TextStyle(fontWeight: FontWeight.w700),
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.md,
             vertical: AppSpacing.sm,
@@ -96,8 +111,10 @@ class ParichayTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           backgroundColor: AppColors.brand600,
-          foregroundColor: Colors.white,
-          shape: const RoundedRectangleBorder(borderRadius: AppRadius.mdRadius),
+          foregroundColor: AppColors.textOnBrand,
+          minimumSize: const Size.fromHeight(48),
+          shape: const RoundedRectangleBorder(borderRadius: AppRadius.lgRadius),
+          textStyle: const TextStyle(fontWeight: FontWeight.w700),
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.md,
             vertical: AppSpacing.sm,
@@ -106,27 +123,36 @@ class ParichayTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: AppColors.border),
-          foregroundColor: AppColors.textPrimary,
-          shape: const RoundedRectangleBorder(borderRadius: AppRadius.mdRadius),
+          side: const BorderSide(color: AppColors.slate300),
+          foregroundColor: AppColors.textSecondary,
+          minimumSize: const Size.fromHeight(48),
+          shape: const RoundedRectangleBorder(borderRadius: AppRadius.lgRadius),
+          textStyle: const TextStyle(fontWeight: FontWeight.w700),
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.md,
             vertical: AppSpacing.sm,
           ),
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: AppColors.brand700,
+          textStyle: const TextStyle(fontWeight: FontWeight.w700),
+        ),
+      ),
       listTileTheme: const ListTileThemeData(
         contentPadding: EdgeInsets.symmetric(
-          horizontal: AppSpacing.md,
-          vertical: AppSpacing.xs,
+          horizontal: AppSpacing.sm,
+          vertical: AppSpacing.xxs,
         ),
         iconColor: AppColors.textMuted,
         textColor: AppColors.textPrimary,
       ),
-      extensions: const [
-        AppSurfaceStyles.light,
-        AppStatusStyles.light,
-      ],
+      dividerTheme: const DividerThemeData(
+        color: AppColors.border,
+        thickness: 1,
+      ),
+      extensions: const [AppSurfaceStyles.light, AppStatusStyles.light],
     );
 
     return base.copyWith(

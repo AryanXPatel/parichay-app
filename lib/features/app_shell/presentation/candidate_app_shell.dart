@@ -50,30 +50,6 @@ class _CandidateAppShellState extends State<CandidateAppShell> {
             icon: const Icon(AppIcons.alerts),
             tooltip: l10n.tooltipNotifications,
           ),
-          PopupMenuButton<String>(
-            tooltip: l10n.tooltipMoreActions,
-            onSelected: (value) {
-              switch (value) {
-                case 'verification':
-                  Navigator.of(context).pushNamed(AppRoutes.verification);
-                  break;
-                case 'payouts':
-                  Navigator.of(context).pushNamed(AppRoutes.payouts);
-                  break;
-                case 'privacy':
-                  Navigator.of(context).pushNamed(AppRoutes.privacy);
-                  break;
-              }
-            },
-            itemBuilder: (_) => [
-              PopupMenuItem(
-                value: 'verification',
-                child: Text(l10n.menuVerification),
-              ),
-              PopupMenuItem(value: 'payouts', child: Text(l10n.menuPayouts)),
-              PopupMenuItem(value: 'privacy', child: Text(l10n.menuPrivacy)),
-            ],
-          ),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),
@@ -92,20 +68,23 @@ class _CandidateAppShellState extends State<CandidateAppShell> {
         destinations: [
           NavigationDestination(
             icon: Icon(AppIcons.home),
-            selectedIcon: Icon(
-              AppIcons.homeFilled,
-              color: AppColors.brand700,
-            ),
+            selectedIcon: Icon(AppIcons.homeFilled, color: AppColors.brand700),
             label: l10n.tabHome,
           ),
           NavigationDestination(
             icon: Icon(AppIcons.profile),
-            selectedIcon: Icon(AppIcons.profileFilled, color: AppColors.brand700),
+            selectedIcon: Icon(
+              AppIcons.profileFilled,
+              color: AppColors.brand700,
+            ),
             label: l10n.tabProfile,
           ),
           NavigationDestination(
             icon: Icon(AppIcons.documents),
-            selectedIcon: Icon(AppIcons.documentsFilled, color: AppColors.brand700),
+            selectedIcon: Icon(
+              AppIcons.documentsFilled,
+              color: AppColors.brand700,
+            ),
             label: l10n.tabDocuments,
           ),
           NavigationDestination(

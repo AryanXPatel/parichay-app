@@ -148,6 +148,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  void _clearMessage() {
+    if (_message == null) {
+      return;
+    }
+    setState(() {
+      _message = null;
+      _messageIsError = false;
+    });
+  }
+
   String? _validateProfile(AppLocalizations l10n) {
     final firstName = _firstNameController.text.trim();
     final lastName = _lastNameController.text.trim();
@@ -211,12 +221,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             children: [
               AppCard(
+                tone: AppCardTone.muted,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppSectionHeader(
                       title: l10n.profilePhotoTitle,
                       subtitle: l10n.profilePhotoSubtitle,
+                      trailing: AppStatusChip(
+                        label: _photoPath == null
+                            ? 'Photo missing'
+                            : 'Photo ready',
+                        tone: _photoPath == null
+                            ? AppStatusTone.warning
+                            : AppStatusTone.success,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     Row(
@@ -258,6 +277,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: AppSpacing.md),
               AppCard(
+                tone: AppCardTone.surface,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -300,6 +320,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: AppSpacing.md),
               AppCard(
+                tone: AppCardTone.surface,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -341,13 +362,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       keyboardType: TextInputType.number,
                     ),
                     const SizedBox(height: AppSpacing.sm),
-                    SwitchListTile(
-                      value: _resumeUploaded,
-                      onChanged: (value) =>
-                          setState(() => _resumeUploaded = value),
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(l10n.profileResumeUploaded),
-                      subtitle: Text(l10n.profileResumeSubtitle),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                l10n.profileResumeUploaded,
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                l10n.profileResumeSubtitle,
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Switch(
+                          value: _resumeUploaded,
+                          onChanged: (value) =>
+                              setState(() => _resumeUploaded = value),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -373,12 +411,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (_message != null) ...[
-                  Text(
-                    _message!,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(AppSpacing.sm),
+                    decoration: BoxDecoration(
                       color: _messageIsError
-                          ? AppColors.danger
-                          : AppColors.success,
+                          ? AppColors.dangerSubtle
+                          : AppColors.successSubtle,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color:
+                            (_messageIsError
+                                    ? AppColors.danger
+                                    : AppColors.success)
+                                .withValues(alpha: 0.2),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          _messageIsError ? AppIcons.alerts : AppIcons.check,
+                          size: 16,
+                          color: _messageIsError
+                              ? AppColors.danger
+                              : AppColors.success,
+                        ),
+                        const SizedBox(width: AppSpacing.xs),
+                        Expanded(
+                          child: Text(
+                            _message!,
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: _messageIsError
+                                      ? AppColors.danger
+                                      : AppColors.success,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: AppSpacing.xs),
@@ -407,6 +478,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return TextField(
       controller: controller,
       keyboardType: keyboardType,
+      onChanged: (_) => _clearMessage(),
       decoration: InputDecoration(labelText: label),
     );
   }

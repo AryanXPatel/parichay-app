@@ -104,37 +104,49 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             );
           }
 
+          final unreadCount = notifications
+              .where((item) => !item.isRead)
+              .length;
+
           return RefreshIndicator(
             onRefresh: _reload,
-            child: ListView.builder(
+            child: ListView(
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.all(AppSpacing.md),
-              itemCount: notifications.length,
-              itemBuilder: (context, index) {
-                final item = notifications[index];
-                return AppCard(
-                  margin: const EdgeInsets.only(bottom: AppSpacing.sm),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: item.isRead
-                          ? AppColors.brand100
-                          : AppColors.brand600,
-                      child: Icon(
-                        item.isRead
-                            ? AppIcons.alerts
-                            : AppIcons.alertsActive,
-                        color: item.isRead ? AppColors.brand700 : Colors.white,
+              children: [
+                AppCard(
+                  tone: AppCardTone.muted,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          unreadCount == 0
+                              ? 'You are all caught up.'
+                              : '$unreadCount unread updates need attention.',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
-                    ),
-                    title: Text(item.title),
-                    subtitle: Text(item.message),
-                    trailing: Text(
-                      _dateLabel(item.createdAt),
-                      style: Theme.of(context).textTheme.bodySmall,
+                      AppStatusChip(
+                        label: unreadCount == 0 ? 'All read' : 'Unread',
+                        tone: unreadCount == 0
+                            ? AppStatusTone.success
+                            : AppStatusTone.warning,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                ...notifications.map(
+                  (item) => AppCard(
+                    margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+                    tone: item.isRead ? AppCardTone.surface : AppCardTone.muted,
+                    child: _NotificationRow(
+                      item: item,
+                      dateLabel: _dateLabel(item.createdAt),
                     ),
                   ),
-                );
-              },
+                ),
+              ],
             ),
           );
         },
@@ -146,5 +158,65 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     final month = date.month.toString().padLeft(2, '0');
     final day = date.day.toString().padLeft(2, '0');
     return '$day/$month';
+  }
+}
+
+class _NotificationRow extends StatelessWidget {
+  const _NotificationRow({required this.item, required this.dateLabel});
+
+  final AppNotificationItem item;
+  final String dateLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            CircleAvatar(
+              backgroundColor: item.isRead
+                  ? AppColors.brand100
+                  : AppColors.brand600,
+              child: Icon(
+                item.isRead ? AppIcons.alerts : AppIcons.alertsActive,
+                color: item.isRead ? AppColors.brand700 : Colors.white,
+              ),
+            ),
+            if (!item.isRead)
+              const Positioned(
+                right: -1,
+                top: -1,
+                child: CircleAvatar(
+                  radius: 5,
+                  backgroundColor: AppColors.danger,
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      item.title,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ),
+                  Text(dateLabel, style: Theme.of(context).textTheme.bodySmall),
+                ],
+              ),
+              const SizedBox(height: 2),
+              Text(item.message, style: Theme.of(context).textTheme.bodyMedium),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

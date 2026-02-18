@@ -1,6 +1,8 @@
 import 'package:parichay_candidate/core/models/domain_models.dart';
 import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
 import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/theme/app_theme_extensions.dart';
 import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -113,6 +115,9 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
     }
   }
 
+  bool get _messageIsSuccess =>
+      _message != null && _message!.startsWith('Payout request');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,6 +157,7 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
               padding: const EdgeInsets.all(AppSpacing.md),
               children: [
                 AppCard(
+                  tone: AppCardTone.muted,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -167,6 +173,32 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
                         tone: AppStatusTone.info,
                       ),
                       const SizedBox(height: AppSpacing.md),
+                      SegmentedButton<String>(
+                        showSelectedIcon: false,
+                        segments: const [
+                          ButtonSegment<String>(
+                            value: 'UPI',
+                            icon: Icon(AppIcons.wallet),
+                            label: Text('UPI'),
+                          ),
+                          ButtonSegment<String>(
+                            value: 'Bank Transfer',
+                            icon: Icon(AppIcons.bank),
+                            label: Text('Bank transfer'),
+                          ),
+                        ],
+                        selected: {_channel},
+                        onSelectionChanged: (values) {
+                          if (values.isEmpty) {
+                            return;
+                          }
+                          setState(() {
+                            _channel = values.first;
+                            _message = null;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.md),
                       TextField(
                         controller: _amountController,
                         keyboardType: TextInputType.number,
@@ -177,40 +209,24 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
                         ),
                       ),
                       const SizedBox(height: AppSpacing.sm),
-                      DropdownButtonFormField<String>(
-                        initialValue: _channel,
-                        decoration: const InputDecoration(
-                          labelText: 'Payout channel',
-                        ),
-                        items: const [
-                          DropdownMenuItem(value: 'UPI', child: Text('UPI')),
-                          DropdownMenuItem(
-                            value: 'Bank Transfer',
-                            child: Text('Bank Transfer'),
-                          ),
-                        ],
-                        onChanged: (value) {
-                          if (value == null) {
-                            return;
-                          }
-                          setState(() => _channel = value);
-                        },
-                      ),
-                      const SizedBox(height: AppSpacing.sm),
                       TextField(
                         controller: _accountController,
                         textInputAction: TextInputAction.done,
+                        onChanged: (_) => _clearTransientMessage(),
                         decoration: InputDecoration(
                           labelText: _channel == 'UPI'
                               ? 'UPI ID'
                               : 'Bank account reference',
+                          hintText: _channel == 'UPI'
+                              ? 'example@bank'
+                              : 'Account or beneficiary reference',
                         ),
                       ),
                       if (_message != null) ...[
                         const SizedBox(height: AppSpacing.sm),
-                        AppStatusChip(
-                          label: _message!,
-                          tone: _message!.startsWith('Payout request')
+                        _InlineMessage(
+                          message: _message!,
+                          tone: _messageIsSuccess
                               ? AppStatusTone.success
                               : AppStatusTone.danger,
                         ),
@@ -229,6 +245,7 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
                 ),
                 const SizedBox(height: AppSpacing.md),
                 AppCard(
+                  tone: AppCardTone.surface,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -245,7 +262,8 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
                           icon: AppIcons.wallet,
                         )
                       else
-                        ...data.requests.map((request) {
+                        ...data.requests.asMap().entries.map((item) {
+                          final request = item.value;
                           final (label, tone) = switch (request.status) {
                             PayoutStatus.requested => (
                               'Requested',
@@ -264,14 +282,17 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
                               AppStatusTone.danger,
                             ),
                           };
-                          return ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            leading: const Icon(AppIcons.bank),
-                            title: Text(
-                              '${request.amount.toStringAsFixed(0)} credits • ${request.channel}',
-                            ),
-                            subtitle: Text(_dateLabel(request.createdAt)),
-                            trailing: AppStatusChip(label: label, tone: tone),
+                          return Column(
+                            children: [
+                              _PayoutHistoryRow(
+                                request: request,
+                                statusLabel: label,
+                                statusTone: tone,
+                                dateLabel: _dateLabel(request.createdAt),
+                              ),
+                              if (item.key != data.requests.length - 1)
+                                const Divider(height: AppSpacing.lg),
+                            ],
                           );
                         }),
                     ],
@@ -297,4 +318,101 @@ class _PayoutViewData {
 
   final double balance;
   final List<PayoutRequest> requests;
+}
+
+class _InlineMessage extends StatelessWidget {
+  const _InlineMessage({required this.message, required this.tone});
+
+  final String message;
+  final AppStatusTone tone;
+
+  @override
+  Widget build(BuildContext context) {
+    final status = context.statusStyles;
+    final (fg, bg, icon) = switch (tone) {
+      AppStatusTone.success => (
+        status.success,
+        status.successSubtle,
+        AppIcons.check,
+      ),
+      AppStatusTone.danger => (
+        status.danger,
+        status.dangerSubtle,
+        AppIcons.alerts,
+      ),
+      _ => (status.info, status.infoSubtle, AppIcons.alerts),
+    };
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppSpacing.sm),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: fg.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 16, color: fg),
+          const SizedBox(width: AppSpacing.xs),
+          Expanded(
+            child: Text(
+              message,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: fg,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PayoutHistoryRow extends StatelessWidget {
+  const _PayoutHistoryRow({
+    required this.request,
+    required this.statusLabel,
+    required this.statusTone,
+    required this.dateLabel,
+  });
+
+  final PayoutRequest request;
+  final String statusLabel;
+  final AppStatusTone statusTone;
+  final String dateLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: AppColors.brand100,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Icon(AppIcons.bank, size: 18, color: AppColors.brand700),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${request.amount.toStringAsFixed(0)} credits • ${request.channel}',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(height: 2),
+              Text(dateLabel, style: Theme.of(context).textTheme.bodySmall),
+            ],
+          ),
+        ),
+        AppStatusChip(label: statusLabel, tone: statusTone),
+      ],
+    );
+  }
 }

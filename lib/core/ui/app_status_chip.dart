@@ -24,9 +24,9 @@ class AppStatusChip extends StatelessWidget {
       AppStatusTone.warning => (status.warning, status.warningSubtle),
       AppStatusTone.danger => (status.danger, status.dangerSubtle),
       AppStatusTone.neutral => (
-          Theme.of(context).colorScheme.onSurfaceVariant,
-          Theme.of(context).colorScheme.surfaceContainerHighest,
-        ),
+        Theme.of(context).colorScheme.onSurfaceVariant,
+        Theme.of(context).colorScheme.surfaceContainerHighest,
+      ),
     };
 
     return Container(
@@ -34,16 +34,12 @@ class AppStatusChip extends StatelessWidget {
         horizontal: AppSpacing.sm,
         vertical: AppSpacing.xs,
       ),
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: AppRadius.pillRadius,
-      ),
+      decoration: BoxDecoration(color: bg, borderRadius: AppRadius.pillRadius),
       child: Text(
         label,
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: fg,
-              fontWeight: FontWeight.w700,
-            ),
+        style: Theme.of(
+          context,
+        ).textTheme.bodySmall?.copyWith(color: fg, fontWeight: FontWeight.w700),
       ),
     );
   }

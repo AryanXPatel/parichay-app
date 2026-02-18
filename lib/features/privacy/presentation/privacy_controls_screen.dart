@@ -29,6 +29,13 @@ class _PrivacyControlsScreenState extends State<PrivacyControlsScreen> {
     });
   }
 
+  Future<void> _reload() async {
+    setState(() {
+      _future = AppServices.instance.profileRepository.getPrivacySettings();
+    });
+    await _future;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,12 +52,7 @@ class _PrivacyControlsScreenState extends State<PrivacyControlsScreen> {
               message: 'Please refresh and try again.',
               icon: AppIcons.lock,
               actionLabel: 'Refresh',
-              onAction: () {
-                setState(() {
-                  _future = AppServices.instance.profileRepository
-                      .getPrivacySettings();
-                });
-              },
+              onAction: _reload,
             );
           }
 
@@ -63,34 +65,55 @@ class _PrivacyControlsScreenState extends State<PrivacyControlsScreen> {
             );
           }
 
-          return ListView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(AppSpacing.md),
-            children: [
-              const AppCard(
-                child: AppSectionHeader(
-                  title: 'Field-level privacy',
-                  subtitle:
-                      'Control what recruiters see in preview before profile unlock/download.',
-                ),
-              ),
-              const SizedBox(height: AppSpacing.md),
-              ...settings.entries.map(
-                (entry) => AppCard(
-                  margin: const EdgeInsets.only(bottom: AppSpacing.sm),
-                  child: SwitchListTile(
-                    title: Text(_humanize(entry.key)),
-                    subtitle: Text(
-                      entry.value
-                          ? 'Visible in preview'
-                          : 'Masked until unlock',
-                    ),
-                    value: entry.value,
-                    onChanged: (value) => _updateSetting(entry.key, value),
+          return RefreshIndicator(
+            onRefresh: _reload,
+            child: ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(AppSpacing.md),
+              children: [
+                const AppCard(
+                  tone: AppCardTone.muted,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppSectionHeader(
+                        title: 'Field-level privacy',
+                        subtitle:
+                            'Control what recruiters see in preview before profile unlock/download.',
+                      ),
+                      SizedBox(height: AppSpacing.sm),
+                      AppStatusChip(
+                        label: 'Changes apply instantly',
+                        tone: AppStatusTone.info,
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: AppSpacing.md),
+                AppCard(
+                  tone: AppCardTone.surface,
+                  child: Column(
+                    children: settings.entries.toList().asMap().entries.map((
+                      item,
+                    ) {
+                      final entry = item.value;
+                      return Column(
+                        children: [
+                          _PrivacyToggleRow(
+                            label: _humanize(entry.key),
+                            value: entry.value,
+                            onChanged: (value) =>
+                                _updateSetting(entry.key, value),
+                          ),
+                          if (item.key != settings.length - 1)
+                            const Divider(height: AppSpacing.lg),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -109,5 +132,39 @@ class _PrivacyControlsScreenState extends State<PrivacyControlsScreen> {
               : '${part[0].toUpperCase()}${part.substring(1).toLowerCase()}',
         )
         .join(' ');
+  }
+}
+
+class _PrivacyToggleRow extends StatelessWidget {
+  const _PrivacyToggleRow({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final String label;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(label, style: Theme.of(context).textTheme.titleSmall),
+              const SizedBox(height: 2),
+              Text(
+                value ? 'Visible in recruiter preview' : 'Masked until unlock',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
+        ),
+        Switch(value: value, onChanged: onChanged),
+      ],
+    );
   }
 }
