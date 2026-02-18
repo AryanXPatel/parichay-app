@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:best_flutter_ui_templates/core/router/app_routes.dart';
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_gradients.dart';
+import 'package:parichay_candidate/core/router/app_routes.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
+import 'package:parichay_candidate/core/theme/app_gradients.dart';
+import 'package:parichay_candidate/core/ui/app_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -58,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: const Icon(
-                  Icons.person_search_rounded,
+                  AppIcons.brand,
                   color: AppColors.brand700,
                   size: 38,
                 ),

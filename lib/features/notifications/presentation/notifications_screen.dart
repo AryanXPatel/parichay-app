@@ -1,8 +1,8 @@
-import 'package:best_flutter_ui_templates/core/models/domain_models.dart';
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
+import 'package:parichay_candidate/core/models/domain_models.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -88,7 +88,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             return AppEmptyState(
               title: 'Unable to load notifications',
               message: 'Please refresh and try again.',
-              icon: Icons.notifications_none_rounded,
+              icon: AppIcons.alerts,
               actionLabel: 'Refresh',
               onAction: _reload,
             );
@@ -100,7 +100,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               title: 'No notifications yet',
               message:
                   'Profile views and verification updates will appear here.',
-              icon: Icons.notifications_none_rounded,
+              icon: AppIcons.alerts,
             );
           }
 
@@ -121,8 +121,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           : AppColors.brand600,
                       child: Icon(
                         item.isRead
-                            ? Icons.notifications_none_rounded
-                            : Icons.notifications_active_rounded,
+                            ? AppIcons.alerts
+                            : AppIcons.alertsActive,
                         color: item.isRead ? AppColors.brand700 : Colors.white,
                       ),
                     ),

@@ -1,11 +1,11 @@
-import 'package:best_flutter_ui_templates/core/models/domain_models.dart';
-import 'package:best_flutter_ui_templates/core/router/app_routes.dart';
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
+import 'package:parichay_candidate/core/models/domain_models.dart';
+import 'package:parichay_candidate/core/router/app_routes.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class DocumentsScreen extends StatefulWidget {
   const DocumentsScreen({super.key});
@@ -87,7 +87,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
           return AppEmptyState(
             title: l10n.documentsLoadErrorTitle,
             message: l10n.documentsLoadErrorMessage,
-            icon: Icons.description_outlined,
+            icon: AppIcons.document,
             actionLabel: l10n.commonRefresh,
             onAction: _refresh,
           );
@@ -116,7 +116,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                             label: _uploading
                                 ? l10n.documentsUploadingButton
                                 : l10n.documentsUploadButton,
-                            icon: Icons.upload_file_rounded,
+                            icon: AppIcons.upload,
                             isLoading: _uploading,
                             onPressed: _uploading ? null : _uploadMockDoc,
                           ),
@@ -135,7 +135,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                       onPressed: () => Navigator.of(
                         context,
                       ).pushNamed(AppRoutes.verification),
-                      icon: const Icon(Icons.verified_user_outlined),
+                      icon: const Icon(AppIcons.verified),
                       label: Text(l10n.documentsOpenVerification),
                     ),
                   ],
@@ -146,7 +146,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                 AppEmptyState(
                   title: l10n.documentsEmptyTitle,
                   message: l10n.documentsEmptyMessage,
-                  icon: Icons.description_outlined,
+                  icon: AppIcons.document,
                 )
               else
                 ...docs.map((doc) {
@@ -166,7 +166,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                       leading: const CircleAvatar(
                         backgroundColor: AppColors.brand50,
                         child: Icon(
-                          Icons.description_outlined,
+                          AppIcons.document,
                           color: AppColors.brand700,
                         ),
                       ),

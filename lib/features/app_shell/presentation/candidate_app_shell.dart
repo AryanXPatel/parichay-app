@@ -1,14 +1,15 @@
-import 'package:best_flutter_ui_templates/core/router/app_routes.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_motion.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/features/dashboard/presentation/dashboard_screen.dart';
-import 'package:best_flutter_ui_templates/features/documents/presentation/documents_screen.dart';
-import 'package:best_flutter_ui_templates/features/profile/presentation/profile_screen.dart';
-import 'package:best_flutter_ui_templates/features/settings/presentation/settings_screen.dart';
-import 'package:best_flutter_ui_templates/features/wallet/presentation/wallet_screen.dart';
+import 'package:parichay_candidate/core/router/app_routes.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
+import 'package:parichay_candidate/core/theme/app_motion.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_icons.dart';
+import 'package:parichay_candidate/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:parichay_candidate/features/documents/presentation/documents_screen.dart';
+import 'package:parichay_candidate/features/profile/presentation/profile_screen.dart';
+import 'package:parichay_candidate/features/settings/presentation/settings_screen.dart';
+import 'package:parichay_candidate/features/wallet/presentation/wallet_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class CandidateAppShell extends StatefulWidget {
   const CandidateAppShell({super.key});
@@ -46,7 +47,7 @@ class _CandidateAppShellState extends State<CandidateAppShell> {
           IconButton(
             onPressed: () =>
                 Navigator.of(context).pushNamed(AppRoutes.notifications),
-            icon: const Icon(Icons.notifications_none_rounded),
+            icon: const Icon(AppIcons.alerts),
             tooltip: l10n.tooltipNotifications,
           ),
           PopupMenuButton<String>(
@@ -90,35 +91,35 @@ class _CandidateAppShellState extends State<CandidateAppShell> {
         onDestinationSelected: (idx) => setState(() => _index = idx),
         destinations: [
           NavigationDestination(
-            icon: Icon(Icons.dashboard_outlined),
+            icon: Icon(AppIcons.home),
             selectedIcon: Icon(
-              Icons.dashboard_rounded,
+              AppIcons.homeFilled,
               color: AppColors.brand700,
             ),
             label: l10n.tabHome,
           ),
           NavigationDestination(
-            icon: Icon(Icons.person_outline_rounded),
-            selectedIcon: Icon(Icons.person_rounded, color: AppColors.brand700),
+            icon: Icon(AppIcons.profile),
+            selectedIcon: Icon(AppIcons.profileFilled, color: AppColors.brand700),
             label: l10n.tabProfile,
           ),
           NavigationDestination(
-            icon: Icon(Icons.folder_open_outlined),
-            selectedIcon: Icon(Icons.folder_open, color: AppColors.brand700),
+            icon: Icon(AppIcons.documents),
+            selectedIcon: Icon(AppIcons.documentsFilled, color: AppColors.brand700),
             label: l10n.tabDocuments,
           ),
           NavigationDestination(
-            icon: Icon(Icons.account_balance_wallet_outlined),
+            icon: Icon(AppIcons.wallet),
             selectedIcon: Icon(
-              Icons.account_balance_wallet_rounded,
+              AppIcons.walletFilled,
               color: AppColors.brand700,
             ),
             label: l10n.tabWallet,
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
+            icon: Icon(AppIcons.settings),
             selectedIcon: Icon(
-              Icons.settings_rounded,
+              AppIcons.settingsFilled,
               color: AppColors.brand700,
             ),
             label: l10n.tabSettings,

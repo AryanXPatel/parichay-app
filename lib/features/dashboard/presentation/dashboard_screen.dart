@@ -1,12 +1,12 @@
-import 'package:best_flutter_ui_templates/core/models/domain_models.dart';
-import 'package:best_flutter_ui_templates/core/router/app_routes.dart';
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_theme_extensions.dart';
-import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
+import 'package:parichay_candidate/core/models/domain_models.dart';
+import 'package:parichay_candidate/core/router/app_routes.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/theme/app_theme_extensions.dart';
+import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -67,7 +67,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           return AppEmptyState(
             title: l10n.dashboardLoadErrorTitle,
             message: l10n.dashboardLoadErrorMessage,
-            icon: Icons.dashboard_outlined,
+            icon: AppIcons.home,
             actionLabel: l10n.commonRefresh,
             onAction: _refresh,
           );
@@ -76,7 +76,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           return AppEmptyState(
             title: l10n.dashboardLoadErrorTitle,
             message: l10n.dashboardLoadErrorMessage,
-            icon: Icons.dashboard_outlined,
+            icon: AppIcons.home,
             actionLabel: l10n.commonRefresh,
             onAction: _refresh,
           );
@@ -181,7 +181,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const SizedBox(height: AppSpacing.sm),
                     AppPrimaryButton(
                       label: l10n.dashboardImproveButton,
-                      icon: Icons.trending_up_rounded,
+                      icon: AppIcons.trendUp,
                       onPressed: () =>
                           Navigator.of(context).pushNamed(AppRoutes.profile),
                     ),
@@ -195,7 +195,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: AppMetricCard(
                       label: l10n.dashboardWeeklyViews,
                       value: '${data.metrics.weeklyViews}',
-                      icon: Icons.remove_red_eye_outlined,
+                      icon: AppIcons.eye,
                     ),
                   ),
                   const SizedBox(width: AppSpacing.sm),
@@ -203,7 +203,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: AppMetricCard(
                       label: l10n.dashboardMonthlyViews,
                       value: '${data.metrics.monthlyViews}',
-                      icon: Icons.stacked_line_chart_rounded,
+                      icon: AppIcons.chart,
                     ),
                   ),
                 ],
@@ -215,7 +215,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: AppMetricCard(
                       label: l10n.dashboardWeeklyDownloads,
                       value: '${data.metrics.weeklyDownloads}',
-                      icon: Icons.download_outlined,
+                      icon: AppIcons.download,
                     ),
                   ),
                   const SizedBox(width: AppSpacing.sm),
@@ -223,7 +223,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: AppMetricCard(
                       label: l10n.dashboardMonthlyDownloads,
                       value: '${data.metrics.monthlyDownloads}',
-                      icon: Icons.download_for_offline_outlined,
+                      icon: AppIcons.downloadAlt,
                     ),
                   ),
                 ],
@@ -235,7 +235,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: AppMetricCard(
                       label: l10n.dashboardYearlyDownloads,
                       value: '${data.metrics.yearlyDownloads}',
-                      icon: Icons.calendar_month_outlined,
+                      icon: AppIcons.calendar,
                     ),
                   ),
                   const SizedBox(width: AppSpacing.sm),
@@ -243,7 +243,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: AppMetricCard(
                       label: l10n.dashboardUnreadAlerts,
                       value: '$unread',
-                      icon: Icons.notifications_active_outlined,
+                      icon: AppIcons.alertsActive,
                       hint: unread > 0
                           ? l10n.dashboardActionNeeded
                           : l10n.dashboardAllClear,
@@ -277,8 +277,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             dense: true,
                             leading: Icon(
                               item.isRead
-                                  ? Icons.mark_email_read_outlined
-                                  : Icons.mark_email_unread_outlined,
+                                  ? AppIcons.emailRead
+                                  : AppIcons.emailUnread,
                             ),
                             title: Text(item.title),
                             subtitle: Text(item.message),
@@ -295,7 +295,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       onPressed: () => Navigator.of(
                         context,
                       ).pushNamed(AppRoutes.verification),
-                      icon: const Icon(Icons.verified_user_outlined),
+                      icon: const Icon(AppIcons.verified),
                       label: Text(l10n.dashboardVerification),
                     ),
                   ),
@@ -304,7 +304,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: OutlinedButton.icon(
                       onPressed: () =>
                           Navigator.of(context).pushNamed(AppRoutes.payouts),
-                      icon: const Icon(Icons.account_balance_outlined),
+                      icon: const Icon(AppIcons.bank),
                       label: Text(l10n.dashboardPayouts),
                     ),
                   ),

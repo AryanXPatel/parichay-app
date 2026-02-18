@@ -1,17 +1,17 @@
-import 'package:best_flutter_ui_templates/core/router/app_routes.dart';
-import 'package:best_flutter_ui_templates/features/app_shell/presentation/candidate_app_shell.dart';
-import 'package:best_flutter_ui_templates/features/auth/presentation/language_selection_screen.dart';
-import 'package:best_flutter_ui_templates/features/auth/presentation/sign_in_screen.dart';
-import 'package:best_flutter_ui_templates/features/auth/presentation/welcome_screen.dart';
-import 'package:best_flutter_ui_templates/features/notifications/presentation/notifications_screen.dart';
-import 'package:best_flutter_ui_templates/features/payouts/presentation/payouts_screen.dart';
-import 'package:best_flutter_ui_templates/features/privacy/presentation/privacy_controls_screen.dart';
-import 'package:best_flutter_ui_templates/features/profile/presentation/profile_screen.dart';
-import 'package:best_flutter_ui_templates/features/settings/presentation/settings_screen.dart';
-import 'package:best_flutter_ui_templates/features/splash/presentation/splash_screen.dart';
-import 'package:best_flutter_ui_templates/features/verification/presentation/verification_center_screen.dart';
+import 'package:parichay_candidate/core/router/app_routes.dart';
+import 'package:parichay_candidate/features/app_shell/presentation/candidate_app_shell.dart';
+import 'package:parichay_candidate/features/auth/presentation/language_selection_screen.dart';
+import 'package:parichay_candidate/features/auth/presentation/sign_in_screen.dart';
+import 'package:parichay_candidate/features/auth/presentation/welcome_screen.dart';
+import 'package:parichay_candidate/features/notifications/presentation/notifications_screen.dart';
+import 'package:parichay_candidate/features/payouts/presentation/payouts_screen.dart';
+import 'package:parichay_candidate/features/privacy/presentation/privacy_controls_screen.dart';
+import 'package:parichay_candidate/features/profile/presentation/profile_screen.dart';
+import 'package:parichay_candidate/features/settings/presentation/settings_screen.dart';
+import 'package:parichay_candidate/features/splash/presentation/splash_screen.dart';
+import 'package:parichay_candidate/features/verification/presentation/verification_center_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class AppRouter {
   const AppRouter._();

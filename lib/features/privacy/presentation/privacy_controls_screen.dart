@@ -1,6 +1,6 @@
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class PrivacyControlsScreen extends StatefulWidget {
@@ -43,7 +43,7 @@ class _PrivacyControlsScreenState extends State<PrivacyControlsScreen> {
             return AppEmptyState(
               title: 'Unable to load privacy controls',
               message: 'Please refresh and try again.',
-              icon: Icons.lock_outline_rounded,
+              icon: AppIcons.lock,
               actionLabel: 'Refresh',
               onAction: () {
                 setState(() {
@@ -59,7 +59,7 @@ class _PrivacyControlsScreenState extends State<PrivacyControlsScreen> {
             return const AppEmptyState(
               title: 'No privacy settings available',
               message: 'Please try again later.',
-              icon: Icons.lock_outline_rounded,
+              icon: AppIcons.lock,
             );
           }
 

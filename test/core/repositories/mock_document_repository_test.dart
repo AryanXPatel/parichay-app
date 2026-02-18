@@ -1,4 +1,4 @@
-import 'package:best_flutter_ui_templates/core/repositories/repositories.dart';
+import 'package:parichay_candidate/core/repositories/repositories.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

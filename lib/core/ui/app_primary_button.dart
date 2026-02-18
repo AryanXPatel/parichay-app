@@ -1,4 +1,4 @@
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
 class AppPrimaryButton extends StatelessWidget {

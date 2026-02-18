@@ -1,5 +1,5 @@
-import 'package:best_flutter_ui_templates/core/models/domain_models.dart';
-import 'package:best_flutter_ui_templates/core/services/app_session_store.dart';
+import 'package:parichay_candidate/core/models/domain_models.dart';
+import 'package:parichay_candidate/core/services/app_session_store.dart';
 
 abstract class AuthRepository {
   Future<bool> requestOtp(String identifier);

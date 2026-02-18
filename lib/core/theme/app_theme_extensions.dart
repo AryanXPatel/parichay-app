@@ -1,6 +1,6 @@
-import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_gradients.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_shadows.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
+import 'package:parichay_candidate/core/theme/app_gradients.dart';
+import 'package:parichay_candidate/core/theme/app_shadows.dart';
 import 'package:flutter/material.dart';
 
 class AppSurfaceStyles extends ThemeExtension<AppSurfaceStyles> {

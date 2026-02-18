@@ -1,7 +1,7 @@
-import 'package:best_flutter_ui_templates/core/models/domain_models.dart';
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
+import 'package:parichay_candidate/core/models/domain_models.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class PayoutsScreen extends StatefulWidget {
@@ -127,7 +127,7 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
             return AppEmptyState(
               title: 'Unable to load payouts',
               message: 'Please refresh and try again.',
-              icon: Icons.account_balance_outlined,
+              icon: AppIcons.bank,
               actionLabel: 'Refresh',
               onAction: _refresh,
             );
@@ -138,7 +138,7 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
             return AppEmptyState(
               title: 'Unable to load payouts',
               message: 'Please refresh and try again.',
-              icon: Icons.account_balance_outlined,
+              icon: AppIcons.bank,
               actionLabel: 'Refresh',
               onAction: _refresh,
             );
@@ -218,7 +218,7 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
                       const SizedBox(height: AppSpacing.sm),
                       AppPrimaryButton(
                         label: 'Submit payout request',
-                        icon: Icons.send_rounded,
+                        icon: AppIcons.send,
                         isLoading: _submitting,
                         onPressed: _submitting
                             ? null
@@ -242,7 +242,7 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
                           title: 'No payout requests',
                           message:
                               'Your submitted payout requests will show here.',
-                          icon: Icons.account_balance_wallet_outlined,
+                          icon: AppIcons.wallet,
                         )
                       else
                         ...data.requests.map((request) {
@@ -266,7 +266,7 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
                           };
                           return ListTile(
                             contentPadding: EdgeInsets.zero,
-                            leading: const Icon(Icons.account_balance_outlined),
+                            leading: const Icon(AppIcons.bank),
                             title: Text(
                               '${request.amount.toStringAsFixed(0)} credits • ${request.channel}',
                             ),

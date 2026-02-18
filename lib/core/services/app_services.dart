@@ -1,5 +1,5 @@
-import 'package:best_flutter_ui_templates/core/repositories/repositories.dart';
-import 'package:best_flutter_ui_templates/core/services/app_session_store.dart';
+import 'package:parichay_candidate/core/repositories/repositories.dart';
+import 'package:parichay_candidate/core/services/app_session_store.dart';
 import 'package:flutter/widgets.dart';
 
 class AppServices {

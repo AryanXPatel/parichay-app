@@ -1,11 +1,11 @@
-import 'package:best_flutter_ui_templates/core/models/domain_models.dart';
-import 'package:best_flutter_ui_templates/core/router/app_routes.dart';
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_theme_extensions.dart';
-import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
+import 'package:parichay_candidate/core/models/domain_models.dart';
+import 'package:parichay_candidate/core/router/app_routes.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/theme/app_theme_extensions.dart';
+import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
@@ -51,7 +51,7 @@ class _WalletScreenState extends State<WalletScreen> {
           return AppEmptyState(
             title: l10n.walletLoadErrorTitle,
             message: l10n.walletLoadErrorMessage,
-            icon: Icons.account_balance_wallet_outlined,
+            icon: AppIcons.wallet,
             actionLabel: l10n.commonRefresh,
             onAction: _reload,
           );
@@ -62,7 +62,7 @@ class _WalletScreenState extends State<WalletScreen> {
           return AppEmptyState(
             title: l10n.walletLoadErrorTitle,
             message: l10n.walletLoadErrorMessage,
-            icon: Icons.account_balance_wallet_outlined,
+            icon: AppIcons.wallet,
             actionLabel: l10n.commonRefresh,
             onAction: _reload,
           );
@@ -105,7 +105,7 @@ class _WalletScreenState extends State<WalletScreen> {
                     OutlinedButton.icon(
                       onPressed: () =>
                           Navigator.of(context).pushNamed(AppRoutes.payouts),
-                      icon: const Icon(Icons.account_balance_outlined),
+                      icon: const Icon(AppIcons.bank),
                       label: Text(l10n.walletRequestPayout),
                     ),
                   ],
@@ -125,7 +125,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       AppEmptyState(
                         title: l10n.walletLedgerEmptyTitle,
                         message: l10n.walletLedgerEmptyMessage,
-                        icon: Icons.receipt_long_outlined,
+                        icon: AppIcons.receipt,
                       )
                     else
                       ...data.ledger.map((entry) {
@@ -136,8 +136,8 @@ class _WalletScreenState extends State<WalletScreen> {
                           contentPadding: EdgeInsets.zero,
                           leading: Icon(
                             entry.isCredit
-                                ? Icons.call_received_rounded
-                                : Icons.call_made_rounded,
+                                ? AppIcons.incoming
+                                : AppIcons.outgoing,
                           ),
                           title: Text(entry.title),
                           subtitle: Text(_dateLabel(entry.createdAt)),

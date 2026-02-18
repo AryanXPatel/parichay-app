@@ -1,4 +1,5 @@
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_icons.dart';
 import 'package:flutter/material.dart';
 
 class AppPageLoader extends StatelessWidget {
@@ -15,7 +16,7 @@ class AppEmptyState extends StatelessWidget {
     super.key,
     required this.title,
     required this.message,
-    this.icon = Icons.inbox_outlined,
+    this.icon = AppIcons.documents,
     this.actionLabel,
     this.onAction,
   });

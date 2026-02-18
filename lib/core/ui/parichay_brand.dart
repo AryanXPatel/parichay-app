@@ -1,6 +1,7 @@
-import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_radius.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
+import 'package:parichay_candidate/core/theme/app_radius.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_icons.dart';
 import 'package:flutter/material.dart';
 
 class ParichayBrandMark extends StatelessWidget {
@@ -26,7 +27,7 @@ class ParichayBrandMark extends StatelessWidget {
             borderRadius: AppRadius.smRadius,
           ),
           child: Icon(
-            Icons.person_search_rounded,
+            AppIcons.brand,
             size: iconSize,
             color: Colors.white,
           ),

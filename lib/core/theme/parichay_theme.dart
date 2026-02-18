@@ -1,8 +1,8 @@
-import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_radius.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_theme_extensions.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_typography.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
+import 'package:parichay_candidate/core/theme/app_radius.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/theme/app_theme_extensions.dart';
+import 'package:parichay_candidate/core/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
 class ParichayTheme {

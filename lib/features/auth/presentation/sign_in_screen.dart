@@ -1,12 +1,12 @@
-import 'package:best_flutter_ui_templates/core/router/app_routes.dart';
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_gradients.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
+import 'package:parichay_candidate/core/router/app_routes.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_colors.dart';
+import 'package:parichay_candidate/core/theme/app_gradients.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -227,8 +227,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                     ? l10n.signInVerifyOtp
                                     : l10n.signInRequestOtp,
                                 icon: _otpRequested
-                                    ? Icons.verified_user_outlined
-                                    : Icons.sms_outlined,
+                                    ? AppIcons.verified
+                                    : AppIcons.message,
                                 isLoading: _busy,
                                 onPressed: _otpRequested
                                     ? (_canVerifyOtp ? _verifyOtp : null)

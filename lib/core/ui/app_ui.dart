@@ -1,3 +1,4 @@
+export 'app_icons.dart';
 export 'app_card.dart';
 export 'app_metric_card.dart';
 export 'app_primary_button.dart';

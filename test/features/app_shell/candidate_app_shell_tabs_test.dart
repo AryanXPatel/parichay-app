@@ -1,8 +1,8 @@
-import 'package:best_flutter_ui_templates/features/app_shell/presentation/candidate_app_shell.dart';
+import 'package:parichay_candidate/features/app_shell/presentation/candidate_app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 void main() {
   testWidgets('candidate app shell shows five primary tabs in order', (

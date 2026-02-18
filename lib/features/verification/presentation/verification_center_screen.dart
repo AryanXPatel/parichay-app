@@ -1,7 +1,7 @@
-import 'package:best_flutter_ui_templates/core/models/domain_models.dart';
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
+import 'package:parichay_candidate/core/models/domain_models.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class VerificationCenterScreen extends StatefulWidget {
@@ -88,7 +88,7 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
             return AppEmptyState(
               title: 'Unable to load verification center',
               message: 'Please refresh and try again.',
-              icon: Icons.verified_user_outlined,
+              icon: AppIcons.verified,
               actionLabel: 'Refresh',
               onAction: _refresh,
             );
@@ -99,7 +99,7 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
             return AppEmptyState(
               title: 'Unable to load verification center',
               message: 'Please refresh and try again.',
-              icon: Icons.verified_user_outlined,
+              icon: AppIcons.verified,
               actionLabel: 'Refresh',
               onAction: _refresh,
             );
@@ -138,8 +138,8 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
                           contentPadding: EdgeInsets.zero,
                           leading: Icon(
                             item.isVerified
-                                ? Icons.check_circle_rounded
-                                : Icons.pending_outlined,
+                                ? AppIcons.check
+                                : AppIcons.pending,
                           ),
                           title: Text(item.label),
                           subtitle: item.note == null ? null : Text(item.note!),
@@ -178,7 +178,7 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
                         };
                         return ListTile(
                           contentPadding: EdgeInsets.zero,
-                          leading: const Icon(Icons.description_outlined),
+                          leading: const Icon(AppIcons.document),
                           title: Text(doc.title),
                           subtitle: Text(doc.type),
                           trailing: AppStatusChip(label: label, tone: tone),
@@ -203,7 +203,7 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
                           title: 'No queries yet',
                           message:
                               'Send a message if you need help with document verification.',
-                          icon: Icons.forum_outlined,
+                          icon: AppIcons.chat,
                         )
                       else
                         ...data.messages.map(
@@ -239,7 +239,7 @@ class _VerificationCenterScreenState extends State<VerificationCenterScreen> {
                       const SizedBox(height: AppSpacing.sm),
                       AppPrimaryButton(
                         label: 'Send query',
-                        icon: Icons.send_rounded,
+                        icon: AppIcons.send,
                         isLoading: _sending,
                         onPressed: _canSendQuery ? _sendMessage : null,
                       ),

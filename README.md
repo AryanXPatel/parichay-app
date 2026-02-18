@@ -16,12 +16,11 @@ Candidate-facing Flutter application for the Parichay MVP.
 
 - Flutter (Dart 3)
 - Material UI
-- `google_fonts`, `animations`, `intl`, `font_awesome_flutter`
+- `google_fonts`, `intl`, `shared_preferences`, `phosphor_flutter`
 
 ## Project Structure
 
 - `lib/` app source code (features, routing, theme, shared UI)
-- `assets/` images and fonts used by the app
 - `android/`, `ios/`, `web/`, `windows/` platform runners
 - `test/` unit/widget tests
 
@@ -35,10 +34,10 @@ flutter run
 ## Quality Checks
 
 ```bash
-flutter analyze
+flutter analyze lib/main.dart lib/core lib/features --fatal-infos
 flutter test
 ```
 
 ## Notes
 
-- Repository was cleaned to keep only the Flutter app (legacy template artifacts removed).
+- Repository is cleaned to keep only the Parichay candidate app surface.

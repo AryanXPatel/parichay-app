@@ -1,9 +1,9 @@
-import 'package:best_flutter_ui_templates/core/router/app_routes.dart';
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
+import 'package:parichay_candidate/core/router/app_routes.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -35,26 +35,26 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.xs),
               ListTile(
-                leading: const Icon(Icons.account_circle_outlined),
+                leading: const Icon(AppIcons.account),
                 title: Text(l10n.settingsAccountTitle),
                 subtitle: Text(l10n.settingsAccountSubtitle),
-                trailing: const Icon(Icons.chevron_right_rounded),
+                trailing: const Icon(AppIcons.chevronRight),
                 onTap: () => Navigator.of(context).pushNamed(AppRoutes.profile),
               ),
               const Divider(height: 1),
               ListTile(
-                leading: const Icon(Icons.lock_outline_rounded),
+                leading: const Icon(AppIcons.lock),
                 title: Text(l10n.settingsPrivacyTitle),
                 subtitle: Text(l10n.settingsPrivacySubtitle),
-                trailing: const Icon(Icons.chevron_right_rounded),
+                trailing: const Icon(AppIcons.chevronRight),
                 onTap: () => Navigator.of(context).pushNamed(AppRoutes.privacy),
               ),
               const Divider(height: 1),
               ListTile(
-                leading: const Icon(Icons.help_outline_rounded),
+                leading: const Icon(AppIcons.help),
                 title: Text(l10n.settingsHelpTitle),
                 subtitle: Text(l10n.settingsHelpSubtitle),
-                trailing: const Icon(Icons.chevron_right_rounded),
+                trailing: const Icon(AppIcons.chevronRight),
                 onTap: () =>
                     Navigator.of(context).pushNamed(AppRoutes.verification),
               ),
@@ -69,18 +69,18 @@ class SettingsScreen extends StatelessWidget {
               AppSectionHeader(title: l10n.settingsExtrasTitle),
               const SizedBox(height: AppSpacing.xs),
               ListTile(
-                leading: const Icon(Icons.credit_score_outlined),
+                leading: const Icon(AppIcons.card),
                 title: Text(l10n.settingsPayoutTitle),
                 subtitle: Text(l10n.settingsPayoutSubtitle),
-                trailing: const Icon(Icons.chevron_right_rounded),
+                trailing: const Icon(AppIcons.chevronRight),
                 onTap: () => Navigator.of(context).pushNamed(AppRoutes.payouts),
               ),
               const Divider(height: 1),
               ListTile(
-                leading: const Icon(Icons.notifications_active_outlined),
+                leading: const Icon(AppIcons.alertsActive),
                 title: Text(l10n.tooltipNotifications),
                 subtitle: Text(l10n.dashboardRecentSubtitle),
-                trailing: const Icon(Icons.chevron_right_rounded),
+                trailing: const Icon(AppIcons.chevronRight),
                 onTap: () =>
                     Navigator.of(context).pushNamed(AppRoutes.notifications),
               ),
@@ -90,7 +90,7 @@ class SettingsScreen extends StatelessWidget {
         const SizedBox(height: AppSpacing.md),
         AppPrimaryButton(
           label: l10n.settingsSignOut,
-          icon: Icons.logout_rounded,
+          icon: AppIcons.signOut,
           onPressed: () => _signOut(context),
         ),
       ],

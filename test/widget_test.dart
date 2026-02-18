@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
-import 'package:best_flutter_ui_templates/features/auth/presentation/sign_in_screen.dart';
+import 'package:parichay_candidate/features/auth/presentation/sign_in_screen.dart';
 
 void main() {
   testWidgets('sign-in screen renders primary fields', (

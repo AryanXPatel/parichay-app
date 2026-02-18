@@ -1,6 +1,6 @@
-import 'package:best_flutter_ui_templates/core/theme/app_radius.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_theme_extensions.dart';
+import 'package:parichay_candidate/core/theme/app_radius.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/theme/app_theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 enum AppStatusTone { neutral, info, success, warning, danger }

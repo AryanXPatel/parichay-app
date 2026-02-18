@@ -1,11 +1,11 @@
-import 'package:best_flutter_ui_templates/core/models/domain_models.dart';
-import 'package:best_flutter_ui_templates/core/router/app_routes.dart';
-import 'package:best_flutter_ui_templates/core/services/app_services.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_gradients.dart';
-import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
-import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
+import 'package:parichay_candidate/core/models/domain_models.dart';
+import 'package:parichay_candidate/core/router/app_routes.dart';
+import 'package:parichay_candidate/core/services/app_services.dart';
+import 'package:parichay_candidate/core/theme/app_gradients.dart';
+import 'package:parichay_candidate/core/theme/app_spacing.dart';
+import 'package:parichay_candidate/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
+import 'package:parichay_candidate/l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -66,7 +66,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           const SizedBox(height: AppSpacing.md),
                           AppPrimaryButton(
                             label: l10n.welcomeContinue,
-                            icon: Icons.arrow_forward_rounded,
+                            icon: AppIcons.arrowRight,
                             onPressed: _continueToApp,
                           ),
                           const SizedBox(height: AppSpacing.xs),
@@ -74,7 +74,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             onPressed: () => Navigator.of(
                               context,
                             ).pushNamed(AppRoutes.profile),
-                            icon: const Icon(Icons.person_outline_rounded),
+                            icon: const Icon(AppIcons.profile),
                             label: Text(l10n.welcomeProfile),
                           ),
                         ],
