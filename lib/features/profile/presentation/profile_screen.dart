@@ -4,6 +4,7 @@ import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
 import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
 import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -26,6 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _salaryController = TextEditingController();
   final _noticeController = TextEditingController();
 
+  String? _photoPath;
   bool _resumeUploaded = false;
   bool _loading = true;
   bool _saving = false;
@@ -73,6 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _preferredRoleController.text = profile.preferredRole;
     _salaryController.text = profile.salaryExpectedLpa.toString();
     _noticeController.text = profile.noticePeriodDays.toString();
+    _photoPath = profile.photoPath;
     _resumeUploaded = profile.resumeUploaded;
 
     setState(() {
@@ -81,7 +84,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _save() async {
-    final validationMessage = _validateProfile();
+    final l10n = AppLocalizations.of(context)!;
+    final validationMessage = _validateProfile(l10n);
     if (validationMessage != null) {
       setState(() {
         _message = validationMessage;
@@ -105,6 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       lastName: _lastNameController.text.trim(),
       phone: _phoneController.text.trim(),
       email: _emailController.text.trim(),
+      photoPath: _photoPath,
       location: _locationController.text.trim(),
       headline: _headlineController.text.trim(),
       skills: _skillsController.text
@@ -128,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       setState(() {
         _saving = false;
-        _message = 'Profile updated successfully.';
+        _message = l10n.profileSaveSuccess;
         _messageIsError = false;
       });
     } catch (_) {
@@ -137,13 +142,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
       setState(() {
         _saving = false;
-        _message = 'Unable to save profile. Please retry.';
+        _message = l10n.profileSaveError;
         _messageIsError = true;
       });
     }
   }
 
-  String? _validateProfile() {
+  String? _validateProfile(AppLocalizations l10n) {
     final firstName = _firstNameController.text.trim();
     final lastName = _lastNameController.text.trim();
     final phone = _phoneController.text.trim();
@@ -155,29 +160,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
         .toList();
 
     if (firstName.isEmpty || lastName.isEmpty) {
-      return 'Enter first name and last name.';
+      return l10n.profileValidationName;
     }
     if (phone.replaceAll(RegExp(r'\D'), '').length < 10) {
-      return 'Enter a valid phone number.';
+      return l10n.profileValidationPhone;
     }
     final validEmail = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
     if (!validEmail) {
-      return 'Enter a valid email address.';
+      return l10n.profileValidationEmail;
     }
     if (skills.isEmpty) {
-      return 'Add at least one skill.';
+      return l10n.profileValidationSkills;
     }
 
     final numericInputs = {
-      'Experience (years)': _experienceController.text.trim(),
-      'Expected salary (LPA)': _salaryController.text.trim(),
-      'Notice period (days)': _noticeController.text.trim(),
+      l10n.profileFieldExperience: _experienceController.text.trim(),
+      l10n.profileFieldSalary: _salaryController.text.trim(),
+      l10n.profileFieldNotice: _noticeController.text.trim(),
     };
 
     for (final entry in numericInputs.entries) {
       final value = int.tryParse(entry.value);
       if (value == null || value < 0) {
-        return '${entry.key} must be a valid non-negative number.';
+        return l10n.profileValidationNumeric(entry.key);
       }
     }
 
@@ -186,6 +191,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (_loading) {
       return const AppPageLoader();
     }
@@ -207,34 +214,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AppSectionHeader(
-                      title: 'Basic profile',
-                      subtitle:
-                          'Information used in recruiter search and profile ranking.',
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    _buildField(
-                      controller: _firstNameController,
-                      label: 'First name',
+                    AppSectionHeader(
+                      title: l10n.profilePhotoTitle,
+                      subtitle: l10n.profilePhotoSubtitle,
                     ),
                     const SizedBox(height: AppSpacing.sm),
-                    _buildField(
-                      controller: _lastNameController,
-                      label: 'Last name',
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    _buildField(controller: _phoneController, label: 'Phone'),
-                    const SizedBox(height: AppSpacing.sm),
-                    _buildField(controller: _emailController, label: 'Email'),
-                    const SizedBox(height: AppSpacing.sm),
-                    _buildField(
-                      controller: _locationController,
-                      label: 'Location',
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    _buildField(
-                      controller: _headlineController,
-                      label: 'Headline',
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 26,
+                          child: Text(
+                            _photoPath == null ? '?' : 'P',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.sm),
+                        Expanded(
+                          child: Text(
+                            _photoPath == null
+                                ? l10n.profilePhotoPlaceholder
+                                : l10n.profilePhotoAttached,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _photoPath = _photoPath == null
+                                  ? 'mock://candidate-photo'
+                                  : null;
+                            });
+                          },
+                          child: Text(
+                            _photoPath == null
+                                ? l10n.profilePhotoActionAdd
+                                : l10n.profilePhotoActionRemove,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -244,42 +261,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AppSectionHeader(
-                      title: 'Professional details',
-                      subtitle:
-                          'These directly affect profile score and recruiter relevance.',
+                    AppSectionHeader(
+                      title: l10n.profileBasicTitle,
+                      subtitle: l10n.profileBasicSubtitle,
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    _buildField(
+                      controller: _firstNameController,
+                      label: l10n.profileFieldFirstName,
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    _buildField(
+                      controller: _lastNameController,
+                      label: l10n.profileFieldLastName,
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    _buildField(
+                      controller: _phoneController,
+                      label: l10n.profileFieldPhone,
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    _buildField(
+                      controller: _emailController,
+                      label: l10n.profileFieldEmail,
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    _buildField(
+                      controller: _locationController,
+                      label: l10n.profileFieldLocation,
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    _buildField(
+                      controller: _headlineController,
+                      label: l10n.profileFieldHeadline,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              AppCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppSectionHeader(
+                      title: l10n.profileProfessionalTitle,
+                      subtitle: l10n.profileProfessionalSubtitle,
                     ),
                     const SizedBox(height: AppSpacing.md),
                     _buildField(
                       controller: _skillsController,
-                      label: 'Skills (comma-separated)',
+                      label: l10n.profileFieldSkills,
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     _buildField(
                       controller: _educationController,
-                      label: 'Education',
+                      label: l10n.profileFieldEducation,
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     _buildField(
                       controller: _experienceController,
-                      label: 'Experience (years)',
+                      label: l10n.profileFieldExperience,
                       keyboardType: TextInputType.number,
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     _buildField(
                       controller: _preferredRoleController,
-                      label: 'Preferred role',
+                      label: l10n.profileFieldRole,
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     _buildField(
                       controller: _salaryController,
-                      label: 'Expected salary (LPA)',
+                      label: l10n.profileFieldSalary,
                       keyboardType: TextInputType.number,
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     _buildField(
                       controller: _noticeController,
-                      label: 'Notice period (days)',
+                      label: l10n.profileFieldNotice,
                       keyboardType: TextInputType.number,
                     ),
                     const SizedBox(height: AppSpacing.sm),
@@ -288,10 +346,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onChanged: (value) =>
                           setState(() => _resumeUploaded = value),
                       contentPadding: EdgeInsets.zero,
-                      title: const Text('Resume uploaded'),
-                      subtitle: const Text(
-                        'Turn this on only when latest CV is uploaded.',
-                      ),
+                      title: Text(l10n.profileResumeUploaded),
+                      subtitle: Text(l10n.profileResumeSubtitle),
                     ),
                   ],
                 ),
@@ -328,7 +384,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: AppSpacing.xs),
                 ],
                 AppPrimaryButton(
-                  label: _saving ? 'Saving...' : 'Save profile',
+                  label: _saving
+                      ? l10n.profileSaveBusy
+                      : l10n.profileSaveButton,
                   icon: Icons.save_outlined,
                   isLoading: _saving,
                   onPressed: _save,

@@ -5,6 +5,7 @@ import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
 import 'package:best_flutter_ui_templates/core/theme/app_theme_extensions.dart';
 import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
@@ -38,6 +39,8 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return FutureBuilder<_WalletData>(
       future: _future,
       builder: (context, snapshot) {
@@ -46,10 +49,10 @@ class _WalletScreenState extends State<WalletScreen> {
         }
         if (snapshot.hasError) {
           return AppEmptyState(
-            title: 'Unable to load wallet',
-            message: 'Please refresh and try again.',
+            title: l10n.walletLoadErrorTitle,
+            message: l10n.walletLoadErrorMessage,
             icon: Icons.account_balance_wallet_outlined,
-            actionLabel: 'Refresh',
+            actionLabel: l10n.commonRefresh,
             onAction: _reload,
           );
         }
@@ -57,10 +60,10 @@ class _WalletScreenState extends State<WalletScreen> {
         final data = snapshot.data;
         if (data == null) {
           return AppEmptyState(
-            title: 'Unable to load wallet',
-            message: 'Please refresh and try again.',
+            title: l10n.walletLoadErrorTitle,
+            message: l10n.walletLoadErrorMessage,
             icon: Icons.account_balance_wallet_outlined,
-            actionLabel: 'Refresh',
+            actionLabel: l10n.commonRefresh,
             onAction: _reload,
           );
         }
@@ -77,21 +80,23 @@ class _WalletScreenState extends State<WalletScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Wallet balance',
+                      l10n.walletBalanceLabel,
                       style: Theme.of(
                         context,
                       ).textTheme.bodySmall?.copyWith(color: Colors.white70),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
-                      '${data.balance.toStringAsFixed(0)} credits',
+                      l10n.walletBalanceCredits(
+                        data.balance.toStringAsFixed(0),
+                      ),
                       style: Theme.of(
                         context,
                       ).textTheme.displaySmall?.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
-                      'Credits are earned via profile downloads and verified profile quality.',
+                      l10n.walletBalanceDescription,
                       style: Theme.of(
                         context,
                       ).textTheme.bodySmall?.copyWith(color: Colors.white70),
@@ -101,7 +106,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       onPressed: () =>
                           Navigator.of(context).pushNamed(AppRoutes.payouts),
                       icon: const Icon(Icons.account_balance_outlined),
-                      label: const Text('Request payout'),
+                      label: Text(l10n.walletRequestPayout),
                     ),
                   ],
                 ),
@@ -111,15 +116,15 @@ class _WalletScreenState extends State<WalletScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AppSectionHeader(
-                      title: 'Ledger',
-                      subtitle: 'Credit inflow and payout deductions',
+                    AppSectionHeader(
+                      title: l10n.walletLedgerTitle,
+                      subtitle: l10n.walletLedgerSubtitle,
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     if (data.ledger.isEmpty)
-                      const AppEmptyState(
-                        title: 'No transactions yet',
-                        message: 'You will see credits and deductions here.',
+                      AppEmptyState(
+                        title: l10n.walletLedgerEmptyTitle,
+                        message: l10n.walletLedgerEmptyMessage,
                         icon: Icons.receipt_long_outlined,
                       )
                     else

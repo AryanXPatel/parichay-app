@@ -1,4 +1,5 @@
 import 'package:best_flutter_ui_templates/core/models/domain_models.dart';
+import 'package:best_flutter_ui_templates/core/services/app_session_store.dart';
 
 abstract class AuthRepository {
   Future<bool> requestOtp(String identifier);
@@ -59,10 +60,12 @@ abstract class NotificationRepository {
 }
 
 class MockAuthRepository implements AuthRepository {
-  bool _isSignedIn = false;
+  MockAuthRepository({required this.sessionStore});
+
+  final AppSessionStore sessionStore;
 
   @override
-  Future<bool> isSignedIn() async => _isSignedIn;
+  Future<bool> isSignedIn() async => sessionStore.getSignedIn();
 
   @override
   Future<bool> requestOtp(String identifier) async {
@@ -72,13 +75,13 @@ class MockAuthRepository implements AuthRepository {
   @override
   Future<bool> verifyOtp(String identifier, String otp) async {
     final valid = identifier.trim().isNotEmpty && otp.trim() == '123456';
-    _isSignedIn = valid;
+    await sessionStore.setSignedIn(valid);
     return valid;
   }
 
   @override
   Future<void> signOut() async {
-    _isSignedIn = false;
+    await sessionStore.clearSession();
   }
 }
 
@@ -88,6 +91,7 @@ class MockProfileRepository implements ProfileRepository {
     lastName: 'Singh',
     phone: '+91 98XXXXXX10',
     email: 'anvi.singh@example.com',
+    photoPath: null,
     location: 'Bhubaneswar',
     headline: 'SDET',
     skills: const ['TypeScript', 'Angular', 'Flask'],
@@ -126,6 +130,7 @@ class MockProfileRepository implements ProfileRepository {
       'Last name': _profile.lastName.trim().isNotEmpty,
       'Phone': _profile.phone.trim().isNotEmpty,
       'Email': _profile.email.trim().isNotEmpty,
+      'Photo': (_profile.photoPath ?? '').trim().isNotEmpty,
       'Location': _profile.location.trim().isNotEmpty,
       'Headline': _profile.headline.trim().isNotEmpty,
       'Skills': _profile.skills.isNotEmpty,
@@ -148,7 +153,8 @@ class MockProfileRepository implements ProfileRepository {
   Future<CandidateProfile> getProfile() async => _profile;
 
   @override
-  Future<Map<String, bool>> getPrivacySettings() async => Map.of(_privacySettings);
+  Future<Map<String, bool>> getPrivacySettings() async =>
+      Map.of(_privacySettings);
 
   @override
   Future<void> saveProfile(CandidateProfile profile) async {
@@ -234,11 +240,16 @@ class MockDocumentRepository implements DocumentRepository {
 
   @override
   Future<List<VerificationChecklistItem>> getVerificationChecklist() async {
-    final resume = _docs.any((d) => d.type == 'CV' && d.status == VerificationStatus.verified);
-    final education = _docs
-        .any((d) => d.type == 'Education' && d.status == VerificationStatus.verified);
-    final governmentId = _docs
-        .any((d) => d.type == 'Government ID' && d.status == VerificationStatus.verified);
+    final resume = _docs.any(
+      (d) => d.type == 'CV' && d.status == VerificationStatus.verified,
+    );
+    final education = _docs.any(
+      (d) => d.type == 'Education' && d.status == VerificationStatus.verified,
+    );
+    final governmentId = _docs.any(
+      (d) =>
+          d.type == 'Government ID' && d.status == VerificationStatus.verified,
+    );
     return [
       VerificationChecklistItem(
         id: 'check-resume',

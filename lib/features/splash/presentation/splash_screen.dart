@@ -5,6 +5,7 @@ import 'package:best_flutter_ui_templates/core/services/app_services.dart';
 import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
 import 'package:best_flutter_ui_templates/core/theme/app_gradients.dart';
 import 'package:flutter/material.dart';
+import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,23 +23,29 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _bootstrap() async {
     await Future<void>.delayed(const Duration(milliseconds: 1200));
+    final preferredLocale = await AppServices.instance.appSessionStore
+        .getPreferredLocale();
     final isSignedIn = await AppServices.instance.authRepository.isSignedIn();
     if (!mounted) {
       return;
     }
-    Navigator.of(context).pushReplacementNamed(
-      isSignedIn ? AppRoutes.appShell : AppRoutes.signIn,
-    );
+    if (preferredLocale == null) {
+      Navigator.of(context).pushReplacementNamed(AppRoutes.languageSelection);
+      return;
+    }
+    Navigator.of(
+      context,
+    ).pushReplacementNamed(isSignedIn ? AppRoutes.appShell : AppRoutes.signIn);
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: AppGradients.spotlight,
-        ),
+        decoration: const BoxDecoration(gradient: AppGradients.spotlight),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -58,19 +65,18 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               const SizedBox(height: 16),
               Text(
-                'Parichay',
+                l10n?.brandName ?? 'Parichay',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Colors.white,
-                      fontSize: 28,
-                    ),
+                  color: Colors.white,
+                  fontSize: 28,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
-                'Real Jobs. Real People.',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.white70),
+                l10n?.brandTagline ?? 'Real Jobs. Real People.',
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
               ),
               const SizedBox(height: 28),
               const CircularProgressIndicator(color: Colors.white),

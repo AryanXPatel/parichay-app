@@ -1,0 +1,175 @@
+{
+  "@@locale": "hi",
+  "appTitle": "परिचय कैंडिडेट",
+  "brandName": "परिचय",
+  "brandTagline": "असली नौकरियां। असली लोग।",
+  "commonRefresh": "रीफ्रेश",
+  "commonSettings": "सेटिंग्स",
+  "commonPending": "लंबित",
+  "commonVerified": "सत्यापित",
+  "commonRejected": "अस्वीकृत",
+  "languageTitle": "अपनी भाषा चुनें",
+  "languageSubtitle": "ऑनबोर्डिंग और कैंडिडेट डैशबोर्ड के लिए ऐप भाषा चुनें।",
+  "languageEnglish": "अंग्रेजी",
+  "languageHindi": "हिंदी",
+  "languageContinue": "जारी रखें",
+  "signInTitle": "परिचय में आपका स्वागत है",
+  "signInSubtitle": "अपनी कैंडिडेट यात्रा जारी रखने के लिए फोन/ईमेल और OTP से साइन इन करें।",
+  "signInIdentifierLabel": "फोन या ईमेल",
+  "signInIdentifierHint": "+91 98XXXXXX10 या you@email.com",
+  "signInOtpLabel": "OTP",
+  "signInOtpHint": "6 अंकों का OTP दर्ज करें",
+  "signInRequestOtp": "OTP भेजें",
+  "signInVerifyOtp": "OTP सत्यापित करें",
+  "signInErrorIdentifierRequired": "फोन नंबर या ईमेल दर्ज करें।",
+  "signInErrorEmailInvalid": "मान्य ईमेल पता दर्ज करें।",
+  "signInErrorPhoneInvalid": "मान्य फोन नंबर दर्ज करें।",
+  "signInErrorIdentifierInvalid": "मान्य फोन नंबर या ईमेल दर्ज करें।",
+  "signInErrorOtpLength": "मान्य 6 अंकों का OTP दर्ज करें।",
+  "signInErrorOtpInvalid": "अमान्य OTP। कृपया दोबारा प्रयास करें।",
+  "signInDebugOtp": "डीबग OTP: 123456",
+  "welcomeHeading": "स्वागत है, {name}",
+  "@welcomeHeading": {
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "welcomeMessage": "आपका प्रोफाइल कार्यक्षेत्र तैयार है। अब नौकरियां और प्रोफाइल इनसाइट्स देखें।",
+  "welcomeContinue": "ऐप में जाएं",
+  "welcomeProfile": "प्रोफाइल खोलें",
+  "tabHome": "होम",
+  "tabProfile": "प्रोफाइल",
+  "tabDocuments": "दस्तावेज़",
+  "tabWallet": "वॉलेट",
+  "tabSettings": "सेटिंग्स",
+  "tooltipNotifications": "नोटिफिकेशन",
+  "tooltipMoreActions": "अधिक विकल्प",
+  "menuVerification": "वेरिफिकेशन सेंटर",
+  "menuPayouts": "पेआउट्स",
+  "menuPrivacy": "प्राइवेसी कंट्रोल्स",
+  "menuSettings": "सेटिंग्स",
+  "dashboardLoadErrorTitle": "डैशबोर्ड लोड नहीं हो सका",
+  "dashboardLoadErrorMessage": "नवीनतम कैंडिडेट मीट्रिक्स पाने के लिए रीफ्रेश करें।",
+  "dashboardHello": "नमस्ते {name}",
+  "@dashboardHello": {
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "dashboardWalletCredits": "वॉलेट में {credits} क्रेडिट",
+  "@dashboardWalletCredits": {
+    "placeholders": {
+      "credits": {}
+    }
+  },
+  "dashboardYearDownloads": "इस वर्ष आपका प्रोफाइल {count} बार डाउनलोड हुआ।",
+  "@dashboardYearDownloads": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dashboardProfileCompleteChip": "{percent}% पूर्ण",
+  "@dashboardProfileCompleteChip": {
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "dashboardDocsVerifiedChip": "{count} दस्तावेज़ सत्यापित",
+  "@dashboardDocsVerifiedChip": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dashboardCompletenessTitle": "प्रोफाइल पूर्णता",
+  "dashboardCompletenessSubtitle": "रिक्रूटर कन्वर्ज़न बढ़ाने के लिए छूटी जानकारी पूरी करें।",
+  "dashboardImproveButton": "प्रोफाइल व्यू बढ़ाएं",
+  "dashboardWeeklyViews": "साप्ताहिक व्यू",
+  "dashboardMonthlyViews": "मासिक व्यू",
+  "dashboardWeeklyDownloads": "साप्ताहिक डाउनलोड",
+  "dashboardMonthlyDownloads": "मासिक डाउनलोड",
+  "dashboardYearlyDownloads": "वार्षिक डाउनलोड",
+  "dashboardUnreadAlerts": "अनपढ़े अलर्ट",
+  "dashboardActionNeeded": "कार्रवाई आवश्यक",
+  "dashboardAllClear": "सब ठीक है",
+  "dashboardRecentTitle": "हाल की गतिविधि",
+  "dashboardRecentSubtitle": "नवीनतम प्रोफाइल इवेंट और वेरिफिकेशन अपडेट।",
+  "dashboardViewAll": "सभी देखें",
+  "dashboardVerification": "वेरिफिकेशन",
+  "dashboardPayouts": "पेआउट्स",
+  "profilePhotoTitle": "प्रोफाइल फोटो",
+  "profilePhotoSubtitle": "रिक्रूटर्स के भरोसे के लिए स्पष्ट चेहरा फोटो लगाएं।",
+  "profilePhotoPlaceholder": "कोई फोटो चयनित नहीं",
+  "profilePhotoAttached": "फोटो जुड़ी हुई है",
+  "profilePhotoActionAdd": "मॉक फोटो जोड़ें",
+  "profilePhotoActionRemove": "फोटो हटाएं",
+  "profileBasicTitle": "बेसिक प्रोफाइल",
+  "profileBasicSubtitle": "यह जानकारी रिक्रूटर सर्च और प्रोफाइल रैंकिंग में उपयोग होती है।",
+  "profileProfessionalTitle": "प्रोफेशनल विवरण",
+  "profileProfessionalSubtitle": "यह सीधे प्रोफाइल स्कोर और रिक्रूटर प्रासंगिकता को प्रभावित करते हैं।",
+  "profileFieldFirstName": "पहला नाम",
+  "profileFieldLastName": "अंतिम नाम",
+  "profileFieldPhone": "फोन",
+  "profileFieldEmail": "ईमेल",
+  "profileFieldLocation": "लोकेशन",
+  "profileFieldHeadline": "हेडलाइन",
+  "profileFieldSkills": "स्किल्स (कॉमा से अलग)",
+  "profileFieldEducation": "शिक्षा",
+  "profileFieldExperience": "अनुभव (वर्ष)",
+  "profileFieldRole": "पसंदीदा भूमिका",
+  "profileFieldSalary": "अपेक्षित वेतन (LPA)",
+  "profileFieldNotice": "नोटिस पीरियड (दिन)",
+  "profileResumeUploaded": "रिज्यूमे अपलोड किया गया",
+  "profileResumeSubtitle": "केवल तभी चालू करें जब नवीनतम CV अपलोड हो।",
+  "profileSaveButton": "प्रोफाइल सेव करें",
+  "profileSaveBusy": "सेव हो रहा है...",
+  "profileSaveSuccess": "प्रोफाइल सफलतापूर्वक अपडेट हुई।",
+  "profileSaveError": "प्रोफाइल सेव नहीं हो सकी। कृपया पुनः प्रयास करें।",
+  "profileValidationName": "पहला और अंतिम नाम दर्ज करें।",
+  "profileValidationPhone": "मान्य फोन नंबर दर्ज करें।",
+  "profileValidationEmail": "मान्य ईमेल पता दर्ज करें।",
+  "profileValidationSkills": "कम से कम एक स्किल जोड़ें।",
+  "profileValidationNumeric": "{label} मान्य गैर-ऋणात्मक संख्या होनी चाहिए।",
+  "@profileValidationNumeric": {
+    "placeholders": {
+      "label": {}
+    }
+  },
+  "documentsLoadErrorTitle": "दस्तावेज़ लोड नहीं हो सके",
+  "documentsLoadErrorMessage": "कृपया रीफ्रेश करके फिर प्रयास करें।",
+  "documentsHeaderTitle": "दस्तावेज़ अपलोड और सत्यापित करें",
+  "documentsHeaderSubtitle": "रिज्यूमे और सहायक दस्तावेज़ रैंकिंग और भरोसा बढ़ाते हैं।",
+  "documentsUploadButton": "मॉक दस्तावेज़ अपलोड करें",
+  "documentsUploadingButton": "दस्तावेज़ अपलोड हो रहा है...",
+  "documentsUploadSuccess": "दस्तावेज़ अपलोड हुआ और वेरिफिकेशन के लिए भेजा गया।",
+  "documentsUploadError": "दस्तावेज़ अपलोड नहीं हो सका। कृपया फिर प्रयास करें।",
+  "documentsOpenVerification": "वेरिफिकेशन सेंटर खोलें",
+  "documentsEmptyTitle": "अभी कोई दस्तावेज़ नहीं",
+  "documentsEmptyMessage": "वेरिफिकेशन शुरू करने के लिए रिज्यूमे, शिक्षा और ID दस्तावेज़ अपलोड करें।",
+  "walletLoadErrorTitle": "वॉलेट लोड नहीं हो सका",
+  "walletLoadErrorMessage": "कृपया रीफ्रेश करके फिर प्रयास करें।",
+  "walletBalanceLabel": "वॉलेट बैलेंस",
+  "walletBalanceCredits": "{credits} क्रेडिट",
+  "@walletBalanceCredits": {
+    "placeholders": {
+      "credits": {}
+    }
+  },
+  "walletBalanceDescription": "क्रेडिट प्रोफाइल डाउनलोड और वेरिफाइड प्रोफाइल गुणवत्ता से मिलते हैं।",
+  "walletRequestPayout": "पेआउट अनुरोध करें",
+  "walletLedgerTitle": "लेजर",
+  "walletLedgerSubtitle": "क्रेडिट जोड़ और पेआउट कटौती",
+  "walletLedgerEmptyTitle": "अभी कोई ट्रांजैक्शन नहीं",
+  "walletLedgerEmptyMessage": "यहां आपको क्रेडिट और कटौतियां दिखेंगी।",
+  "settingsPrimaryTitle": "अकाउंट सेटिंग्स",
+  "settingsPrimarySubtitle": "अकाउंट एक्सेस, प्राइवेसी और सपोर्ट प्रबंधित करें।",
+  "settingsAccountTitle": "अकाउंट",
+  "settingsAccountSubtitle": "व्यक्तिगत विवरण और पहचान प्रबंधित करें।",
+  "settingsPayoutTitle": "पेआउट मेथड्स",
+  "settingsPayoutSubtitle": "बैंक अकाउंट / UPI विवरण सेट करें।",
+  "settingsPrivacyTitle": "प्राइवेसी कंट्रोल्स",
+  "settingsPrivacySubtitle": "चुनें कि रिक्रूटर्स प्रोफाइल प्रीव्यू में क्या देख सकते हैं।",
+  "settingsHelpTitle": "हेल्प और सपोर्ट",
+  "settingsHelpSubtitle": "वेरिफिकेशन और पेआउट से जुड़े सवाल पूछें।",
+  "settingsExtrasTitle": "अन्य विकल्प",
+  "settingsSignOut": "साइन आउट"
+}

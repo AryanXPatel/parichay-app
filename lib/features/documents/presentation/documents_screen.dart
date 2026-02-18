@@ -5,6 +5,7 @@ import 'package:best_flutter_ui_templates/core/theme/app_colors.dart';
 import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
 import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
 
 class DocumentsScreen extends StatefulWidget {
   const DocumentsScreen({super.key});
@@ -49,16 +50,18 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       if (!mounted) {
         return;
       }
+      final l10n = AppLocalizations.of(context)!;
       setState(() {
-        _uploadMessage = 'Document uploaded and queued for verification.';
+        _uploadMessage = l10n.documentsUploadSuccess;
         _uploadMessageTone = AppStatusTone.success;
       });
     } catch (_) {
       if (!mounted) {
         return;
       }
+      final l10n = AppLocalizations.of(context)!;
       setState(() {
-        _uploadMessage = 'Unable to upload document. Please try again.';
+        _uploadMessage = l10n.documentsUploadError;
         _uploadMessageTone = AppStatusTone.danger;
       });
     } finally {
@@ -72,6 +75,8 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return FutureBuilder<List<CandidateDocument>>(
       future: _future,
       builder: (context, snapshot) {
@@ -80,10 +85,10 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         }
         if (snapshot.hasError) {
           return AppEmptyState(
-            title: 'Unable to load documents',
-            message: 'Please refresh and try again.',
+            title: l10n.documentsLoadErrorTitle,
+            message: l10n.documentsLoadErrorMessage,
             icon: Icons.description_outlined,
-            actionLabel: 'Refresh',
+            actionLabel: l10n.commonRefresh,
             onAction: _refresh,
           );
         }
@@ -99,10 +104,9 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AppSectionHeader(
-                      title: 'Upload and verify documents',
-                      subtitle:
-                          'Resume + supporting documents increase ranking and recruiter trust.',
+                    AppSectionHeader(
+                      title: l10n.documentsHeaderTitle,
+                      subtitle: l10n.documentsHeaderSubtitle,
                     ),
                     const SizedBox(height: AppSpacing.md),
                     Row(
@@ -110,8 +114,8 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                         Expanded(
                           child: AppPrimaryButton(
                             label: _uploading
-                                ? 'Uploading document...'
-                                : 'Upload mock document',
+                                ? l10n.documentsUploadingButton
+                                : l10n.documentsUploadButton,
                             icon: Icons.upload_file_rounded,
                             isLoading: _uploading,
                             onPressed: _uploading ? null : _uploadMockDoc,
@@ -132,17 +136,16 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                         context,
                       ).pushNamed(AppRoutes.verification),
                       icon: const Icon(Icons.verified_user_outlined),
-                      label: const Text('Open verification center'),
+                      label: Text(l10n.documentsOpenVerification),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: AppSpacing.md),
               if (docs.isEmpty)
-                const AppEmptyState(
-                  title: 'No documents yet',
-                  message:
-                      'Upload resume, education, and ID documents to begin verification.',
+                AppEmptyState(
+                  title: l10n.documentsEmptyTitle,
+                  message: l10n.documentsEmptyMessage,
                   icon: Icons.description_outlined,
                 )
               else
@@ -153,9 +156,9 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                     VerificationStatus.rejected => AppStatusTone.danger,
                   };
                   final statusLabel = switch (doc.status) {
-                    VerificationStatus.pending => 'Pending',
-                    VerificationStatus.verified => 'Verified',
-                    VerificationStatus.rejected => 'Rejected',
+                    VerificationStatus.pending => l10n.commonPending,
+                    VerificationStatus.verified => l10n.commonVerified,
+                    VerificationStatus.rejected => l10n.commonRejected,
                   };
                   return AppCard(
                     margin: const EdgeInsets.only(bottom: AppSpacing.sm),

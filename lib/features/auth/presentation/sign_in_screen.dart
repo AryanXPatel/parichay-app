@@ -6,6 +6,7 @@ import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
 import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -30,10 +31,10 @@ class _SignInScreenState extends State<SignInScreen> {
       _identifierController.text.trim().isNotEmpty &&
       _otpController.text.trim().length == 6;
 
-  String? _validateIdentifier() {
+  String? _validateIdentifier(AppLocalizations l10n) {
     final identifier = _identifierController.text.trim();
     if (identifier.isEmpty) {
-      return 'Enter phone number or email.';
+      return l10n.signInErrorIdentifierRequired;
     }
 
     if (identifier.contains('@')) {
@@ -41,14 +42,14 @@ class _SignInScreenState extends State<SignInScreen> {
         r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
       ).hasMatch(identifier);
       if (!isEmail) {
-        return 'Enter a valid email address.';
+        return l10n.signInErrorEmailInvalid;
       }
       return null;
     }
 
     final digits = identifier.replaceAll(RegExp(r'\D'), '');
     if (digits.length < 10) {
-      return 'Enter a valid phone number.';
+      return l10n.signInErrorPhoneInvalid;
     }
     return null;
   }
@@ -61,7 +62,8 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> _requestOtp() async {
-    final validationError = _validateIdentifier();
+    final l10n = AppLocalizations.of(context)!;
+    final validationError = _validateIdentifier(l10n);
     if (validationError != null) {
       setState(() {
         _error = validationError;
@@ -86,15 +88,16 @@ class _SignInScreenState extends State<SignInScreen> {
       _busy = false;
       _otpRequested = ok;
       if (!ok) {
-        _error = 'Enter a valid phone number or email.';
+        _error = l10n.signInErrorIdentifierInvalid;
       }
     });
   }
 
   Future<void> _verifyOtp() async {
+    final l10n = AppLocalizations.of(context)!;
     if (_otpController.text.trim().length != 6) {
       setState(() {
-        _error = 'Enter a valid 6-digit OTP.';
+        _error = l10n.signInErrorOtpLength;
       });
       return;
     }
@@ -116,17 +119,23 @@ class _SignInScreenState extends State<SignInScreen> {
     setState(() {
       _busy = false;
       if (!ok) {
-        _error = 'Invalid OTP. Please try again.';
+        _error = l10n.signInErrorOtpInvalid;
       }
     });
 
     if (ok) {
-      Navigator.of(context).pushReplacementNamed(AppRoutes.appShell);
+      await AppServices.instance.appSessionStore.setHasSeenWelcome(false);
+      if (!mounted) {
+        return;
+      }
+      Navigator.of(context).pushReplacementNamed(AppRoutes.welcome);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -150,10 +159,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const AppSectionHeader(
-                                title: 'Welcome to Parichay',
-                                subtitle:
-                                    'Sign in with phone/email and OTP to continue your candidate journey.',
+                              AppSectionHeader(
+                                title: l10n.signInTitle,
+                                subtitle: l10n.signInSubtitle,
                               ),
                               const SizedBox(height: AppSpacing.md),
                               TextField(
@@ -174,9 +182,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                     _requestOtp();
                                   }
                                 },
-                                decoration: const InputDecoration(
-                                  labelText: 'Phone or Email',
-                                  hintText: '+91 98XXXXXX10 or you@email.com',
+                                decoration: InputDecoration(
+                                  labelText: l10n.signInIdentifierLabel,
+                                  hintText: l10n.signInIdentifierHint,
                                 ),
                               ),
                               if (_otpRequested) ...[
@@ -198,9 +206,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                       _verifyOtp();
                                     }
                                   },
-                                  decoration: const InputDecoration(
-                                    labelText: 'OTP',
-                                    hintText: 'Enter 6-digit OTP',
+                                  decoration: InputDecoration(
+                                    labelText: l10n.signInOtpLabel,
+                                    hintText: l10n.signInOtpHint,
                                     counterText: '',
                                   ),
                                 ),
@@ -216,8 +224,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               const SizedBox(height: AppSpacing.sm),
                               AppPrimaryButton(
                                 label: _otpRequested
-                                    ? 'Verify OTP'
-                                    : 'Request OTP',
+                                    ? l10n.signInVerifyOtp
+                                    : l10n.signInRequestOtp,
                                 icon: _otpRequested
                                     ? Icons.verified_user_outlined
                                     : Icons.sms_outlined,
@@ -228,8 +236,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                               if (kDebugMode) ...[
                                 const SizedBox(height: AppSpacing.sm),
-                                const AppStatusChip(
-                                  label: 'Debug OTP: 123456',
+                                AppStatusChip(
+                                  label: l10n.signInDebugOtp,
                                   tone: AppStatusTone.info,
                                 ),
                               ],

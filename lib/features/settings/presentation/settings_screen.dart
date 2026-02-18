@@ -3,6 +3,7 @@ import 'package:best_flutter_ui_templates/core/services/app_services.dart';
 import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
 import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -19,65 +20,80 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
-      body: ListView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(AppSpacing.md),
-        children: [
-          AppCard(
-            child: Column(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.account_circle_outlined),
-                  title: const Text('Account'),
-                  subtitle: const Text('Manage personal details and identity.'),
-                  trailing: const Icon(Icons.chevron_right_rounded),
-                  onTap: () =>
-                      Navigator.of(context).pushNamed(AppRoutes.profile),
-                ),
-                const Divider(height: 1),
-                ListTile(
-                  leading: Icon(Icons.credit_score_outlined),
-                  title: const Text('Payout methods'),
-                  subtitle: const Text('Configure bank account / UPI details.'),
-                  trailing: const Icon(Icons.chevron_right_rounded),
-                  onTap: () =>
-                      Navigator.of(context).pushNamed(AppRoutes.payouts),
-                ),
-                const Divider(height: 1),
-                ListTile(
-                  leading: const Icon(Icons.lock_outline_rounded),
-                  title: const Text('Privacy controls'),
-                  subtitle: const Text(
-                    'Choose what recruiters can view in profile preview.',
-                  ),
-                  trailing: const Icon(Icons.chevron_right_rounded),
-                  onTap: () =>
-                      Navigator.of(context).pushNamed(AppRoutes.privacy),
-                ),
-                const Divider(height: 1),
-                ListTile(
-                  leading: Icon(Icons.help_outline_rounded),
-                  title: const Text('Help & support'),
-                  subtitle: const Text(
-                    'Raise verification and payout queries.',
-                  ),
-                  trailing: const Icon(Icons.chevron_right_rounded),
-                  onTap: () =>
-                      Navigator.of(context).pushNamed(AppRoutes.verification),
-                ),
-              ],
-            ),
+    final l10n = AppLocalizations.of(context)!;
+    return ListView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      padding: const EdgeInsets.all(AppSpacing.md),
+      children: [
+        AppCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppSectionHeader(
+                title: l10n.settingsPrimaryTitle,
+                subtitle: l10n.settingsPrimarySubtitle,
+              ),
+              const SizedBox(height: AppSpacing.xs),
+              ListTile(
+                leading: const Icon(Icons.account_circle_outlined),
+                title: Text(l10n.settingsAccountTitle),
+                subtitle: Text(l10n.settingsAccountSubtitle),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                onTap: () => Navigator.of(context).pushNamed(AppRoutes.profile),
+              ),
+              const Divider(height: 1),
+              ListTile(
+                leading: const Icon(Icons.lock_outline_rounded),
+                title: Text(l10n.settingsPrivacyTitle),
+                subtitle: Text(l10n.settingsPrivacySubtitle),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                onTap: () => Navigator.of(context).pushNamed(AppRoutes.privacy),
+              ),
+              const Divider(height: 1),
+              ListTile(
+                leading: const Icon(Icons.help_outline_rounded),
+                title: Text(l10n.settingsHelpTitle),
+                subtitle: Text(l10n.settingsHelpSubtitle),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AppRoutes.verification),
+              ),
+            ],
           ),
-          const SizedBox(height: AppSpacing.md),
-          AppPrimaryButton(
-            label: 'Sign out',
-            icon: Icons.logout_rounded,
-            onPressed: () => _signOut(context),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        AppCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppSectionHeader(title: l10n.settingsExtrasTitle),
+              const SizedBox(height: AppSpacing.xs),
+              ListTile(
+                leading: const Icon(Icons.credit_score_outlined),
+                title: Text(l10n.settingsPayoutTitle),
+                subtitle: Text(l10n.settingsPayoutSubtitle),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                onTap: () => Navigator.of(context).pushNamed(AppRoutes.payouts),
+              ),
+              const Divider(height: 1),
+              ListTile(
+                leading: const Icon(Icons.notifications_active_outlined),
+                title: Text(l10n.tooltipNotifications),
+                subtitle: Text(l10n.dashboardRecentSubtitle),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AppRoutes.notifications),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        AppPrimaryButton(
+          label: l10n.settingsSignOut,
+          icon: Icons.logout_rounded,
+          onPressed: () => _signOut(context),
+        ),
+      ],
     );
   }
 }

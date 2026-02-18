@@ -6,6 +6,7 @@ import 'package:best_flutter_ui_templates/core/theme/app_spacing.dart';
 import 'package:best_flutter_ui_templates/core/theme/app_theme_extensions.dart';
 import 'package:best_flutter_ui_templates/core/ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -54,6 +55,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return FutureBuilder<_DashboardViewData>(
       future: _future,
       builder: (context, snapshot) {
@@ -62,19 +65,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
         }
         if (snapshot.hasError) {
           return AppEmptyState(
-            title: 'Unable to load dashboard',
-            message: 'Try refreshing to fetch your latest candidate metrics.',
+            title: l10n.dashboardLoadErrorTitle,
+            message: l10n.dashboardLoadErrorMessage,
             icon: Icons.dashboard_outlined,
-            actionLabel: 'Refresh',
+            actionLabel: l10n.commonRefresh,
             onAction: _refresh,
           );
         }
         if (!snapshot.hasData) {
           return AppEmptyState(
-            title: 'Unable to load dashboard',
-            message: 'Try refreshing to fetch your latest candidate metrics.',
+            title: l10n.dashboardLoadErrorTitle,
+            message: l10n.dashboardLoadErrorMessage,
             icon: Icons.dashboard_outlined,
-            actionLabel: 'Refresh',
+            actionLabel: l10n.commonRefresh,
             onAction: _refresh,
           );
         }
@@ -102,21 +105,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hello ${data.profile.firstName}',
+                      l10n.dashboardHello(data.profile.firstName),
                       style: Theme.of(
                         context,
                       ).textTheme.titleMedium?.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     Text(
-                      '${data.walletBalance.toStringAsFixed(0)} credits in wallet',
+                      l10n.dashboardWalletCredits(
+                        data.walletBalance.toStringAsFixed(0),
+                      ),
                       style: Theme.of(
                         context,
                       ).textTheme.titleLarge?.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
-                      'Your profile was downloaded ${data.metrics.downloads} times this year.',
+                      l10n.dashboardYearDownloads('${data.metrics.downloads}'),
                       style: Theme.of(
                         context,
                       ).textTheme.bodySmall?.copyWith(color: Colors.white70),
@@ -125,12 +130,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Row(
                       children: [
                         AppStatusChip(
-                          label: '${data.completeness.percentage}% complete',
+                          label: l10n.dashboardProfileCompleteChip(
+                            '${data.completeness.percentage}',
+                          ),
                           tone: profileTone,
                         ),
                         const SizedBox(width: AppSpacing.xs),
                         AppStatusChip(
-                          label: '$verifiedDocs docs verified',
+                          label: l10n.dashboardDocsVerifiedChip(
+                            '$verifiedDocs',
+                          ),
                           tone: AppStatusTone.success,
                         ),
                       ],
@@ -143,10 +152,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AppSectionHeader(
-                      title: 'Profile completeness',
-                      subtitle:
-                          'Complete missing fields to increase recruiter conversion.',
+                    AppSectionHeader(
+                      title: l10n.dashboardCompletenessTitle,
+                      subtitle: l10n.dashboardCompletenessSubtitle,
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     LinearProgressIndicator(
@@ -172,7 +180,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     AppPrimaryButton(
-                      label: 'Improve profile views',
+                      label: l10n.dashboardImproveButton,
                       icon: Icons.trending_up_rounded,
                       onPressed: () =>
                           Navigator.of(context).pushNamed(AppRoutes.profile),
@@ -185,7 +193,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   Expanded(
                     child: AppMetricCard(
-                      label: 'Weekly views',
+                      label: l10n.dashboardWeeklyViews,
                       value: '${data.metrics.weeklyViews}',
                       icon: Icons.remove_red_eye_outlined,
                     ),
@@ -193,7 +201,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(width: AppSpacing.sm),
                   Expanded(
                     child: AppMetricCard(
-                      label: 'Monthly views',
+                      label: l10n.dashboardMonthlyViews,
                       value: '${data.metrics.monthlyViews}',
                       icon: Icons.stacked_line_chart_rounded,
                     ),
@@ -205,7 +213,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   Expanded(
                     child: AppMetricCard(
-                      label: 'Weekly downloads',
+                      label: l10n.dashboardWeeklyDownloads,
                       value: '${data.metrics.weeklyDownloads}',
                       icon: Icons.download_outlined,
                     ),
@@ -213,7 +221,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(width: AppSpacing.sm),
                   Expanded(
                     child: AppMetricCard(
-                      label: 'Monthly downloads',
+                      label: l10n.dashboardMonthlyDownloads,
                       value: '${data.metrics.monthlyDownloads}',
                       icon: Icons.download_for_offline_outlined,
                     ),
@@ -225,7 +233,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   Expanded(
                     child: AppMetricCard(
-                      label: 'Yearly downloads',
+                      label: l10n.dashboardYearlyDownloads,
                       value: '${data.metrics.yearlyDownloads}',
                       icon: Icons.calendar_month_outlined,
                     ),
@@ -233,10 +241,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(width: AppSpacing.sm),
                   Expanded(
                     child: AppMetricCard(
-                      label: 'Unread alerts',
+                      label: l10n.dashboardUnreadAlerts,
                       value: '$unread',
                       icon: Icons.notifications_active_outlined,
-                      hint: unread > 0 ? 'Action needed' : 'All clear',
+                      hint: unread > 0
+                          ? l10n.dashboardActionNeeded
+                          : l10n.dashboardAllClear,
                       tone: unread > 0
                           ? AppStatusTone.warning
                           : AppStatusTone.success,
@@ -250,14 +260,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppSectionHeader(
-                      title: 'Recent activity',
-                      subtitle:
-                          'Latest profile events and verification updates.',
+                      title: l10n.dashboardRecentTitle,
+                      subtitle: l10n.dashboardRecentSubtitle,
                       trailing: TextButton(
                         onPressed: () => Navigator.of(
                           context,
                         ).pushNamed(AppRoutes.notifications),
-                        child: const Text('View all'),
+                        child: Text(l10n.dashboardViewAll),
                       ),
                     ),
                     const SizedBox(height: AppSpacing.xs),
@@ -287,7 +296,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         context,
                       ).pushNamed(AppRoutes.verification),
                       icon: const Icon(Icons.verified_user_outlined),
-                      label: const Text('Verification'),
+                      label: Text(l10n.dashboardVerification),
                     ),
                   ),
                   const SizedBox(width: AppSpacing.sm),
@@ -296,7 +305,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       onPressed: () =>
                           Navigator.of(context).pushNamed(AppRoutes.payouts),
                       icon: const Icon(Icons.account_balance_outlined),
-                      label: const Text('Payouts'),
+                      label: Text(l10n.dashboardPayouts),
                     ),
                   ),
                 ],

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:best_flutter_ui_templates/core/router/app_router.dart';
 import 'package:best_flutter_ui_templates/core/router/app_routes.dart';
+import 'package:best_flutter_ui_templates/core/services/app_services.dart';
 import 'package:best_flutter_ui_templates/core/theme/parichay_theme.dart';
+import 'package:best_flutter_ui_templates/l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,15 +27,54 @@ void main() async {
   runApp(const ParichayApp());
 }
 
-class ParichayApp extends StatelessWidget {
+class ParichayApp extends StatefulWidget {
   const ParichayApp({super.key});
+
+  @override
+  State<ParichayApp> createState() => _ParichayAppState();
+}
+
+class _ParichayAppState extends State<ParichayApp> {
+  Locale? _locale;
+  final _services = AppServices.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _services.localeNotifier.addListener(_handleLocaleChanged);
+    _services.loadInitialLocale();
+  }
+
+  void _handleLocaleChanged() {
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _locale = _services.localeNotifier.value;
+    });
+  }
+
+  @override
+  void dispose() {
+    _services.localeNotifier.removeListener(_handleLocaleChanged);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Parichay Candidate',
+      onGenerateTitle: (context) =>
+          AppLocalizations.of(context)?.appTitle ?? 'Parichay Candidate',
       debugShowCheckedModeBanner: false,
       theme: ParichayTheme.lightTheme,
+      locale: _locale,
+      supportedLocales: const [Locale('en'), Locale('hi')],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       initialRoute: AppRoutes.splash,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );

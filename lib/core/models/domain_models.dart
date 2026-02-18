@@ -46,6 +46,7 @@ class CandidateProfile {
     required this.lastName,
     required this.phone,
     required this.email,
+    this.photoPath,
     required this.location,
     required this.headline,
     required this.skills,
@@ -61,6 +62,7 @@ class CandidateProfile {
   final String lastName;
   final String phone;
   final String email;
+  final String? photoPath;
   final String location;
   final String headline;
   final List<String> skills;
@@ -76,6 +78,7 @@ class CandidateProfile {
     String? lastName,
     String? phone,
     String? email,
+    String? photoPath,
     String? location,
     String? headline,
     List<String>? skills,
@@ -91,6 +94,7 @@ class CandidateProfile {
       lastName: lastName ?? this.lastName,
       phone: phone ?? this.phone,
       email: email ?? this.email,
+      photoPath: photoPath ?? this.photoPath,
       location: location ?? this.location,
       headline: headline ?? this.headline,
       skills: skills ?? this.skills,

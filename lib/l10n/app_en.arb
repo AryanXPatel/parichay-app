@@ -1,0 +1,175 @@
+{
+  "@@locale": "en",
+  "appTitle": "Parichay Candidate",
+  "brandName": "Parichay",
+  "brandTagline": "Real Jobs. Real People.",
+  "commonRefresh": "Refresh",
+  "commonSettings": "Settings",
+  "commonPending": "Pending",
+  "commonVerified": "Verified",
+  "commonRejected": "Rejected",
+  "languageTitle": "Choose your language",
+  "languageSubtitle": "Select the app language for onboarding and candidate dashboard.",
+  "languageEnglish": "English",
+  "languageHindi": "Hindi",
+  "languageContinue": "Continue",
+  "signInTitle": "Welcome to Parichay",
+  "signInSubtitle": "Sign in with phone/email and OTP to continue your candidate journey.",
+  "signInIdentifierLabel": "Phone or Email",
+  "signInIdentifierHint": "+91 98XXXXXX10 or you@email.com",
+  "signInOtpLabel": "OTP",
+  "signInOtpHint": "Enter 6-digit OTP",
+  "signInRequestOtp": "Request OTP",
+  "signInVerifyOtp": "Verify OTP",
+  "signInErrorIdentifierRequired": "Enter phone number or email.",
+  "signInErrorEmailInvalid": "Enter a valid email address.",
+  "signInErrorPhoneInvalid": "Enter a valid phone number.",
+  "signInErrorIdentifierInvalid": "Enter a valid phone number or email.",
+  "signInErrorOtpLength": "Enter a valid 6-digit OTP.",
+  "signInErrorOtpInvalid": "Invalid OTP. Please try again.",
+  "signInDebugOtp": "Debug OTP: 123456",
+  "welcomeHeading": "Welcome, {name}",
+  "@welcomeHeading": {
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "welcomeMessage": "Your profile workspace is ready. Start exploring jobs and profile insights.",
+  "welcomeContinue": "Continue to app",
+  "welcomeProfile": "Open profile",
+  "tabHome": "Home",
+  "tabProfile": "Profile",
+  "tabDocuments": "Documents",
+  "tabWallet": "Wallet",
+  "tabSettings": "Settings",
+  "tooltipNotifications": "Notifications",
+  "tooltipMoreActions": "More actions",
+  "menuVerification": "Verification center",
+  "menuPayouts": "Payouts",
+  "menuPrivacy": "Privacy controls",
+  "menuSettings": "Settings",
+  "dashboardLoadErrorTitle": "Unable to load dashboard",
+  "dashboardLoadErrorMessage": "Try refreshing to fetch your latest candidate metrics.",
+  "dashboardHello": "Hello {name}",
+  "@dashboardHello": {
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "dashboardWalletCredits": "{credits} credits in wallet",
+  "@dashboardWalletCredits": {
+    "placeholders": {
+      "credits": {}
+    }
+  },
+  "dashboardYearDownloads": "Your profile was downloaded {count} times this year.",
+  "@dashboardYearDownloads": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dashboardProfileCompleteChip": "{percent}% complete",
+  "@dashboardProfileCompleteChip": {
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "dashboardDocsVerifiedChip": "{count} docs verified",
+  "@dashboardDocsVerifiedChip": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dashboardCompletenessTitle": "Profile completeness",
+  "dashboardCompletenessSubtitle": "Complete missing fields to increase recruiter conversion.",
+  "dashboardImproveButton": "Improve profile views",
+  "dashboardWeeklyViews": "Weekly views",
+  "dashboardMonthlyViews": "Monthly views",
+  "dashboardWeeklyDownloads": "Weekly downloads",
+  "dashboardMonthlyDownloads": "Monthly downloads",
+  "dashboardYearlyDownloads": "Yearly downloads",
+  "dashboardUnreadAlerts": "Unread alerts",
+  "dashboardActionNeeded": "Action needed",
+  "dashboardAllClear": "All clear",
+  "dashboardRecentTitle": "Recent activity",
+  "dashboardRecentSubtitle": "Latest profile events and verification updates.",
+  "dashboardViewAll": "View all",
+  "dashboardVerification": "Verification",
+  "dashboardPayouts": "Payouts",
+  "profilePhotoTitle": "Profile photo",
+  "profilePhotoSubtitle": "Use a clear face photo to improve trust with recruiters.",
+  "profilePhotoPlaceholder": "No photo selected",
+  "profilePhotoAttached": "Photo attached",
+  "profilePhotoActionAdd": "Add mock photo",
+  "profilePhotoActionRemove": "Remove photo",
+  "profileBasicTitle": "Basic profile",
+  "profileBasicSubtitle": "Information used in recruiter search and profile ranking.",
+  "profileProfessionalTitle": "Professional details",
+  "profileProfessionalSubtitle": "These directly affect profile score and recruiter relevance.",
+  "profileFieldFirstName": "First name",
+  "profileFieldLastName": "Last name",
+  "profileFieldPhone": "Phone",
+  "profileFieldEmail": "Email",
+  "profileFieldLocation": "Location",
+  "profileFieldHeadline": "Headline",
+  "profileFieldSkills": "Skills (comma-separated)",
+  "profileFieldEducation": "Education",
+  "profileFieldExperience": "Experience (years)",
+  "profileFieldRole": "Preferred role",
+  "profileFieldSalary": "Expected salary (LPA)",
+  "profileFieldNotice": "Notice period (days)",
+  "profileResumeUploaded": "Resume uploaded",
+  "profileResumeSubtitle": "Turn this on only when latest CV is uploaded.",
+  "profileSaveButton": "Save profile",
+  "profileSaveBusy": "Saving...",
+  "profileSaveSuccess": "Profile updated successfully.",
+  "profileSaveError": "Unable to save profile. Please retry.",
+  "profileValidationName": "Enter first name and last name.",
+  "profileValidationPhone": "Enter a valid phone number.",
+  "profileValidationEmail": "Enter a valid email address.",
+  "profileValidationSkills": "Add at least one skill.",
+  "profileValidationNumeric": "{label} must be a valid non-negative number.",
+  "@profileValidationNumeric": {
+    "placeholders": {
+      "label": {}
+    }
+  },
+  "documentsLoadErrorTitle": "Unable to load documents",
+  "documentsLoadErrorMessage": "Please refresh and try again.",
+  "documentsHeaderTitle": "Upload and verify documents",
+  "documentsHeaderSubtitle": "Resume + supporting documents increase ranking and recruiter trust.",
+  "documentsUploadButton": "Upload mock document",
+  "documentsUploadingButton": "Uploading document...",
+  "documentsUploadSuccess": "Document uploaded and queued for verification.",
+  "documentsUploadError": "Unable to upload document. Please try again.",
+  "documentsOpenVerification": "Open verification center",
+  "documentsEmptyTitle": "No documents yet",
+  "documentsEmptyMessage": "Upload resume, education, and ID documents to begin verification.",
+  "walletLoadErrorTitle": "Unable to load wallet",
+  "walletLoadErrorMessage": "Please refresh and try again.",
+  "walletBalanceLabel": "Wallet balance",
+  "walletBalanceCredits": "{credits} credits",
+  "@walletBalanceCredits": {
+    "placeholders": {
+      "credits": {}
+    }
+  },
+  "walletBalanceDescription": "Credits are earned via profile downloads and verified profile quality.",
+  "walletRequestPayout": "Request payout",
+  "walletLedgerTitle": "Ledger",
+  "walletLedgerSubtitle": "Credit inflow and payout deductions",
+  "walletLedgerEmptyTitle": "No transactions yet",
+  "walletLedgerEmptyMessage": "You will see credits and deductions here.",
+  "settingsPrimaryTitle": "Account settings",
+  "settingsPrimarySubtitle": "Manage account access, privacy, and support.",
+  "settingsAccountTitle": "Account",
+  "settingsAccountSubtitle": "Manage personal details and identity.",
+  "settingsPayoutTitle": "Payout methods",
+  "settingsPayoutSubtitle": "Configure bank account / UPI details.",
+  "settingsPrivacyTitle": "Privacy controls",
+  "settingsPrivacySubtitle": "Choose what recruiters can view in profile preview.",
+  "settingsHelpTitle": "Help & support",
+  "settingsHelpSubtitle": "Raise verification and payout queries.",
+  "settingsExtrasTitle": "More actions",
+  "settingsSignOut": "Sign out"
+}
