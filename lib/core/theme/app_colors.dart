@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 class AppColors {
   const AppColors._();
 
-  static const Color brand50 = Color(0xFFF3F2FF);
-  static const Color brand100 = Color(0xFFE8E6FF);
-  static const Color brand200 = Color(0xFFD8D5FF);
-  static const Color brand300 = Color(0xFFC3BEFF);
-  static const Color brand400 = Color(0xFFA8A0F6);
-  static const Color brand500 = Color(0xFF8A80EB);
-  static const Color brand600 = Color(0xFF6E64D1);
-  static const Color brand700 = Color(0xFF5650AF);
-  static const Color brand800 = Color(0xFF45408C);
-  static const Color brand900 = Color(0xFF353467);
-  static const Color brand950 = Color(0xFF242543);
+  static const Color brand50 = Color(0xFFEEF3FF);
+  static const Color brand100 = Color(0xFFDFE9FF);
+  static const Color brand200 = Color(0xFFC4D7FF);
+  static const Color brand300 = Color(0xFFA2C0FF);
+  static const Color brand400 = Color(0xFF75A0F7);
+  static const Color brand500 = Color(0xFF3A72ED);
+  static const Color brand600 = Color(0xFF2E5ECC);
+  static const Color brand700 = Color(0xFF274FA9);
+  static const Color brand800 = Color(0xFF223F86);
+  static const Color brand900 = Color(0xFF1D356A);
+  static const Color brand950 = Color(0xFF16274D);
 
   static const Color slate50 = Color(0xFFF8F8FC);
   static const Color slate100 = Color(0xFFF1F2F8);
