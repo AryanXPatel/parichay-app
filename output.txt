@@ -1,0 +1,709 @@
+PS D:\Work\CientProject\Parichay-Project\Best-Flutter-UI-Templates> flutter pub get      
+Resolving dependencies... 
+Downloading packages... 
+  meta 1.17.0 (1.18.1 available)
+  test_api 0.7.8 (0.7.9 available)
+Got dependencies!
+2 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+PS D:\Work\CientProject\Parichay-Project\Best-Flutter-UI-Templates> flutter analyze
+Analyzing Best-Flutter-UI-Templates...                                  
+
+   info - Use the null-aware marker '?' rather than a null check via an 'if' -
+          lib\core\ui\app_section_header.dart:39:9 - use_null_aware_elements
+   info - Parameter 'key' could be a super parameter - lib\custom_drawer\drawer_user_controller.dart:6:9
+          - use_super_parameters
+   info - Invalid use of a private type in a public API -
+          lib\custom_drawer\drawer_user_controller.dart:26:3 - library_private_types_in_public_api
+   info - Unnecessary cascade expression - lib\custom_drawer\drawer_user_controller.dart:47:5 -
+          avoid_single_cascade_in_expression_statements
+   info - Unnecessary cascade expression - lib\custom_drawer\drawer_user_controller.dart:55:5 -
+          avoid_single_cascade_in_expression_statements
+   info - Use the '??' operator rather than '?:' when testing for 'null' -
+          lib\custom_drawer\drawer_user_controller.dart:133:38 - prefer_if_null_operators
+   info - Empty catch block - lib\custom_drawer\drawer_user_controller.dart:141:39 - empty_catches
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss -
+          lib\custom_drawer\drawer_user_controller.dart:157:46 - deprecated_member_use
+   info - Use the '??' operator rather than '?:' when testing for 'null' -
+          lib\custom_drawer\drawer_user_controller.dart:193:40 - prefer_if_null_operators
+   info - Parameter 'key' could be a super parameter - lib\custom_drawer\home_drawer.dart:5:9 -
+          use_super_parameters
+   info - Invalid use of a private type in a public API - lib\custom_drawer\home_drawer.dart:17:3 -      
+          library_private_types_in_public_api
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\custom_drawer\home_drawer.dart:69:42 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\custom_drawer\home_drawer.dart:104:58 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\custom_drawer\home_drawer.dart:139:34 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\custom_drawer\home_drawer.dart:153:34 - deprecated_member_use
+   info - Don't invoke 'print' in production code - lib\custom_drawer\home_drawer.dart:187:5 -
+          avoid_print
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\custom_drawer\home_drawer.dart:194:34 - deprecated_member_use
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\custom_drawer\home_drawer.dart:205:19 -   
+          sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\custom_drawer\home_drawer.dart:224:25 -   
+          sized_box_for_whitespace
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\custom_drawer\home_drawer.dart:272:50 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\custom_drawer\home_drawer.dart:273:45 - unnecessary_new        
+   info - The constant name 'HOME' isn't a lowerCamelCase identifier -
+          lib\custom_drawer\home_drawer.dart:298:3 - constant_identifier_names
+   info - The constant name 'FeedBack' isn't a lowerCamelCase identifier -
+          lib\custom_drawer\home_drawer.dart:299:3 - constant_identifier_names
+   info - The constant name 'Help' isn't a lowerCamelCase identifier -
+          lib\custom_drawer\home_drawer.dart:300:3 - constant_identifier_names
+   info - The constant name 'Share' isn't a lowerCamelCase identifier -
+          lib\custom_drawer\home_drawer.dart:301:3 - constant_identifier_names
+   info - The constant name 'About' isn't a lowerCamelCase identifier -
+          lib\custom_drawer\home_drawer.dart:302:3 - constant_identifier_names
+   info - The constant name 'Invite' isn't a lowerCamelCase identifier -
+          lib\custom_drawer\home_drawer.dart:303:3 - constant_identifier_names
+   info - The constant name 'Testing' isn't a lowerCamelCase identifier -
+          lib\custom_drawer\home_drawer.dart:304:3 - constant_identifier_names
+   info - Parameter 'key' could be a super parameter - lib\design_course\category_list_view.dart:7:9 -   
+          use_super_parameters
+   info - Invalid use of a private type in a public API - lib\design_course\category_list_view.dart:11:3 
+          - library_private_types_in_public_api
+   info - Parameter 'key' could be a super parameter - lib\design_course\category_list_view.dart:94:9 -  
+          use_super_parameters
+   info - Unnecessary instance of 'Container' - lib\design_course\category_list_view.dart:127:21 -       
+          avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\design_course\category_list_view.dart:143:44 -       
+          avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\design_course\category_list_view.dart:186:49 -       
+          avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\design_course\category_list_view.dart:275:21 -       
+          avoid_unnecessary_containers
+   info - Constructors for public widgets should have a named 'key' parameter -
+          lib\design_course\course_info_screen.dart:4:7 - use_key_in_widget_constructors
+   info - Invalid use of a private type in a public API - lib\design_course\course_info_screen.dart:6:3 -
+          library_private_types_in_public_api
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\design_course\course_info_screen.dart:76:58 - deprecated_member_use
+   info - Unnecessary instance of 'Container' - lib\design_course\course_info_screen.dart:125:33 -       
+          avoid_unnecessary_containers
+   info - Use a 'SizedBox' to add whitespace to a layout -
+          lib\design_course\course_info_screen.dart:195:35 - sized_box_for_whitespace
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\design_course\course_info_screen.dart:206:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\design_course\course_info_screen.dart:230:52 - deprecated_member_use
+   info - Use a 'SizedBox' to add whitespace to a layout -
+          lib\design_course\course_info_screen.dart:276:26 - sized_box_for_whitespace
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\design_course\course_info_screen.dart:326:50 - deprecated_member_use
+   info - The constant name 'dark_grey' isn't a lowerCamelCase identifier -
+          lib\design_course\design_course_app_theme.dart:11:22 - constant_identifier_names
+   info - Constructors for public widgets should have a named 'key' parameter -
+          lib\design_course\home_design_course.dart:8:7 - use_key_in_widget_constructors
+   info - Invalid use of a private type in a public API - lib\design_course\home_design_course.dart:10:3 
+          - library_private_types_in_public_api
+   info - Use a 'SizedBox' to add whitespace to a layout -
+          lib\design_course\home_design_course.dart:30:24 - sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout -
+          lib\design_course\home_design_course.dart:197:11 - sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout -
+          lib\design_course\home_design_course.dart:295:11 - sized_box_for_whitespace
+   info - Parameter 'key' could be a super parameter -
+          lib\design_course\popular_course_list_view.dart:7:9 - use_super_parameters
+   info - Invalid use of a private type in a public API -
+          lib\design_course\popular_course_list_view.dart:11:3 - library_private_types_in_public_api     
+   info - The 'children' argument should be last in widget constructor invocations -
+          lib\design_course\popular_course_list_view.dart:45:15 - sort_child_properties_last
+   info - Parameter 'key' could be a super parameter -
+          lib\design_course\popular_course_list_view.dart:84:9 - use_super_parameters
+   info - Unnecessary instance of 'Container' - lib\design_course\popular_course_list_view.dart:118:21 - 
+          avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\design_course\popular_course_list_view.dart:134:44 - 
+          avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\design_course\popular_course_list_view.dart:220:21 - 
+          avoid_unnecessary_containers
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\design_course\popular_course_list_view.dart:234:66 - deprecated_member_use
+   info - 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group    
+          value instead. This feature was deprecated after v3.32.0-0.0.pre -
+          lib\features\auth\presentation\language_selection_screen.dart:139:15 - deprecated_member_use   
+   info - 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead.
+          This feature was deprecated after v3.32.0-0.0.pre -
+          lib\features\auth\presentation\language_selection_screen.dart:140:15 - deprecated_member_use   
+   info - Constructors for public widgets should have a named 'key' parameter -
+          lib\feedback_screen.dart:4:7 - use_key_in_widget_constructors
+   info - Invalid use of a private type in a public API - lib\feedback_screen.dart:6:3 -
+          library_private_types_in_public_api
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss -
+          lib\feedback_screen.dart:71:52 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\feedback_screen.dart:119:36 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter -
+          lib\fitness_app\bottom_navigation_view\bottom_bar_view.dart:9:9 - use_super_parameters
+   info - Invalid use of a private type in a public API -
+          lib\fitness_app\bottom_navigation_view\bottom_bar_view.dart:17:3 -
+          library_private_types_in_public_api
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\bottom_navigation_view\bottom_bar_view.dart:155:36 - deprecated_member_use     
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\bottom_navigation_view\bottom_bar_view.dart:163:53 - deprecated_member_use     
+   info - Parameter 'key' could be a super parameter -
+          lib\fitness_app\bottom_navigation_view\bottom_bar_view.dart:199:9 - use_super_parameters       
+   info - Invalid use of a private type in a public API -
+          lib\fitness_app\bottom_navigation_view\bottom_bar_view.dart:205:3 -
+          library_private_types_in_public_api
+   info - Constructors for public widgets should have a named 'key' parameter -
+          lib\fitness_app\fitness_app_home_screen.dart:8:7 - use_key_in_widget_constructors
+   info - Invalid use of a private type in a public API -
+          lib\fitness_app\fitness_app_home_screen.dart:10:3 - library_private_types_in_public_api        
+   info - Function literals shouldn't be passed to 'forEach' -
+          lib\fitness_app\fitness_app_home_screen.dart:25:18 - avoid_function_literals_in_foreach_calls  
+   info - The constant name 'dark_grey' isn't a lowerCamelCase identifier -
+          lib\fitness_app\fitness_app_theme.dart:13:22 - constant_identifier_names
+   info - The file name 'tabIcon_data.dart' isn't a lower_case_with_underscores identifier -
+          lib\fitness_app\models\tabIcon_data.dart:1:1 - file_names
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\my_diary\meals_list_view.dart:8:9 
+          - use_super_parameters
+   info - Invalid use of a private type in a public API -
+          lib\fitness_app\my_diary\meals_list_view.dart:16:3 - library_private_types_in_public_api       
+   info - Use a 'SizedBox' to add whitespace to a layout -
+          lib\fitness_app\my_diary\meals_list_view.dart:52:20 - sized_box_for_whitespace
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\my_diary\meals_list_view.dart:87:9
+          - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\my_diary\meals_list_view.dart:117:36 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss -
+          lib\fitness_app\my_diary\meals_list_view.dart:216:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\my_diary\meals_list_view.dart:242:60 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\my_diary\my_diary_screen.dart:11:9
+          - use_super_parameters
+   info - Invalid use of a private type in a public API -
+          lib\fitness_app\my_diary\my_diary_screen.dart:15:3 - library_private_types_in_public_api       
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\my_diary\my_diary_screen.dart:223:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\my_diary\my_diary_screen.dart:230:32 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\my_diary\water_view.dart:7:9 -    
+          use_super_parameters
+   info - Invalid use of a private type in a public API - lib\fitness_app\my_diary\water_view.dart:15:3 -
+          library_private_types_in_public_api
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\my_diary\water_view.dart:47:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\my_diary\water_view.dart:144:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\my_diary\water_view.dart:161:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\my_diary\water_view.dart:217:44 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss -
+          lib\fitness_app\my_diary\water_view.dart:241:44 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\my_diary\water_view.dart:273:63 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\training\training_screen.dart:10:9
+          - use_super_parameters
+   info - Invalid use of a private type in a public API -
+          lib\fitness_app\training\training_screen.dart:14:3 - library_private_types_in_public_api       
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\training\training_screen.dart:180:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\training\training_screen.dart:187:32 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\ui_view\area_list_view.dart:6:9 - 
+          use_super_parameters
+   info - Invalid use of a private type in a public API -
+          lib\fitness_app\ui_view\area_list_view.dart:13:3 - library_private_types_in_public_api
+   info - The 'children' argument should be last in widget constructor invocations -
+          lib\fitness_app\ui_view\area_list_view.dart:58:19 - sort_child_properties_last
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\ui_view\area_list_view.dart:95:9 -
+          use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\area_list_view.dart:126:51 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\area_list_view.dart:138:63 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\ui_view\body_measurement.dart:8:9 
+          - use_super_parameters
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\body_measurement.dart:18:18 -
+          unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\body_measurement.dart:19:24 -
+          unnecessary_new
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\body_measurement.dart:34:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\body_measurement.dart:111:46 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\body_measurement.dart:127:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\body_measurement.dart:197:64 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\body_measurement.dart:234:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\body_measurement.dart:272:48 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\ui_view\glass_view.dart:10:9 -    
+          use_super_parameters
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\glass_view.dart:19:18 - unnecessary_new    
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\glass_view.dart:20:24 - unnecessary_new
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\glass_view.dart:61:42 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter -
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:10:9 - use_super_parameters
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:21:18 -       
+          unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:22:24 -       
+          unnecessary_new
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:37:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:62:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:88:56 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:140:60 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:161:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:187:56 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:239:60 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:270:49 -      
+          unnecessary_new
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:274:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:305:52 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:376:63 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:389:52 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:409:64 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:443:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:457:56 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:478:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss -
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:514:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:528:56 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:549:48 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:587:24 -      
+          unnecessary_new
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:588:30 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:592:30 -      
+          unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:596:9 -       
+          unnecessary_new
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:602:36 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:605:9 -       
+          unnecessary_new
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:611:36 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:614:9 -       
+          unnecessary_new
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\mediterranean_diet_view.dart:620:36 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:623:9 -       
+          unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:629:18 -      
+          unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:630:22 -      
+          unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:636:19 -      
+          unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:641:20 -      
+          unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:645:9 -       
+          unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:651:23 -      
+          unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:656:18 -      
+          unnecessary_new
+   info - Unnecessary cascade expression - lib\fitness_app\ui_view\mediterranean_diet_view.dart:657:5 -  
+          avoid_single_cascade_in_expression_statements
+   info - Unnecessary cascade expression - lib\fitness_app\ui_view\mediterranean_diet_view.dart:658:5 -
+          avoid_single_cascade_in_expression_statements
+   info - Unnecessary cascade expression - lib\fitness_app\ui_view\mediterranean_diet_view.dart:659:5 -  
+          avoid_single_cascade_in_expression_statements
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\mediterranean_diet_view.dart:670:23 -      
+          unnecessary_new
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\ui_view\running_view.dart:8:9 -   
+          use_super_parameters
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\running_view.dart:18:18 - unnecessary_new  
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\running_view.dart:19:24 - unnecessary_new  
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\running_view.dart:41:63 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\running_view.dart:104:46 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\ui_view\title_view.dart:10:9 -    
+          use_super_parameters
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\title_view.dart:25:18 - unnecessary_new    
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\title_view.dart:26:24 - unnecessary_new    
+   info - Unnecessary instance of 'Container' - lib\fitness_app\ui_view\title_view.dart:28:20 -
+          avoid_unnecessary_containers
+   info - The imported package 'vector_math' isn't a dependency of the importing package -
+          lib\fitness_app\ui_view\wave_view.dart:4:8 - depend_on_referenced_packages
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\ui_view\wave_view.dart:9:9 -      
+          use_super_parameters
+   info - Invalid use of a private type in a public API - lib\fitness_app\ui_view\wave_view.dart:11:3 -  
+          library_private_types_in_public_api
+   info - Unnecessary cascade expression - lib\fitness_app\ui_view\wave_view.dart:28:5 -
+          avoid_single_cascade_in_expression_statements
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:40:11 - unnecessary_new     
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:53:11 - unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:80:14 - unnecessary_new     
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:81:20 - unnecessary_new     
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:85:38 - unnecessary_new     
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:87:13 - unnecessary_new     
+   info - The 'child' argument should be last in widget constructor invocations -
+          lib\fitness_app\ui_view\wave_view.dart:88:15 - sort_child_properties_last
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:88:22 - unnecessary_new     
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\wave_view.dart:90:57 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\wave_view.dart:98:54 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\wave_view.dart:99:54 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:106:24 - unnecessary_new    
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:108:13 - unnecessary_new    
+   info - The 'child' argument should be last in widget constructor invocations -
+          lib\fitness_app\ui_view\wave_view.dart:109:15 - sort_child_properties_last
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:109:22 - unnecessary_new    
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\wave_view.dart:114:54 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:127:24 - unnecessary_new    
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:169:22 - unnecessary_new    
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\wave_view.dart:178:50 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:188:22 - unnecessary_new    
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\wave_view.dart:197:50 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:207:22 - unnecessary_new    
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\wave_view.dart:216:50 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:226:22 - unnecessary_new    
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:227:28 - unnecessary_new    
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\wave_view.dart:233:50 - deprecated_member_use
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\wave_view.dart:266:17 - unnecessary_new    
+   info - Parameter 'key' could be a super parameter - lib\fitness_app\ui_view\workout_view.dart:9:9 -   
+          use_super_parameters
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\workout_view.dart:19:18 - unnecessary_new
+   info - Unnecessary 'new' keyword - lib\fitness_app\ui_view\workout_view.dart:20:24 - unnecessary_new  
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\workout_view.dart:38:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\fitness_app\ui_view\workout_view.dart:115:44 - deprecated_member_use
+   info - Constructors for public widgets should have a named 'key' parameter - lib\help_screen.dart:4:7 
+          - use_key_in_widget_constructors
+   info - Invalid use of a private type in a public API - lib\help_screen.dart:6:3 -
+          library_private_types_in_public_api
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\help_screen.dart:68:50 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\home_screen.dart:6:9 - use_super_parameters   
+   info - Invalid use of a private type in a public API - lib\home_screen.dart:9:3 -
+          library_private_types_in_public_api
+   info - The 'children' argument should be last in widget constructor invocations -
+          lib\home_screen.dart:68:29 - sort_child_properties_last
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\home_screen.dart:128:20 -
+          sized_box_for_whitespace
+   info - Parameter 'key' could be a super parameter - lib\home_screen.dart:179:9 - use_super_parameters 
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\home_screen.dart:218:50 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\hotel_booking\calendar_popup_view.dart:8:9 -  
+          use_super_parameters
+   info - Invalid use of a private type in a public API - lib\hotel_booking\calendar_popup_view.dart:28:3
+          - library_private_types_in_public_api
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\calendar_popup_view.dart:83:76 -
+          deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\calendar_popup_view.dart:88:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\calendar_popup_view.dart:117:61 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\calendar_popup_view.dart:153:61 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\calendar_popup_view.dart:200:58 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\hotel_booking\custom_calendar.dart:6:9 -      
+          use_super_parameters
+   info - Invalid use of a private type in a public API - lib\hotel_booking\custom_calendar.dart:23:3 -  
+          library_private_types_in_public_api
+   info - Unnecessary instance of 'Container' - lib\hotel_booking\custom_calendar.dart:69:12 -
+          avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\hotel_booking\custom_calendar.dart:203:22 -
+          avoid_unnecessary_containers
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\custom_calendar.dart:223:44 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\custom_calendar.dart:305:62 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\custom_calendar.dart:319:59 - deprecated_member_use
+   info - Constructors for public widgets should have a named 'key' parameter -
+          lib\hotel_booking\filters_screen.dart:8:7 - use_key_in_widget_constructors
+   info - Invalid use of a private type in a public API - lib\hotel_booking\filters_screen.dart:10:3 -   
+          library_private_types_in_public_api
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\filters_screen.dart:25:58 -
+          deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss -
+          lib\hotel_booking\filters_screen.dart:65:42 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\filters_screen.dart:155:39 - deprecated_member_use
+   info - Function literals shouldn't be passed to 'forEach' -
+          lib\hotel_booking\filters_screen.dart:181:30 - avoid_function_literals_in_foreach_calls        
+   info - Function literals shouldn't be passed to 'forEach' -
+          lib\hotel_booking\filters_screen.dart:185:30 - avoid_function_literals_in_foreach_calls        
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\filters_screen.dart:302:47 - deprecated_member_use
+   info - Don't invoke 'print' in production code - lib\hotel_booking\filters_screen.dart:324:11 -       
+          avoid_print
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\filters_screen.dart:369:60 -
+          deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\filters_screen.dart:372:34 - deprecated_member_use
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\hotel_booking\filters_screen.dart:413:13 -
+          sized_box_for_whitespace
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\hotel_app_theme.dart:46:41 -
+          deprecated_member_use
+   info - Constructors for public widgets should have a named 'key' parameter -
+          lib\hotel_booking\hotel_home_screen.dart:10:7 - use_key_in_widget_constructors
+   info - Invalid use of a private type in a public API - lib\hotel_booking\hotel_home_screen.dart:12:3 -
+          library_private_types_in_public_api
+   info - Unnecessary instance of 'Container' - lib\hotel_booking\hotel_home_screen.dart:48:14 -
+          avoid_unnecessary_containers
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\hotel_home_screen.dart:92:32 -
+          deprecated_member_use
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\hotel_home_screen.dart:137:60 -
+          deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_home_screen.dart:140:32 - deprecated_member_use
+   info - Use a 'SizedBox' to add whitespace to a layout -
+          lib\hotel_booking\hotel_home_screen.dart:148:11 - sized_box_for_whitespace
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_home_screen.dart:235:46 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_home_screen.dart:260:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_home_screen.dart:284:34 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_home_screen.dart:296:46 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_home_screen.dart:317:50 - deprecated_member_use
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\hotel_home_screen.dart:351:70 -
+          deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_home_screen.dart:355:42 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_home_screen.dart:387:38 - deprecated_member_use
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\hotel_home_screen.dart:406:69 -
+          deprecated_member_use
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\hotel_home_screen.dart:427:66 -
+          deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss -
+          lib\hotel_booking\hotel_home_screen.dart:430:38 - deprecated_member_use
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\hotel_home_screen.dart:439:62 -
+          deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_home_screen.dart:467:46 - deprecated_member_use
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\hotel_home_screen.dart:535:60 -
+          deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_home_screen.dart:538:32 - deprecated_member_use
+   info - Use a 'SizedBox' to add whitespace to a layout -
+          lib\hotel_booking\hotel_home_screen.dart:578:13 - sized_box_for_whitespace
+   info - Parameter 'key' could be a super parameter - lib\hotel_booking\hotel_list_view.dart:9:9 -      
+          use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_list_view.dart:43:44 - deprecated_member_use
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was        
+          deprecated after v3.18.0-0.1.pre - lib\hotel_booking\hotel_list_view.dart:64:48 -
+          deprecated_member_use
+   info - Unnecessary instance of 'Container' - lib\hotel_booking\hotel_list_view.dart:70:44 -
+          avoid_unnecessary_containers
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_list_view.dart:99:60 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_list_view.dart:119:62 - deprecated_member_use
+   info - Don't invoke 'print' in production code - lib\hotel_booking\hotel_list_view.dart:160:55 -      
+          avoid_print
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_list_view.dart:168:62 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\hotel_list_view.dart:200:63 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\hotel_booking\range_slider_view.dart:5:9 -    
+          use_super_parameters
+   info - Invalid use of a private type in a public API - lib\hotel_booking\range_slider_view.dart:12:3 -
+          library_private_types_in_public_api
+   info - Unnecessary instance of 'Container' - lib\hotel_booking\range_slider_view.dart:26:12 -
+          avoid_unnecessary_containers
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\hotel_booking\range_slider_view.dart:37:19
+          - sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\hotel_booking\range_slider_view.dart:56:19
+          - sized_box_for_whitespace
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\range_slider_view.dart:80:42 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\range_slider_view.dart:165:34 - deprecated_member_use
+   info - Unnecessary cascade expression - lib\hotel_booking\range_slider_view.dart:170:5 -
+          avoid_single_cascade_in_expression_statements
+   info - Unnecessary cascade expression - lib\hotel_booking\range_slider_view.dart:171:5 -
+          avoid_single_cascade_in_expression_statements
+   info - Unnecessary cascade expression - lib\hotel_booking\range_slider_view.dart:173:5 -
+          avoid_single_cascade_in_expression_statements
+   info - Parameter 'key' could be a super parameter - lib\hotel_booking\slider_view.dart:6:9 -
+          use_super_parameters
+   info - Invalid use of a private type in a public API - lib\hotel_booking\slider_view.dart:13:3 -
+          library_private_types_in_public_api
+   info - Unnecessary instance of 'Container' - lib\hotel_booking\slider_view.dart:27:12 -
+          avoid_unnecessary_containers
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\hotel_booking\slider_view.dart:36:15 -    
+          sized_box_for_whitespace
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\slider_view.dart:65:42 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\hotel_booking\slider_view.dart:119:34 - deprecated_member_use
+   info - Unnecessary cascade expression - lib\hotel_booking\slider_view.dart:124:5 -
+          avoid_single_cascade_in_expression_statements
+   info - Unnecessary cascade expression - lib\hotel_booking\slider_view.dart:125:5 -
+          avoid_single_cascade_in_expression_statements
+   info - Unnecessary cascade expression - lib\hotel_booking\slider_view.dart:127:5 -
+          avoid_single_cascade_in_expression_statements
+   info - Parameter 'key' could be a super parameter -
+          lib\introduction_animation\components\care_view.dart:6:9 - use_super_parameters
+   info - The local variable '_firstHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\care_view.dart:11:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_secondHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\care_view.dart:18:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_relaxFirstHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\care_view.dart:25:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_relaxSecondHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\care_view.dart:32:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_imageFirstHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\care_view.dart:40:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_imageSecondHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\care_view.dart:47:11 -
+          no_leading_underscores_for_local_identifiers
+   info - Parameter 'key' could be a super parameter -
+          lib\introduction_animation\components\center_next_button.dart:7:9 - use_super_parameters       
+   info - The local variable '_topMoveAnimation' starts with an underscore -
+          lib\introduction_animation\components\center_next_button.dart:13:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_signUpMoveAnimation' starts with an underscore -
+          lib\introduction_animation\components\center_next_button.dart:23:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_loginTextMoveAnimation' starts with an underscore -
+          lib\introduction_animation\components\center_next_button.dart:32:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The 'child' argument should be last in widget constructor invocations -
+          lib\introduction_animation\components\center_next_button.dart:89:25 -
+          sort_child_properties_last
+   info - The local variable '_selectedIndex' starts with an underscore -
+          lib\introduction_animation\components\center_next_button.dart:166:9 -
+          no_leading_underscores_for_local_identifiers
+   info - Parameter 'key' could be a super parameter -
+          lib\introduction_animation\components\mood_diary_vew.dart:6:9 - use_super_parameters
+   info - The local variable '_firstHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\mood_diary_vew.dart:11:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_secondHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\mood_diary_vew.dart:21:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_moodFirstHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\mood_diary_vew.dart:32:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_moodSecondHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\mood_diary_vew.dart:42:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_imageFirstHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\mood_diary_vew.dart:52:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_imageSecondHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\mood_diary_vew.dart:62:11 -
+          no_leading_underscores_for_local_identifiers
+   info - Parameter 'key' could be a super parameter -
+          lib\introduction_animation\components\relax_view.dart:6:9 - use_super_parameters
+   info - The local variable '_firstHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\relax_view.dart:11:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_secondHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\relax_view.dart:22:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_textAnimation' starts with an underscore -
+          lib\introduction_animation\components\relax_view.dart:33:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_imageAnimation' starts with an underscore -
+          lib\introduction_animation\components\relax_view.dart:44:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_relaxAnimation' starts with an underscore -
+          lib\introduction_animation\components\relax_view.dart:56:11 -
+          no_leading_underscores_for_local_identifiers
+   info - Parameter 'key' could be a super parameter -
+          lib\introduction_animation\components\splash_view.dart:6:9 - use_super_parameters
+   info - Invalid use of a private type in a public API -
+          lib\introduction_animation\components\splash_view.dart:10:3 -
+          library_private_types_in_public_api
+   info - The local variable '_introductionanimation' starts with an underscore -
+          lib\introduction_animation\components\splash_view.dart:16:11 -
+          no_leading_underscores_for_local_identifiers
+   info - Parameter 'key' could be a super parameter -
+          lib\introduction_animation\components\top_back_skip_view.dart:8:9 - use_super_parameters       
+   info - The local variable '_animation' starts with an underscore -
+          lib\introduction_animation\components\top_back_skip_view.dart:17:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_skipAnimation' starts with an underscore -
+          lib\introduction_animation\components\top_back_skip_view.dart:38:11 -
+          no_leading_underscores_for_local_identifiers
+   info - Use a 'SizedBox' to add whitespace to a layout -
+          lib\introduction_animation\components\top_back_skip_view.dart:52:16 - sized_box_for_whitespace 
+   info - Parameter 'key' could be a super parameter -
+          lib\introduction_animation\components\welcome_view.dart:5:9 - use_super_parameters
+   info - The local variable '_firstHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\welcome_view.dart:10:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_secondHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\welcome_view.dart:21:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_welcomeFirstHalfAnimation' starts with an underscore -
+          lib\introduction_animation\components\welcome_view.dart:33:11 -
+          no_leading_underscores_for_local_identifiers
+   info - The local variable '_welcomeImageAnimation' starts with an underscore -
+          lib\introduction_animation\components\welcome_view.dart:44:11 -
+          no_leading_underscores_for_local_identifiers
+   info - Parameter 'key' could be a super parameter -
+          lib\introduction_animation\introduction_animation_screen.dart:11:9 - use_super_parameters      
+   info - Invalid use of a private type in a public API -
+          lib\introduction_animation\introduction_animation_screen.dart:14:3 -
+          library_private_types_in_public_api
+   info - Don't invoke 'print' in production code -
+          lib\introduction_animation\introduction_animation_screen.dart:38:5 - avoid_print
+   info - Constructors for public widgets should have a named 'key' parameter -
+          lib\invite_friend_screen.dart:4:7 - use_key_in_widget_constructors
+   info - Invalid use of a private type in a public API - lib\invite_friend_screen.dart:6:3 -
+          library_private_types_in_public_api
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - 
+          lib\invite_friend_screen.dart:69:50 - deprecated_member_use
+   info - Don't invoke 'print' in production code - lib\invite_friend_screen.dart:79:29 - avoid_print    
+   info - Constructors for public widgets should have a named 'key' parameter -
+          lib\navigation_home_screen.dart:10:7 - use_key_in_widget_constructors
+   info - Invalid use of a private type in a public API - lib\navigation_home_screen.dart:12:3 -
+          library_private_types_in_public_api
+
+339 issues found. (ran in 45.1s)
+PS D:\Work\CientProject\Parichay-Project\Best-Flutter-UI-Templates> 
