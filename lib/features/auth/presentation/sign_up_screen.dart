@@ -1,26 +1,31 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:parichay_candidate/core/router/app_routes.dart';
 import 'package:parichay_candidate/core/services/app_services.dart';
 import 'package:parichay_candidate/core/theme/app_colors.dart';
 import 'package:parichay_candidate/core/theme/app_spacing.dart';
 import 'package:parichay_candidate/core/ui/app_ui.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:parichay_candidate/features/auth/presentation/auth_shell.dart';
 import 'package:parichay_candidate/l10n/app_localizations.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
+  static const int _resendCooldownSeconds = 30;
+
+  final _nameController = TextEditingController();
   final _identifierController = TextEditingController();
+  final _roleController = TextEditingController();
   final _otpController = TextEditingController();
 
+  bool _termsAccepted = false;
   bool _otpRequested = false;
   bool _busy = false;
   int _secondsUntilResend = 0;
@@ -29,14 +34,30 @@ class _SignInScreenState extends State<SignInScreen> {
   Timer? _resendTimer;
 
   bool get _canRequestOtp =>
-      !_busy && _identifierController.text.trim().isNotEmpty;
+      !_busy &&
+      !_otpRequested &&
+      _termsAccepted &&
+      _nameController.text.trim().isNotEmpty &&
+      _identifierController.text.trim().isNotEmpty &&
+      _roleController.text.trim().isNotEmpty;
 
   bool get _canVerifyOtp =>
       !_busy &&
+      _otpRequested &&
       _identifierController.text.trim().isNotEmpty &&
       _otpController.text.trim().length == 6;
 
   bool get _canResendOtp => !_busy && _otpRequested && _secondsUntilResend == 0;
+
+  @override
+  void dispose() {
+    _resendTimer?.cancel();
+    _nameController.dispose();
+    _identifierController.dispose();
+    _roleController.dispose();
+    _otpController.dispose();
+    super.dispose();
+  }
 
   String? _validateIdentifier(AppLocalizations l10n) {
     final identifier = _identifierController.text.trim();
@@ -61,19 +82,32 @@ class _SignInScreenState extends State<SignInScreen> {
     return null;
   }
 
-  @override
-  void dispose() {
-    _resendTimer?.cancel();
-    _identifierController.dispose();
-    _otpController.dispose();
-    super.dispose();
+  String? _validateSignUp(AppLocalizations l10n) {
+    if (_nameController.text.trim().length < 2) {
+      return 'Enter your full name.';
+    }
+
+    final identifierError = _validateIdentifier(l10n);
+    if (identifierError != null) {
+      return identifierError;
+    }
+
+    if (_roleController.text.trim().length < 2) {
+      return 'Enter your preferred role.';
+    }
+
+    if (!_termsAccepted) {
+      return 'Accept terms to continue.';
+    }
+    return null;
   }
 
   void _startResendTimer() {
     _resendTimer?.cancel();
     setState(() {
-      _secondsUntilResend = 30;
+      _secondsUntilResend = _resendCooldownSeconds;
     });
+
     _resendTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!mounted) {
         timer.cancel();
@@ -92,9 +126,9 @@ class _SignInScreenState extends State<SignInScreen> {
     });
   }
 
-  Future<void> _requestOtp() async {
+  Future<void> _requestOtp({bool isResend = false}) async {
     final l10n = AppLocalizations.of(context)!;
-    final validationError = _validateIdentifier(l10n);
+    final validationError = _validateSignUp(l10n);
     if (validationError != null) {
       setState(() {
         _error = validationError;
@@ -106,7 +140,6 @@ class _SignInScreenState extends State<SignInScreen> {
     setState(() {
       _busy = true;
       _error = null;
-      _info = null;
     });
 
     final identifier = _identifierController.text.trim();
@@ -118,13 +151,13 @@ class _SignInScreenState extends State<SignInScreen> {
 
     setState(() {
       _busy = false;
-      _otpRequested = ok;
       if (!ok) {
         _error = l10n.signInErrorIdentifierInvalid;
         _info = null;
-      } else {
-        _info = 'OTP sent to $identifier';
+        return;
       }
+      _otpRequested = true;
+      _info = isResend ? 'OTP resent successfully.' : 'OTP sent to $identifier';
     });
     if (ok) {
       _startResendTimer();
@@ -144,13 +177,52 @@ class _SignInScreenState extends State<SignInScreen> {
     setState(() {
       _busy = true;
       _error = null;
-      _info = null;
     });
 
+    final identifier = _identifierController.text.trim();
+    final otp = _otpController.text.trim();
     final ok = await AppServices.instance.authRepository.verifyOtp(
-      _identifierController.text.trim(),
-      _otpController.text.trim(),
+      identifier,
+      otp,
     );
+
+    if (!mounted) {
+      return;
+    }
+
+    if (!ok) {
+      setState(() {
+        _busy = false;
+        _error = l10n.signInErrorOtpInvalid;
+        _info = null;
+      });
+      return;
+    }
+
+    final currentProfile = await AppServices.instance.profileRepository
+        .getProfile();
+    final nameParts = _nameController.text
+        .trim()
+        .split(RegExp(r'\s+'))
+        .where((part) => part.isNotEmpty)
+        .toList();
+    final firstName = nameParts.isEmpty
+        ? currentProfile.firstName
+        : nameParts.first;
+    final lastName = nameParts.length < 2
+        ? currentProfile.lastName
+        : nameParts.sublist(1).join(' ');
+
+    final updatedProfile = currentProfile.copyWith(
+      firstName: firstName,
+      lastName: lastName,
+      phone: identifier.contains('@') ? currentProfile.phone : identifier,
+      email: identifier.contains('@') ? identifier : currentProfile.email,
+      preferredRole: _roleController.text.trim(),
+      headline: '${_roleController.text.trim()} candidate',
+    );
+    await AppServices.instance.profileRepository.saveProfile(updatedProfile);
+    await AppServices.instance.appSessionStore.setHasSeenWelcome(false);
 
     if (!mounted) {
       return;
@@ -158,28 +230,20 @@ class _SignInScreenState extends State<SignInScreen> {
 
     setState(() {
       _busy = false;
-      if (!ok) {
-        _error = l10n.signInErrorOtpInvalid;
-      }
+      _error = null;
+      _info = 'Account verified successfully.';
     });
-
-    if (ok) {
-      await AppServices.instance.appSessionStore.setHasSeenWelcome(false);
-      if (!mounted) {
-        return;
-      }
-      Navigator.of(context).pushReplacementNamed(AppRoutes.welcome);
-    }
+    Navigator.of(context).pushReplacementNamed(AppRoutes.welcome);
   }
 
   void _resetOtpFlow() {
     _resendTimer?.cancel();
     setState(() {
       _otpRequested = false;
-      _otpController.clear();
       _secondsUntilResend = 0;
+      _otpController.clear();
       _error = null;
-      _info = 'Update your contact and request OTP again.';
+      _info = 'You can update your details and request OTP again.';
     });
   }
 
@@ -193,52 +257,82 @@ class _SignInScreenState extends State<SignInScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return AuthShell(
-      maxWidth: 440,
+      maxWidth: 460,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppSectionHeader(
-            title: l10n.signInTitle,
-            subtitle: l10n.signInSubtitle,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton(
-              onPressed: _busy
-                  ? null
-                  : () => Navigator.of(
-                      context,
-                    ).pushReplacementNamed(AppRoutes.signUp),
-              child: const Text('New here? Create account'),
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: AppSectionHeader(
+                  title: 'Create your account',
+                  subtitle:
+                      'Register your profile with OTP verification and start applying.',
+                ),
+              ),
+              TextButton(
+                onPressed: _busy
+                    ? null
+                    : () => Navigator.of(
+                        context,
+                      ).pushReplacementNamed(AppRoutes.signIn),
+                child: const Text('Sign in'),
+              ),
+            ],
           ),
           const SizedBox(height: AppSpacing.md),
           TextField(
+            controller: _nameController,
+            textInputAction: TextInputAction.next,
+            onChanged: (_) => setState(() {
+              _error = null;
+            }),
+            decoration: const InputDecoration(
+              labelText: 'Full name',
+              hintText: 'Anvi Singh',
+            ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          TextField(
             controller: _identifierController,
             keyboardType: TextInputType.emailAddress,
-            textInputAction: _otpRequested
-                ? TextInputAction.next
-                : TextInputAction.done,
-            onChanged: (_) {
-              if (_error == null && _info == null) {
-                setState(() {});
-                return;
-              }
-              setState(() {
-                _error = null;
-                _info = null;
-              });
-            },
-            onSubmitted: (_) {
-              if (!_otpRequested && _canRequestOtp) {
-                _requestOtp();
-              }
-            },
+            textInputAction: TextInputAction.next,
+            onChanged: (_) => setState(() {
+              _error = null;
+            }),
             decoration: InputDecoration(
               labelText: l10n.signInIdentifierLabel,
               hintText: l10n.signInIdentifierHint,
             ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          TextField(
+            controller: _roleController,
+            textInputAction: _otpRequested
+                ? TextInputAction.next
+                : TextInputAction.done,
+            onChanged: (_) => setState(() {
+              _error = null;
+            }),
+            decoration: const InputDecoration(
+              labelText: 'Preferred role',
+              hintText: 'QA Engineer',
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          CheckboxListTile(
+            value: _termsAccepted,
+            dense: true,
+            contentPadding: EdgeInsets.zero,
+            controlAffinity: ListTileControlAffinity.leading,
+            title: const Text('I confirm these details are accurate.'),
+            onChanged: _busy
+                ? null
+                : (value) => setState(() {
+                    _termsAccepted = value ?? false;
+                    _error = null;
+                  }),
           ),
           if (_otpRequested) ...[
             const SizedBox(height: AppSpacing.sm),
@@ -247,16 +341,9 @@ class _SignInScreenState extends State<SignInScreen> {
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
               maxLength: 6,
-              onChanged: (_) {
-                if (_error == null && _info == null) {
-                  setState(() {});
-                  return;
-                }
-                setState(() {
-                  _error = null;
-                  _info = null;
-                });
-              },
+              onChanged: (_) => setState(() {
+                _error = null;
+              }),
               onSubmitted: (_) {
                 if (_canVerifyOtp) {
                   _verifyOtp();
@@ -280,7 +367,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: _canResendOtp ? _requestOtp : null,
+                  onPressed: _canResendOtp
+                      ? () => _requestOtp(isResend: true)
+                      : null,
                   child: const Text('Resend OTP'),
                 ),
               ],
@@ -290,7 +379,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: TextButton.icon(
                 onPressed: _busy ? null : _resetOtpFlow,
                 icon: const Icon(AppIcons.arrowRight),
-                label: const Text('Use different phone/email'),
+                label: const Text('Use a different phone/email'),
               ),
             ),
           ],
@@ -303,8 +392,8 @@ class _SignInScreenState extends State<SignInScreen> {
           ],
           const SizedBox(height: AppSpacing.sm),
           AppPrimaryButton(
-            label: _otpRequested ? l10n.signInVerifyOtp : l10n.signInRequestOtp,
-            icon: _otpRequested ? AppIcons.verified : AppIcons.message,
+            label: _otpRequested ? l10n.signInVerifyOtp : 'Create account',
+            icon: _otpRequested ? AppIcons.verified : AppIcons.profile,
             isLoading: _busy,
             onPressed: _otpRequested
                 ? (_canVerifyOtp ? _verifyOtp : null)
@@ -331,7 +420,6 @@ class _AuthBanner extends StatelessWidget {
     final fg = isError ? AppColors.danger : AppColors.info;
     final bg = isError ? AppColors.dangerSubtle : AppColors.infoSubtle;
     final icon = isError ? AppIcons.alertsActive : AppIcons.check;
-
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.sm),

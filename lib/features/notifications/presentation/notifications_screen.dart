@@ -15,6 +15,7 @@ class NotificationsScreen extends StatefulWidget {
 class _NotificationsScreenState extends State<NotificationsScreen> {
   late Future<List<AppNotificationItem>> _future;
   bool _markingAllRead = false;
+  final Set<String> _markingIds = <String>{};
 
   @override
   void initState() {
@@ -26,6 +27,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     setState(() {
       _future = AppServices.instance.notificationRepository.listNotifications();
     });
+    await _future;
   }
 
   Future<void> _markAllRead() async {
@@ -61,6 +63,25 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       if (mounted) {
         setState(() {
           _markingAllRead = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _markOneRead(AppNotificationItem item) async {
+    if (item.isRead || _markingIds.contains(item.id)) {
+      return;
+    }
+    setState(() {
+      _markingIds.add(item.id);
+    });
+    try {
+      await AppServices.instance.notificationRepository.markRead(item.id);
+      await _reload();
+    } finally {
+      if (mounted) {
+        setState(() {
+          _markingIds.remove(item.id);
         });
       }
     }
@@ -140,9 +161,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   (item) => AppCard(
                     margin: const EdgeInsets.only(bottom: AppSpacing.sm),
                     tone: item.isRead ? AppCardTone.surface : AppCardTone.muted,
+                    onTap: item.isRead ? null : () => _markOneRead(item),
                     child: _NotificationRow(
                       item: item,
                       dateLabel: _dateLabel(item.createdAt),
+                      marking: _markingIds.contains(item.id),
                     ),
                   ),
                 ),
@@ -162,10 +185,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 }
 
 class _NotificationRow extends StatelessWidget {
-  const _NotificationRow({required this.item, required this.dateLabel});
+  const _NotificationRow({
+    required this.item,
+    required this.dateLabel,
+    required this.marking,
+  });
 
   final AppNotificationItem item;
   final String dateLabel;
+  final bool marking;
 
   @override
   Widget build(BuildContext context) {
@@ -213,6 +241,16 @@ class _NotificationRow extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(item.message, style: Theme.of(context).textTheme.bodyMedium),
+              if (!item.isRead) ...[
+                const SizedBox(height: AppSpacing.xs),
+                Text(
+                  marking ? 'Marking as read...' : 'Tap to mark as read',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.textMuted,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ],
           ),
         ),

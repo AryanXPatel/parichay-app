@@ -22,6 +22,7 @@ void main() {
           AppRoutes.languageSelection: (_) =>
               const Scaffold(body: Text('Language Route')),
           AppRoutes.signIn: (_) => const Scaffold(body: Text('SignIn Route')),
+          AppRoutes.welcome: (_) => const Scaffold(body: Text('Welcome Route')),
           AppRoutes.appShell: (_) =>
               const Scaffold(body: Text('AppShell Route')),
         },
@@ -56,8 +57,21 @@ void main() {
     SharedPreferences.setMockInitialValues({
       'preferred_locale': 'hi',
       'signed_in': true,
+      'has_seen_welcome': true,
     });
     await pumpSplash(tester);
     expect(find.text('AppShell Route'), findsOneWidget);
+  });
+
+  testWidgets('routes to welcome when signed in and welcome is pending', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({
+      'preferred_locale': 'en',
+      'signed_in': true,
+      'has_seen_welcome': false,
+    });
+    await pumpSplash(tester);
+    expect(find.text('Welcome Route'), findsOneWidget);
   });
 }

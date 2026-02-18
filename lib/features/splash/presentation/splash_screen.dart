@@ -27,6 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
     final preferredLocale = await AppServices.instance.appSessionStore
         .getPreferredLocale();
     final isSignedIn = await AppServices.instance.authRepository.isSignedIn();
+    final hasSeenWelcome = await AppServices.instance.appSessionStore
+        .getHasSeenWelcome();
     if (!mounted) {
       return;
     }
@@ -34,9 +36,13 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.of(context).pushReplacementNamed(AppRoutes.languageSelection);
       return;
     }
-    Navigator.of(
-      context,
-    ).pushReplacementNamed(isSignedIn ? AppRoutes.appShell : AppRoutes.signIn);
+    if (!isSignedIn) {
+      Navigator.of(context).pushReplacementNamed(AppRoutes.signIn);
+      return;
+    }
+    Navigator.of(context).pushReplacementNamed(
+      hasSeenWelcome ? AppRoutes.appShell : AppRoutes.welcome,
+    );
   }
 
   @override
@@ -55,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 width: 72,
                 height: 72,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.surface,
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: const Icon(
@@ -68,19 +74,19 @@ class _SplashScreenState extends State<SplashScreen> {
               Text(
                 l10n?.brandName ?? 'Parichay',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.white,
+                  color: AppColors.textPrimary,
                   fontSize: 28,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 l10n?.brandTagline ?? 'Real Jobs. Real People.',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: AppColors.textSecondary,
+                ),
               ),
               const SizedBox(height: 28),
-              const CircularProgressIndicator(color: Colors.white),
+              const CircularProgressIndicator(color: AppColors.brand700),
             ],
           ),
         ),

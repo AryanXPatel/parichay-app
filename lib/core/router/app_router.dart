@@ -2,6 +2,7 @@ import 'package:parichay_candidate/core/router/app_routes.dart';
 import 'package:parichay_candidate/features/app_shell/presentation/candidate_app_shell.dart';
 import 'package:parichay_candidate/features/auth/presentation/language_selection_screen.dart';
 import 'package:parichay_candidate/features/auth/presentation/sign_in_screen.dart';
+import 'package:parichay_candidate/features/auth/presentation/sign_up_screen.dart';
 import 'package:parichay_candidate/features/auth/presentation/welcome_screen.dart';
 import 'package:parichay_candidate/features/notifications/presentation/notifications_screen.dart';
 import 'package:parichay_candidate/features/payouts/presentation/payouts_screen.dart';
@@ -26,6 +27,8 @@ class AppRouter {
         );
       case AppRoutes.signIn:
         return MaterialPageRoute<void>(builder: (_) => const SignInScreen());
+      case AppRoutes.signUp:
+        return MaterialPageRoute<void>(builder: (_) => const SignUpScreen());
       case AppRoutes.welcome:
         return MaterialPageRoute<void>(builder: (_) => const WelcomeScreen());
       case AppRoutes.appShell:

@@ -4,6 +4,7 @@ class AppRoutes {
   static const String splash = '/';
   static const String languageSelection = '/auth/language';
   static const String signIn = '/auth/sign-in';
+  static const String signUp = '/auth/sign-up';
   static const String welcome = '/auth/welcome';
   static const String appShell = '/app';
   static const String profile = '/profile';

@@ -56,6 +56,8 @@ abstract class WalletRepository {
 abstract class NotificationRepository {
   Future<List<AppNotificationItem>> listNotifications();
 
+  Future<void> markRead(String id);
+
   Future<void> markAllRead();
 }
 
@@ -411,6 +413,18 @@ class MockNotificationRepository implements NotificationRepository {
   @override
   Future<List<AppNotificationItem>> listNotifications() async {
     return List.of(_notifications);
+  }
+
+  @override
+  Future<void> markRead(String id) async {
+    _notifications = _notifications
+        .map((item) {
+          if (item.id != id) {
+            return item;
+          }
+          return item.copyWith(isRead: true);
+        })
+        .toList(growable: false);
   }
 
   @override
