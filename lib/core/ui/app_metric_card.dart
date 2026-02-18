@@ -32,10 +32,10 @@ class AppMetricCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(AppSpacing.xs),
               decoration: BoxDecoration(
-                color: AppColors.brand100,
+                color: AppColors.slate100,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, size: 16, color: AppColors.brand700),
+              child: Icon(icon, size: 16, color: AppColors.textSecondary),
             ),
             const SizedBox(height: AppSpacing.sm),
           ],

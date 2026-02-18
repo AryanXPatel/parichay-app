@@ -177,11 +177,11 @@ class _NotificationRow extends StatelessWidget {
           children: [
             CircleAvatar(
               backgroundColor: item.isRead
-                  ? AppColors.brand100
+                  ? AppColors.slate100
                   : AppColors.brand600,
               child: Icon(
                 item.isRead ? AppIcons.alerts : AppIcons.alertsActive,
-                color: item.isRead ? AppColors.brand700 : Colors.white,
+                color: item.isRead ? AppColors.textSecondary : Colors.white,
               ),
             ),
             if (!item.isRead)

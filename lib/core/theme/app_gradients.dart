@@ -7,18 +7,18 @@ class AppGradients {
   static const LinearGradient hero = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [AppColors.brand500, AppColors.brand800],
+    colors: [AppColors.brand500, AppColors.brand700],
   );
 
   static const LinearGradient wallet = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [AppColors.brand400, AppColors.brand700],
+    colors: [AppColors.brand400, AppColors.brand600],
   );
 
   static const LinearGradient spotlight = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFFF8F5EE), AppColors.background, Color(0xFFEAE5D9)],
+    colors: [Color(0xFFF8F9FD), AppColors.background, Color(0xFFECEFF8)],
   );
 }

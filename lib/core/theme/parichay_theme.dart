@@ -28,7 +28,7 @@ class ParichayTheme {
       colorScheme: colorScheme,
       scaffoldBackgroundColor: AppColors.background,
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.surface,
         foregroundColor: AppColors.textPrimary,
         elevation: 0,
         scrolledUnderElevation: 0,
@@ -60,7 +60,7 @@ class ParichayTheme {
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: AppRadius.mdRadius,
-          borderSide: BorderSide(color: AppColors.brand600, width: 1.5),
+          borderSide: BorderSide(color: AppColors.brand500, width: 1.5),
         ),
         hintStyle: const TextStyle(color: AppColors.textMuted),
       ),
@@ -75,12 +75,12 @@ class ParichayTheme {
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: AppColors.surface,
-        indicatorColor: AppColors.brand100,
+        indicatorColor: AppColors.slate200,
         iconTheme: WidgetStateProperty.resolveWith(
           (states) => IconThemeData(
             color: states.contains(WidgetState.selected)
                 ? AppColors.brand700
-                : AppColors.textMuted,
+                : AppColors.slate500,
           ),
         ),
         labelTextStyle: WidgetStateProperty.resolveWith(
@@ -91,14 +91,16 @@ class ParichayTheme {
                 : FontWeight.w600,
             color: states.contains(WidgetState.selected)
                 ? AppColors.brand700
-                : AppColors.textMuted,
+                : AppColors.slate500,
           ),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.brand600,
+          backgroundColor: AppColors.brand700,
           foregroundColor: AppColors.textOnBrand,
+          disabledBackgroundColor: AppColors.slate200,
+          disabledForegroundColor: AppColors.slate500,
           minimumSize: const Size.fromHeight(48),
           shape: const RoundedRectangleBorder(borderRadius: AppRadius.lgRadius),
           textStyle: const TextStyle(fontWeight: FontWeight.w700),
@@ -110,8 +112,10 @@ class ParichayTheme {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: AppColors.brand600,
+          backgroundColor: AppColors.brand700,
           foregroundColor: AppColors.textOnBrand,
+          disabledBackgroundColor: AppColors.slate200,
+          disabledForegroundColor: AppColors.slate500,
           minimumSize: const Size.fromHeight(48),
           shape: const RoundedRectangleBorder(borderRadius: AppRadius.lgRadius),
           textStyle: const TextStyle(fontWeight: FontWeight.w700),
@@ -136,7 +140,7 @@ class ParichayTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: AppColors.brand700,
+          foregroundColor: AppColors.brand600,
           textStyle: const TextStyle(fontWeight: FontWeight.w700),
         ),
       ),
@@ -145,7 +149,7 @@ class ParichayTheme {
           horizontal: AppSpacing.sm,
           vertical: AppSpacing.xxs,
         ),
-        iconColor: AppColors.textMuted,
+        iconColor: AppColors.textSecondary,
         textColor: AppColors.textPrimary,
       ),
       dividerTheme: const DividerThemeData(

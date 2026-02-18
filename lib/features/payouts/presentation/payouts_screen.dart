@@ -392,10 +392,14 @@ class _PayoutHistoryRow extends StatelessWidget {
           width: 34,
           height: 34,
           decoration: BoxDecoration(
-            color: AppColors.brand100,
+            color: AppColors.slate100,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: const Icon(AppIcons.bank, size: 18, color: AppColors.brand700),
+          child: const Icon(
+            AppIcons.bank,
+            size: 18,
+            color: AppColors.textSecondary,
+          ),
         ),
         const SizedBox(width: AppSpacing.sm),
         Expanded(

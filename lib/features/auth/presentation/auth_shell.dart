@@ -27,28 +27,42 @@ class AuthShell extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                height: 250,
+                height: 220,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [AppColors.brand700, AppColors.brand500],
+                    colors: [AppColors.brand100, AppColors.slate100],
                   ),
                   borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(42),
+                    bottom: Radius.circular(48),
                   ),
                 ),
               ),
             ),
             Positioned(
-              top: 28,
-              right: -52,
+              top: 26,
+              right: -58,
               child: IgnorePointer(
                 child: Container(
-                  width: 180,
-                  height: 180,
-                  decoration: const BoxDecoration(
-                    color: Color(0x1FFFFFFF),
+                  width: 190,
+                  height: 190,
+                  decoration: BoxDecoration(
+                    color: AppColors.brand300.withValues(alpha: 0.28),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 64,
+              left: -44,
+              child: IgnorePointer(
+                child: Container(
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    color: AppColors.slate100.withValues(alpha: 0.8),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -79,12 +93,12 @@ class AuthShell extends StatelessWidget {
                                     padding: EdgeInsets.symmetric(
                                       horizontal: AppSpacing.xs,
                                     ),
-                                    child: ParichayBrandMark(inverse: true),
+                                    child: ParichayBrandMark(inverse: false),
                                   ),
                                   const SizedBox(height: AppSpacing.lg),
                                 ],
                                 AppCard(
-                                  tone: AppCardTone.elevated,
+                                  tone: AppCardTone.surface,
                                   child: child,
                                 ),
                               ],

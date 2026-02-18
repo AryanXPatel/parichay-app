@@ -211,10 +211,10 @@ class _DocumentRow extends StatelessWidget {
           width: 36,
           height: 36,
           decoration: BoxDecoration(
-            color: AppColors.brand100,
+            color: AppColors.slate100,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: const Icon(AppIcons.document, color: AppColors.brand700),
+          child: const Icon(AppIcons.document, color: AppColors.textSecondary),
         ),
         const SizedBox(width: AppSpacing.sm),
         Expanded(
